@@ -1,0 +1,54 @@
+{
+  "name": "react-openjscad",
+  "version": "0.0.1",
+  "description": "React.js bindings for the OpenJSCAD.org project",
+  "main": "index.js",
+  "repository": "https://github.com/aeksco/react-openjscad",
+  "author": "Alexander Schwartzberg <aeksco@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "start-storybook -p 9010 -s public"
+  },
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "react",
+    "reactjs",
+    "openjscad",
+    "scad",
+    "cad",
+    "stl",
+    "3d-printing",
+    "javascript",
+    "typescript"
+  ],
+  "dependencies": {
+    "@jscad/csg": "^0.7.0",
+    "@jscad/stl-serializer": "^0.2.0",
+    "@jscad/web": "^1.10.0",
+    "classnames": "^2.2.6"
+  },
+  "peerDependencies": {
+    "react": ">=16",
+    "react-dom": ">=16"
+  },
+  "devDependencies": {
+    "@storybook/addon-docs": "6.0.26",
+    "@storybook/addon-knobs": "6.0.26",
+    "@storybook/addons": "6.0.26",
+    "@storybook/react": "6.0.26",
+    "@types/classnames": "^2.2.10",
+    "@types/jest": "^26.0.14",
+    "@types/react": "^16.9.51",
+    "@types/react-dom": "^16.9.8",
+    "copy-dir": "^1.3.0",
+    "jest": "^26.5.2",
+    "react": "^16.13.1",
+    "react-docgen-typescript-loader": "^3.7.2",
+    "react-dom": "^16.13.1",
+    "ts-jest": "^26.4.1",
+    "ts-loader": "^8.0.4",
+    "typescript": "^3.9.7"
+  }
+}
