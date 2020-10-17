@@ -1,20 +1,47 @@
-import { Meta, Story, Props } from "@storybook/addon-docs/blocks";
-import { OpenjscadViewer } from "../src";
+import { Meta, Story } from "@storybook/addon-docs/blocks";
 
 <Meta title="Docs/Intro" />
 
-# Introduction
+<div className="text-center">
+  <h1 className="text-center">OpenJSCAD React</h1>
+<div className="text-center">
+  React.js component for rendering + exporting OpenJSCAD scripts
+</div>
+
+<div className="py-3">
+  <hr />
+</div>
+
+<div className="text-center flex justify-center">
+  <img className="my-0 mx-2" src="https://img.shields.io/github/stars/aeksco/react-openjscad.svg?style=social&amp;label=Star" alt="GitHub Stars" />
+
+<img
+  src="https://img.shields.io/apm/l/atomic-design-ui.svg"
+  alt="MIT License"
+  className="my-0 mx-2"
+/>
+
+<img
+  className="my-0 mx-2"
+  src="http://hits.dwyl.com/aeksco/openjscad-reacy.svg"
+  alt="Hit Count"
+/>
+
+  <img
+    className="my-0 mx-2"
+    src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat"
+    alt="Pull Requests Open"
+  />
+</div>
+
+</div>
 
 The `openjscad-react` package exports an `OpenJscadViewer` React component that can be used for rendering [OpenJSCAD](https://openjscad.org) scripts.
 
 NOTE - this package is currently a work-in-progress and is not yet published for public use.
 
 <br />
+<div className="bg-blue-300 grid grid-cols-1 w-full">
 <Story id="tests-test-story--simple" />
+</div>
 <br />
-
-## Compatibility
-
-<Props of={OpenjscadViewer} />
-
-Compatible with React v16+ and works with ReactDOM. React Native is not supported at this time.

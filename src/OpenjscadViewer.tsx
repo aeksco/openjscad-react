@@ -2,7 +2,7 @@ import * as React from "react";
 
 // // // //
 
-interface CameraProps {
+export interface CameraProps {
   angle: { x: Number; y: Number; z: Number };
   position: { x: Number; y: Number; z: Number };
   clip: { min: Number; max: Number };
@@ -82,11 +82,24 @@ interface JSCADViewer {
   // this.state = 0; // initialized
 }
 
+/**
+ * @param jscadScript - this is the value for the script
+ */
 interface ViewerProps {
+  /**
+  The display content of the button
+  */
   jscadScript: string;
+  /**
+   * Simple click handler
+   */
   className?: string;
   camera?: CameraProps;
-  children: (childProps: {
+  children?: (childProps: {
+    viewer: React.ReactNode;
+    refs: {
+      [key: string]: React.RefObject<any>;
+    };
     outputFile: any; // TODO - get beter type for this
     status: "empty" | "aborted" | "ready" | "rendering"; // TODO - get beter type for this
     resetCamera: () => void;
@@ -100,7 +113,9 @@ interface ViewerState {
   // TODO - add camera
 }
 
-// Defines class-component for Openjscad viewer
+/**
+ * Defines class-component for Openjscad viewer
+ */
 export class OpenjscadViewer extends React.Component<ViewerProps, ViewerState> {
   viewerContext: React.RefObject<any>;
   viewerDiv: React.RefObject<any>;
@@ -147,6 +162,11 @@ export class OpenjscadViewer extends React.Component<ViewerProps, ViewerState> {
       return;
     }
     if (!this.state.loadedDynamicImport) {
+      return;
+    }
+
+    if (!this.viewerCanvas.current) {
+      console.log("NO VIEWER CANVAS PRESENT");
       return;
     }
 
@@ -256,11 +276,11 @@ export class OpenjscadViewer extends React.Component<ViewerProps, ViewerState> {
         this._jscadViewer.generateOutputFile({
           convertCAG: false,
           convertCSG: true,
-          description: "STereoLithography, ASCII",
-          displayName: "STL (ASCII)",
-          name: "stla",
-          extension: "stl",
-          mimetype: "application/sla"
+          description: OutfileFileDescription.stla,
+          displayName: OutfileFileDisplayName.stla,
+          name: OutfileFileName.stla,
+          extension: OutfileFileExtension.stla,
+          mimetype: OutfileFileMimeType.stla
         });
       }
     }
@@ -279,8 +299,8 @@ export class OpenjscadViewer extends React.Component<ViewerProps, ViewerState> {
   // }
 
   render() {
-    return (
-      <div className={this.props.className || ""}>
+    const viewer = (
+      <div>
         <div className="viewerContext" ref={this.viewerContext}>
           <div className="viewerDiv" ref={this.viewerDiv}></div>
         </div>
@@ -290,18 +310,31 @@ export class OpenjscadViewer extends React.Component<ViewerProps, ViewerState> {
           style={{ width: "100%", height: "480px" }}
           ref={this.viewerCanvas}
         />
+      </div>
+    );
 
+    return (
+      <div className={this.props.className || ""}>
         <table ref={this.parameterstable}></table>
 
-        {this.props.children({
-          outputFile: this.state.outputFile,
-          status: this.state.status,
-          resetCamera: () => {
-            if (this._jscadViewer) {
-              this._jscadViewer.resetCamera();
+        {this.props.children === undefined && viewer}
+
+        {this.props.children !== undefined &&
+          this.props.children({
+            viewer,
+            outputFile: this.state.outputFile,
+            status: this.state.status,
+            refs: {
+              viewerCanvas: this.viewerCanvas,
+              viewerContext: this.viewerContext,
+              viewerDiv: this.viewerDiv
+            },
+            resetCamera: () => {
+              if (this._jscadViewer) {
+                this._jscadViewer.resetCamera();
+              }
             }
-          }
-        })}
+          })}
       </div>
     );
   }
