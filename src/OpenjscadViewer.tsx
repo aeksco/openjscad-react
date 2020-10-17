@@ -10,14 +10,34 @@ interface CameraProps {
 
 // // // //
 
+export enum OutfileFileDescription {
+  stla = "STereoLithography, ASCII"
+}
+
+export enum OutfileFileDisplayName {
+  stla = "STL (ASCII)"
+}
+
+export enum OutfileFileName {
+  stla = "stla"
+}
+
+export enum OutfileFileExtension {
+  stla = "stl"
+}
+
+export enum OutfileFileMimeType {
+  stla = "application/sla"
+}
+
 interface GenerateOutputFileParams {
   convertCAG: boolean;
   convertCSG: boolean;
-  description: string; // TODO - make enum, "STereoLithography, ASCII",
-  displayName: string; /// TODO - make enum, "STL (ASCII)",
-  name: string; // TODO - make enum, "stla",
-  extension: string; // TODO - make enum, "stl",
-  mimetype: string; // TODO - make enum, "application/sla"
+  description: OutfileFileDescription;
+  displayName: OutfileFileDisplayName;
+  name: OutfileFileName;
+  extension: OutfileFileExtension;
+  mimetype: OutfileFileMimeType;
 }
 
 interface JSCADViewer {

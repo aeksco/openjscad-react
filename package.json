@@ -7,7 +7,8 @@
   "author": "Alexander Schwartzberg <aeksco@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "start-storybook -p 9010 -s public"
+    "start": "start-storybook -p 9010 -s public",
+    "storybook:build": "build-storybook -s public"
   },
   "files": [
     "dist"
