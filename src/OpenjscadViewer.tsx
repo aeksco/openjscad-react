@@ -113,6 +113,31 @@ interface ViewerState {
   // TODO - add camera
 }
 
+// export type HandleStyles = {
+//   bottom?: React.CSSProperties;
+//   bottomLeft?: React.CSSProperties;
+//   bottomRight?: React.CSSProperties;
+//   left?: React.CSSProperties;
+//   right?: React.CSSProperties;
+//   top?: React.CSSProperties;
+//   topLeft?: React.CSSProperties;
+//   topRight?: React.CSSProperties;
+// };
+
+// type HandleClasses = {
+//   bottom?: string;
+//   bottomLeft?: string;
+//   bottomRight?: string;
+//   left?: string;
+//   right?: string;
+//   top?: string;
+//   topLeft?: string;
+//   topRight?: string;
+// }
+
+// resizeHandleWrapperClass ?: string;
+// resizeHandleWrapperStyle ?: Style;
+
 /**
  * Defines class-component for Openjscad viewer
  */
