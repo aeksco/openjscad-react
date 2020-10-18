@@ -285,7 +285,7 @@ export class OpenJSCADInternal extends React.Component<ViewerProps, ViewerState>
 // export class OpenJSCAD extends React.Component<ViewerProps, ViewerState> {
 export function OpenJSCAD(props: ViewerProps) {
   return (
-    <WindowResizeObserver debug={props.debug} >
+    <WindowResizeObserver debug={props.debug} resizePlaceholder={props.resizePlaceholder}>
       <OpenJSCADInternal {...props} />
     </WindowResizeObserver>
   );

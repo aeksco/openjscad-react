@@ -1,0 +1,21 @@
+{
+  "extends": "./tsconfig.json",
+  "include": ["src/**/*"],
+  "exclude": [
+    "node_modules",
+    ".storybook",
+    "build",
+    "dist",
+    "scripts",
+    "acceptance-tests",
+    "webpack",
+    "jest",
+    "src/setupTests.ts",
+    "**/*/test_*.ts",
+    "**/*/test_*.tsx",
+    "**/*/test_state.ts",
+    "**/*/*.story.tsx",
+    "examples",
+    "docs"
+]
+}

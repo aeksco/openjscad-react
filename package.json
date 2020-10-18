@@ -1,19 +1,24 @@
 {
     "name": "openjscad-react",
-    "version": "0.0.1",
+    "version": "0.0.1-canary-01",
     "description": "React.js component for the OpenJSCAD.org project",
-    "main": "index.js",
     "repository": "https://github.com/aeksco/openjscad-react",
     "author": "Alexander Schwartzberg <aeksco@gmail.com>",
     "license": "MIT",
     "scripts": {
-        "start": "start-storybook -p 9010 -s public",
+        "start": "start-storybook -p 6006 -s public",
         "storybook:build": "build-storybook -s public",
-        "prettify": "prettier --config ./.prettierrc.js 'src/**/*.ts' --write"
+        "prettify": "prettier --config ./.prettierrc.js 'src/**/*.ts*' --write",
+        "build": "npm run clean && npm run compile",
+        "clean": "rm -rf ./dist",
+        "compile": "tsc -p tsconfig.build.json",
+        "prepublishOnly": "npm run build"
     },
     "files": [
         "dist"
     ],
+    "main": "./dist/src/index.js",
+    "types": "./dist/src/index.d.ts",
     "keywords": [
         "react",
         "reactjs",
