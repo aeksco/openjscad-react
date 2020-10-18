@@ -1,1 +1,2 @@
-export * from "./OpenjscadViewer";
+export * from "./OpenJSCAD";
+export * from "./types";

@@ -1,12 +1,22 @@
 import { Meta, Props } from "@storybook/addon-docs/blocks";
-import { OpenjscadViewer } from "../src";
+import { OpenJSCAD } from "../src";
 
 <Meta title="Docs/Getting Started/Props Reference" />
 
 # Props Reference
 
-If you want to jump right in with a working React app with `openjscad-react` installed, check out the [react-next-openjscad-starter](https://github/aeksco).
+This is a props reference for the `OpenJSCAD` component
 
-## Props Reference
+## `OpenJSCAD` component Props
 
-<Props of={OpenjscadViewer} />
+| Prop Name       | Type          | Description                                                  | Required | default     |
+| --------------- | ------------- | ------------------------------------------------------------ | -------- | ----------- |
+| **jscadScript** | `string`      | The [OpenJSCAD](https://openjscad.org) script being rendered | `true`   |             |
+| **className**   | `string`      | The `className` applied to the wrapper `<div>`               | `false`  | `undefined` |
+| **camera**      | `CameraProps` | See `CameraProps` type documentation below                   | `false`  | `undefined` |
+
+## `CameraProps` interface
+
+| Prop Name       | Type     | Description                                                  | Required | default |
+| --------------- | -------- | ------------------------------------------------------------ | -------- | ------- |
+| **jscadScript** | `string` | The [OpenJSCAD](https://openjscad.org) script being rendered | `true`   |         |

@@ -1,7 +1,7 @@
 import React from "react";
 import "./tailwind.css";
 import { storiesOf } from "@storybook/react";
-import { OpenjscadViewer } from "../OpenjscadViewer";
+import { OpenJSCAD } from "../OpenJSCAD";
 import { withKnobs, text, boolean, number } from '@storybook/addon-knobs';
 
 // // // //
@@ -27,7 +27,7 @@ storiesOf("Tests/Test Story", module)
     () => {
       return (
         <div className="w-6/12">
-          <OpenjscadViewer
+          <OpenJSCAD
             jscadScript={DEFAULT_SCRIPT}
             camera={{
               angle: { x: -45, y: 0, z: 170 },
@@ -63,7 +63,7 @@ storiesOf("Tests/Test Story", module)
                 </div>
               );
             }}
-          </OpenjscadViewer>
+          </OpenJSCAD>
         </div>
       );
     }
@@ -73,7 +73,7 @@ storiesOf("Tests/Test Story", module)
     "Simple",
     () => {
       return (
-        <OpenjscadViewer
+        <OpenJSCAD
           className="grid grid-cols-1 w-full"
           jscadScript={DEFAULT_SCRIPT}
         />
@@ -84,7 +84,7 @@ storiesOf("Tests/Test Story", module)
     () => {
       return (
         <React.Fragment>
-          <OpenjscadViewer
+          <OpenJSCAD
             className="grid grid-cols-1 w-full"
             jscadScript={DEFAULT_SCRIPT}
           >
@@ -104,7 +104,7 @@ storiesOf("Tests/Test Story", module)
                 </div>
               );
             }}
-          </OpenjscadViewer>
+          </OpenJSCAD>
         </React.Fragment>
       );
     }
@@ -114,7 +114,7 @@ storiesOf("Tests/Test Story", module)
     () => {
       return (
         <div className="w-6/12">
-          <OpenjscadViewer
+          <OpenJSCAD
             jscadScript={DEFAULT_SCRIPT}
             camera={{
               angle: { x: -45, y: 0, z: 170 },
@@ -138,7 +138,7 @@ storiesOf("Tests/Test Story", module)
                 </div>
               );
             }}
-          </OpenjscadViewer>
+          </OpenJSCAD>
         </div>
       );
     }

@@ -1,185 +1,56 @@
 import * as React from "react";
+import {
+  CameraProps,
+  OutfileFileDescription,
+  OutfileFileDisplayName,
+  OutfileFileName,
+  OutfileFileExtension,
+  OutfileFileMimeType,
+  JSCADViewer,
+} from "./types";
 
 // // // //
 
-export interface CameraProps {
-  /**
-   * Simple angle
-   */
-  angle: { x: Number; y: Number; z: Number };
-  /**
-   * Simple position
-   */
-  position: { x: Number; y: Number; z: Number };
-  /**
-   * Simple clip
-   */
-  clip: { min: Number; max: Number };
-}
-
-// // // //
-
-export enum OutfileFileDescription {
-  stla = "STereoLithography, ASCII"
-}
-
-export enum OutfileFileDisplayName {
-  stla = "STL (ASCII)"
-}
-
-export enum OutfileFileName {
-  stla = "stla"
-}
-
-export enum OutfileFileExtension {
-  stla = "stl"
-}
-
-export enum OutfileFileMimeType {
-  stla = "application/sla"
-}
-
-interface GenerateOutputFileParams {
-  convertCAG: boolean;
-  convertCSG: boolean;
-  description: OutfileFileDescription;
-  displayName: OutfileFileDisplayName;
-  name: OutfileFileName;
-  extension: OutfileFileExtension;
-  mimetype: OutfileFileMimeType;
-}
-
-interface JSCADViewer {
-  abort: () => void;
-  setJsCad: (jscadScript: string) => void;
-  generateOutputFile: (params: GenerateOutputFileParams) => void;
-  resetCamera: () => void;
-  enableItems: () => void; // * enableItems is used to send an `onUpdate` with curent information like formats and the outputFile
-  // rebuildSolids: () => void; // what does this do?
-  // getState: () => any; // TODO - add proper state here
-  // clearOutputFile: () => void; // TODO - add proper state here
-  // currentObjectsToBlob: (format: string) => void; // TODO - add proper state here - FIGURE THIS OUT
-  // createControl
-  // createGroupControl
-  // createChoiceControl
-  // createParamControls
-  // formatInfo
-  // clearViewer
-  // updateView
-  // setCurrentObjects
-  // mergeSolids
-  // // // // //
-  // this.hasOutputFile = false;
-  // this.hasError = false;
-  // this.paramDefinitions = [];
-  // this.paramControls = [];
-  // this.script = null;
-  // this.formats = formats;
-  // this.baseurl = document.location.href;
-
-  /**
-   * Processor state:
-   *
-   * 0 - initialized - no viewer, no parameters, etc;
-   * 1 - processing  - processing JSCAD script;
-   * 2 - complete    - completed processing;
-   * 3 - incomplete  - incompleted due to errors in processing;
-   *
-   * @typedef {number} ProcessorState
-   */
-  // /** @type {ProcessorState} state - the current processor state */
-  // this.state = 0; // initialized
-}
-
-interface ViewerChildProps {
-  /**
-   * viewer TSX
-   */
+export interface ViewerChildProps {
   viewer: React.ReactNode;
-  /**
-   * object of refs
-   */
   refs: {
     [key: string]: React.RefObject<any>;
   };
-  /**
-   * the output file text
-   */
   outputFile: any; // TODO - get beter type for this
-  /**
-   * Status
-   */
   status: "empty" | "aborted" | "ready" | "rendering"; // TODO - get beter type for this
-  /**
-   * Reset camera
-   */
   resetCamera: () => void;
 }
 
-/**
- * @param jscadScript - this is the value for the script
- */
-interface ViewerProps {
-  /**
-  The display content of the button
-  */
+export interface ViewerProps {
   jscadScript: string;
-  /**
-   * Simple click handler
-   */
   className?: string;
-  /**
-   * Simple angle
-   */
   camera?: CameraProps;
-  /**
-   * Child props
-   */
   children?: (childProps: ViewerChildProps) => React.ReactNode;
 }
 
-interface ViewerState {
+export interface ViewerState {
   loadedDynamicImport: boolean;
   status: "empty" | "ready" | "rendering" | "aborted";
   outputFile: any;
   // TODO - add camera
 }
 
-// export type HandleStyles = {
-//   bottom?: React.CSSProperties;
-//   bottomLeft?: React.CSSProperties;
-//   bottomRight?: React.CSSProperties;
-//   left?: React.CSSProperties;
-//   right?: React.CSSProperties;
-//   top?: React.CSSProperties;
-//   topLeft?: React.CSSProperties;
-//   topRight?: React.CSSProperties;
-// };
+// // // //
 
-// type HandleClasses = {
-//   bottom?: string;
-//   bottomLeft?: string;
-//   bottomRight?: string;
-//   left?: string;
-//   right?: string;
-//   top?: string;
-//   topLeft?: string;
-//   topRight?: string;
-// }
+// TODO - add window resize observer component
+// TODO - add window resize observer component
+// TODO - add window resize observer component
 
-// resizeHandleWrapperClass ?: string;
-// resizeHandleWrapperStyle ?: Style;
-
-// TODO - add window observer component
+// // // // 
 
 /**
  * Defines class-component for Openjscad viewer
  */
-export class OpenjscadViewer extends React.Component<ViewerProps, ViewerState> {
+export class OpenJSCAD extends React.Component<ViewerProps, ViewerState> {
   viewerContext: React.RefObject<any>;
   viewerDiv: React.RefObject<any>;
   viewerCanvas: React.RefObject<any>;
-  parameterstable: React.RefObject<any>;
+  parametersTable: React.RefObject<any>;
   _jscadViewer: null | JSCADViewer;
 
   openScadModule: any;
@@ -190,7 +61,7 @@ export class OpenjscadViewer extends React.Component<ViewerProps, ViewerState> {
     this.viewerContext = React.createRef();
     this.viewerDiv = React.createRef();
     this.viewerCanvas = React.createRef();
-    this.parameterstable = React.createRef();
+    this.parametersTable = React.createRef();
     this._jscadViewer = null;
 
     this.state = {
@@ -255,7 +126,7 @@ export class OpenjscadViewer extends React.Component<ViewerProps, ViewerState> {
           viewerContext: this.viewerContext.current,
           viewerdiv: this.viewerDiv.current,
           viewerCanvas: this.viewerCanvas.current,
-          parameterstable: this.parameterstable.current,
+          parameterstable: this.parametersTable.current,
           setStatus: (status: "rendering" | "ready", _: any) => {
             // console.log("setStatus");
             // console.log(status);
@@ -275,7 +146,7 @@ export class OpenjscadViewer extends React.Component<ViewerProps, ViewerState> {
           viewerContext: this.viewerContext.current,
           viewerdiv: this.viewerDiv.current,
           viewerCanvas: this.viewerCanvas.current,
-          parameterstable: this.parameterstable.current,
+          parameterstable: this.parametersTable.current,
           instantUpdate: true,
           useAsync: true
         },
@@ -374,7 +245,7 @@ export class OpenjscadViewer extends React.Component<ViewerProps, ViewerState> {
 
     return (
       <div className={this.props.className || ""}>
-        <table ref={this.parameterstable}></table>
+        <table ref={this.parametersTable}></table>
 
         {this.props.children === undefined && viewer}
 

@@ -1,7 +1,7 @@
 import React from "react";
 import "./tailwind.css";
 import { storiesOf } from "@storybook/react";
-import { OpenjscadViewer } from "../OpenjscadViewer";
+import { OpenJSCAD } from "../OpenJSCAD";
 import { withKnobs, text, boolean, number } from '@storybook/addon-knobs';
 
 export default {
@@ -27,7 +27,7 @@ function main () {
 `;
 
 export const scriptEditor = () => (
-    <OpenjscadViewer
+    <OpenJSCAD
         jscadScript={text("JSCAD Script", DEFAULT_SCRIPT)}
     />
 );
