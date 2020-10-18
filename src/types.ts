@@ -49,6 +49,7 @@ export type ProcessorState =
     | "rendering"
     | "error";
 
+// Reference: https://github.com/jscad/OpenJSCAD.org/blob/master/packages/web/src/jscad/processor.js
 export interface Processor {
     abort: () => void;
     setJsCad: (jscadScript: string) => void;
