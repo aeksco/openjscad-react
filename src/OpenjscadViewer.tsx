@@ -3,8 +3,17 @@ import * as React from "react";
 // // // //
 
 export interface CameraProps {
+  /**
+   * Simple angle
+   */
   angle: { x: Number; y: Number; z: Number };
+  /**
+   * Simple position
+   */
   position: { x: Number; y: Number; z: Number };
+  /**
+   * Simple clip
+   */
   clip: { min: Number; max: Number };
 }
 
@@ -82,6 +91,31 @@ interface JSCADViewer {
   // this.state = 0; // initialized
 }
 
+interface ViewerChildProps {
+    /**
+     * viewer TSX
+     */
+    viewer: React.ReactNode;
+    /**
+     * object of refs
+     */
+    refs: {
+      [key: string]: React.RefObject<any>;
+    };
+    /**
+     * the output file text
+     */
+    outputFile: any; // TODO - get beter type for this
+    /**
+     * Status
+     */
+    status: "empty" | "aborted" | "ready" | "rendering"; // TODO - get beter type for this
+    /**
+     * Reset camera
+     */
+    resetCamera: () => void;
+}
+
 /**
  * @param jscadScript - this is the value for the script
  */
@@ -94,16 +128,14 @@ interface ViewerProps {
    * Simple click handler
    */
   className?: string;
+  /**
+   * Simple angle
+   */
   camera?: CameraProps;
-  children?: (childProps: {
-    viewer: React.ReactNode;
-    refs: {
-      [key: string]: React.RefObject<any>;
-    };
-    outputFile: any; // TODO - get beter type for this
-    status: "empty" | "aborted" | "ready" | "rendering"; // TODO - get beter type for this
-    resetCamera: () => void;
-  }) => React.ReactNode;
+  /**
+   * Child props
+   */
+  children?: (childProps: ViewerChildProps) => React.ReactNode;
 }
 
 interface ViewerState {

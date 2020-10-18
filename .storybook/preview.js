@@ -11,9 +11,9 @@ export const parameters = {
       }
 
       return a - b;
-    }
+    },
   },
   docs: {
-    theme
-  }
+    theme,
+  },
 };

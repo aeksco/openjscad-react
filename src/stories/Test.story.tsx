@@ -2,6 +2,7 @@ import React from "react";
 import "./tailwind.css";
 import { storiesOf } from "@storybook/react";
 import { OpenjscadViewer } from "../OpenjscadViewer";
+import { withKnobs, text, boolean, number } from '@storybook/addon-knobs';
 
 // // // //
 
@@ -25,7 +26,7 @@ storiesOf("Tests/Test Story", module)
     "Complex",
     () => {
       return (
-        <div style={{ height: "50%", width: "50%" }}>
+        <div className="w-6/12">
           <OpenjscadViewer
             jscadScript={DEFAULT_SCRIPT}
             camera={{
@@ -72,7 +73,46 @@ storiesOf("Tests/Test Story", module)
     "Simple",
     () => {
       return (
-        <div className="w-50">
+        <OpenjscadViewer
+          className="grid grid-cols-1 w-full"
+          jscadScript={DEFAULT_SCRIPT}
+        />
+      );
+    })
+  .add(
+    "Reset Camera",
+    () => {
+      return (
+        <div className="w-6/12">
+          <OpenjscadViewer
+            jscadScript={DEFAULT_SCRIPT}
+          >
+            {childProps => {
+              return (
+                <div>
+                  {childProps.viewer}
+
+                  <button
+                    className="btn mt-2"
+                    onClick={() => {
+                      childProps.resetCamera();
+                    }}
+                  >
+                    Reset Camera
+                  </button>
+                </div>
+              );
+            }}
+          </OpenjscadViewer>
+        </div>
+      );
+    }
+  )
+  .add(
+    "props.camera",
+    () => {
+      return (
+        <div className="w-6/12">
           <OpenjscadViewer
             jscadScript={DEFAULT_SCRIPT}
             camera={{
@@ -80,16 +120,25 @@ storiesOf("Tests/Test Story", module)
               position: { x: 0, y: 0, z: 200 },
               clip: { min: 1, max: 1000 }
             }}
-          />
+          >
+            {childProps => {
+              return (
+                <div>
+                  {childProps.viewer}
+
+                  <button
+                    className="btn mt-2"
+                    onClick={() => {
+                      childProps.resetCamera();
+                    }}
+                  >
+                    Reset Camera
+                  </button>
+                </div>
+              );
+            }}
+          </OpenjscadViewer>
         </div>
       );
     }
-    // { options: { showPanel: true } }
   )
-  .add("Tailwind", () => {
-    return (
-      <div>
-        <p className="text-blue-300">This is a tailwind css test</p>
-      </div>
-    );
-  });
