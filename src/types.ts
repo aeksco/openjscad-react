@@ -1,23 +1,8 @@
-import * as React from "react";
-
-// // // //
-
-/**
- * Defines parameters accepted by
- */
-export interface CameraProps {
-    /**
-     * Simple angle
-     */
-    angle: { x: Number; y: Number; z: Number };
-    /**
-     * Simple position
-     */
-    position: { x: Number; y: Number; z: Number };
-    /**
-     * Simple clip
-     */
-    clip: { min: Number; max: Number };
+export interface CameraSettings {
+    angle?: { x: Number; y: Number; z: Number };
+    position?: { x: Number; y: Number; z: Number };
+    clip?: { min: Number; max: Number };
+    fov?: number;
 }
 
 // // // //
@@ -57,7 +42,14 @@ export interface GenerateOutputFileParams {
     mimetype: OutfileFileMimeType;
 }
 
-export interface JSCADViewer {
+export type ProcessorState =
+    | "empty"
+    | "aborted"
+    | "ready"
+    | "rendering"
+    | "error";
+
+export interface Processor {
     abort: () => void;
     setJsCad: (jscadScript: string) => void;
     generateOutputFile: (params: GenerateOutputFileParams) => void;
@@ -123,3 +115,56 @@ export interface JSCADViewer {
 
 // resizeHandleWrapperClass ?: string;
 // resizeHandleWrapperStyle ?: Style;
+
+interface RgbaColor {
+    r: number;
+    g: number;
+    b: number;
+    a: number;
+}
+
+interface GridSettings {
+    i: number;
+    color: RgbaColor;
+}
+
+interface PlateSettings {
+    draw: boolean;
+    size: number;
+    m: GridSettings;
+    M: GridSettings;
+}
+
+interface PosNegColor {
+    neg: RgbaColor;
+    pos: RgbaColor;
+}
+
+interface AxisSettings {
+    draw: boolean;
+    x: PosNegColor;
+    y: PosNegColor;
+    z: PosNegColor;
+}
+
+interface LightGLOptions {
+    canvas: any; // Uses the HTML canvas given in 'options' or creates a new one if necessary.
+    width: number;
+    height: number;
+    alpha: number;
+}
+
+interface JscadViewerOptions {
+    plate: PlateSettings;
+    camera: CameraSettings;
+    axis: AxisSettings;
+    glOptions: LightGLOptions;
+    processor: Object;
+}
+
+interface ProcessorOptions {
+    viewerContext: any; // TODO - replace with ref
+    viewerdiv: any; // TODO - replace with ref
+    parameterstable: any; // TODO - replace with ref
+    viewerCanvas: any; // TODO - replace with ref
+}

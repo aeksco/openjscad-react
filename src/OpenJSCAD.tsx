@@ -1,60 +1,74 @@
-import React from "react";
+import React, {
+  ReactNode,
+  RefObject,
+} from "react";
 import debounce from "lodash.debounce";
 import {
-  CameraProps,
+  CameraSettings,
   OutfileFileDescription,
   OutfileFileDisplayName,
   OutfileFileName,
   OutfileFileExtension,
   OutfileFileMimeType,
-  JSCADViewer,
+  ProcessorState,
+  Processor,
 } from "./types";
-import { WindowResizeObserver } from "./WindowResizeObserver";
-
-// // // //
-
-export interface ViewerChildProps {
-  viewer: React.ReactNode;
-  refs: {
-    viewerCanvas: React.RefObject<any>;
-    viewerContext: React.RefObject<any>;
-    viewerDiv: React.RefObject<any>;
-    parametersTable: React.RefObject<any>;
-  };
-  outputFile: any; // TODO - get beter type for this
-  status: "empty" | "aborted" | "ready" | "rendering"; // TODO - add type union for this
-  resetCamera: () => void;
-}
-
-export interface ViewerProps {
-  jscadScript: string;
-  className?: string;
-  camera?: CameraProps;
-  debug?: boolean;
-  resizePlaceholder?: React.ReactNode;
-  children?: (childProps: ViewerChildProps) => React.ReactNode;
-}
-
-export interface ViewerState {
-  loadedDynamicImport: boolean;
-  status: "empty" | "ready" | "rendering" | "aborted";
-  outputFile: any;
-  // TODO - add camera
-}
+import { WindowResizeObserver, WindowResizeObserverProps } from "./WindowResizeObserver";
 
 // // // //
 
 /**
- * Defines class-component for Openjscad viewer
+ * ViewerChildProps
+ * Props passed to the `children` function on `ViewerProps`
+ * @param props.viewerElement: a pre-built TSX/JSX element that may be returned inside the ReactNode returned by props.children. Useful for positioning the Viewer somewhere specific.
+ * @param props.refs: (advanced usage) an object encapsulating required RefObjects that may be assigned to JSX/TSX elements returned by props.children. Note that all refs must be assigned.
+ * @param props.outputFile: (advanced usage) an object encapsulating required RefObjects that may be assigned to JSX/TSX elements returned by props.children. Note that all refs must be assigned.
  */
-export class OpenJSCADInternal extends React.Component<ViewerProps, ViewerState> {
-  viewerContext: React.RefObject<any>;
-  viewerDiv: React.RefObject<any>;
-  viewerCanvas: React.RefObject<any>;
-  parametersTable: React.RefObject<any>;
-  _jscadViewer: null | JSCADViewer;
+export interface ViewerChildProps {
+  viewerElement: ReactNode;
+  refs: {
+    viewerCanvas: RefObject<HTMLCanvasElement>;
+    viewerContext: RefObject<HTMLDivElement>;
+    viewerDiv: RefObject<HTMLDivElement>;
+    parametersTable: RefObject<HTMLTableElement>;
+  };
+  outputFile: null | string;
+  status: ProcessorState,
+  resetCamera: () => void;
+}
 
+// TODO - rename this interface to not use Viewer terminology
+export interface ViewerProps {
+  jscadScript: string;
+  className?: string;
+  camera?: CameraSettings;
+  debug?: boolean;
+  children?: (childProps: ViewerChildProps) => ReactNode;
+}
+
+// TODO - rename this interface to not use Viewer terminology
+export interface ViewerState {
+  loadedDynamicImport: boolean;
+  status: ProcessorState;
+  outputFile: any;
+  // TODO - add camera
+  // TODO - add other props here
+  // TODO - add other props here
+  // TODO - add other props here
+}
+
+// // // //
+
+// TODO - annotate
+// TODO - rename this.
+export class OpenJSCADInternal extends React.Component<ViewerProps, ViewerState> {
+  viewerContext: React.RefObject<HTMLDivElement>;
+  viewerDiv: React.RefObject<HTMLDivElement>;
+  viewerCanvas: React.RefObject<HTMLCanvasElement>;
+  parametersTable: React.RefObject<HTMLTableElement>;
+  processor: null | Processor;
   openScadModule: any;
+
   constructor(props: ViewerProps) {
     super(props);
 
@@ -63,7 +77,7 @@ export class OpenJSCADInternal extends React.Component<ViewerProps, ViewerState>
     this.viewerDiv = React.createRef();
     this.viewerCanvas = React.createRef();
     this.parametersTable = React.createRef();
-    this._jscadViewer = null;
+    this.processor = null;
 
     this.state = {
       loadedDynamicImport: false,
@@ -106,24 +120,26 @@ export class OpenJSCADInternal extends React.Component<ViewerProps, ViewerState>
       return;
     }
 
+    console.log(this.processor);
+
     // Short-circuit function if current state is rendering
     if (this.state.status === "rendering") {
       // return;
 
       if (
-        this._jscadViewer &&
+        this.processor &&
         prevProps.jscadScript !== this.props.jscadScript
       ) {
         // console.log("JSCAD SCRIPT UPDATED");
         // TODO - use abort
-        this._jscadViewer.abort();
-        this._jscadViewer.setJsCad(this.props.jscadScript);
+        this.processor.abort();
+        this.processor.setJsCad(this.props.jscadScript);
       }
     }
 
     // @ts-ignore
-    if (!this._jscadViewer) {
-      this._jscadViewer = this.openScadModule(
+    if (!this.processor) {
+      this.processor = this.openScadModule(
         this.viewerContext.current,
         {
           processor: {
@@ -135,6 +151,16 @@ export class OpenJSCADInternal extends React.Component<ViewerProps, ViewerState>
             viewerdiv: this.viewerDiv.current,
             viewerCanvas: this.viewerCanvas.current,
             parameterstable: this.parametersTable.current,
+
+
+            // debug: false,
+            // libraries: [],
+            // openJsCadPath: '',
+            // useAsync: true,
+            // useSync: true,
+            // viewer: {}
+
+
             setStatus: (status: "rendering" | "ready", _: any) => {
               // console.log("setStatus");
               // console.log(status);
@@ -159,7 +185,14 @@ export class OpenJSCADInternal extends React.Component<ViewerProps, ViewerState>
             useAsync: true,
           },
           viewer: {
-            // axis: this.axis,
+            // // // //
+            // 
+            // TODO - add support for axis option
+            // axis: this.axis
+            // 
+            // // // //
+            // 
+            // TODO - add support for plate option
             // plate: {
             //   draw: true, // draw or not
             //   size: 200, // plate size (X and Y)
@@ -174,12 +207,29 @@ export class OpenJSCADInternal extends React.Component<ViewerProps, ViewerState>
             //     color: { r: 0.5, g: 0.3, b: 0.5, a: 1.0 } // color
             //   }
             // },
+            // 
+            // // // // 
+            // 
+            // TODO - add support for solid option
+            // solid: {
+            // outlineColor
+            // draw
+            // faceColor
+            // lines
+            // outlineColor
+            // overlay
+            // smooth
+            // },
+            // 
+            // // // // 
+            // TODO - add support for options.engine
+            // // // // 
             camera: this.props.camera,
             glOptions: {
               canvas: this.viewerCanvas.current,
             },
             background: {
-              color: { r: 0.3, g: 0.3, b: 0.2, a: 1.0 },
+              color: { r: 0.8, g: 0.3, b: 0.2, a: 1.0 },
             }, // color
           },
         },
@@ -197,7 +247,7 @@ export class OpenJSCADInternal extends React.Component<ViewerProps, ViewerState>
     if (this.state.status === "empty") {
       // console.log("LOADED INITIAL JSCAD");
       if (this.props.jscadScript) {
-        this._jscadViewer.setJsCad(this.props.jscadScript);
+        this.processor.setJsCad(this.props.jscadScript);
       }
       return;
     }
@@ -210,11 +260,11 @@ export class OpenJSCADInternal extends React.Component<ViewerProps, ViewerState>
       if (prevProps.jscadScript !== this.props.jscadScript) {
         // console.log("JSCAD SCRIPT UPDATED");
         // TODO - use abort
-        // this._jscadViewer.abort();
-        this._jscadViewer.setJsCad(this.props.jscadScript);
+        // this.processor.abort();
+        this.processor.setJsCad(this.props.jscadScript);
       } else if (prevState.status === "rendering") {
         // Generate the STL if the viewer is ready
-        this._jscadViewer.generateOutputFile({
+        this.processor.generateOutputFile({
           convertCAG: false,
           convertCSG: true,
           description: OutfileFileDescription.stla,
@@ -227,42 +277,33 @@ export class OpenJSCADInternal extends React.Component<ViewerProps, ViewerState>
     }
   }
 
-  // .viewerCanvas {
-  //   width: 100 %;
-  //   height: 480px;
-  // }
-  // .viewerContext.viewer canvas {
-  //   width: 320px;
-  //   height: 240px;
-  // }
-  // .viewerContext div.shift - scene {
-  //   display: none;
-  // }
-
   render() {
-    const viewer = (
-      <div>
-        <div className="viewerContext" ref={this.viewerContext}>
-          <div className="viewerDiv" ref={this.viewerDiv}></div>
+    const { className = undefined } = this.props;
+
+    const viewerElement = (
+      <div className={className}>
+        <div ref={this.viewerContext}>
+          <div ref={this.viewerDiv}></div>
         </div>
 
         <canvas
-          // viewerCanvas
-          style={{ width: "100%", height: "480px" }}
+          style={{ width: "100%", height: "480px" }} // TODO - accept this as a prop, scope out that update
           ref={this.viewerCanvas}
         />
       </div>
     );
 
     return (
-      <div className={this.props.className || ""}>
+      <div className={className}>
         <table ref={this.parametersTable}></table>
 
-        {this.props.children === undefined && viewer}
+        {/* Render viewer element  */}
+        {this.props.children === undefined && viewerElement}
 
+        {/* Rener props.children */}
         {this.props.children !== undefined &&
           this.props.children({
-            viewer,
+            viewerElement,
             outputFile: this.state.outputFile,
             status: this.state.status,
             refs: {
@@ -272,8 +313,8 @@ export class OpenJSCADInternal extends React.Component<ViewerProps, ViewerState>
               parametersTable: this.parametersTable,
             },
             resetCamera: () => {
-              if (this._jscadViewer) {
-                this._jscadViewer.resetCamera();
+              if (this.processor) {
+                this.processor.resetCamera();
               }
             },
           })}
@@ -282,8 +323,14 @@ export class OpenJSCADInternal extends React.Component<ViewerProps, ViewerState>
   }
 }
 
-// export class OpenJSCAD extends React.Component<ViewerProps, ViewerState> {
-export function OpenJSCAD(props: ViewerProps) {
+// // // // 
+
+/**
+ * OpenJSCAD
+ * TODO - annotate
+ * @param props 
+ */
+export function OpenJSCAD(props: ViewerProps & WindowResizeObserverProps) {
   return (
     <WindowResizeObserver debug={props.debug} resizePlaceholder={props.resizePlaceholder}>
       <OpenJSCADInternal {...props} />

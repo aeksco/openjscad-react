@@ -3,10 +3,9 @@ import React from "react";
 
 // // // //
 
-interface WindowResizeObserverProps {
+export interface WindowResizeObserverProps {
     debug?: boolean
-    resizePlaceholder?: React.ReactNode;
-    children: React.ReactNode;
+    resizePlaceholder?: React.ReactNode | (() => React.ReactNode);
 }
 
 interface WindowResizeObserverState {
@@ -19,8 +18,8 @@ interface WindowResizeObserverState {
  * WindowResizeObserver
  * TODO - annotate this
  */
-export class WindowResizeObserver extends React.Component<WindowResizeObserverProps, WindowResizeObserverState> {
-    constructor(props: WindowResizeObserverProps) {
+export class WindowResizeObserver extends React.Component<WindowResizeObserverProps & { children: React.ReactNode; }, WindowResizeObserverState> {
+    constructor(props: WindowResizeObserverProps & { children: React.ReactNode; }) {
         super(props);
 
         this.handleResize = debounce(this.handleResize, 50).bind(this)
@@ -70,13 +69,21 @@ export class WindowResizeObserver extends React.Component<WindowResizeObserverPr
         const { debug, resizePlaceholder = null } = this.props;
         const { shouldRender, windowWidth, windowHeight } = this.state;
 
+        let resizePlaceholderVal: React.ReactNode | null = null;
+
+        if (resizePlaceholder !== null && typeof resizePlaceholder === "function") {
+            resizePlaceholderVal = resizePlaceholder();
+        } else if (resizePlaceholder !== null) {
+            resizePlaceholderVal = resizePlaceholder;
+        }
+
         if (!shouldRender) {
             return (
                 <React.Fragment>
                     {debug && (
                         <pre>{JSON.stringify({ windowWidth, windowHeight, shouldRender }, null, 4)}</pre>
                     )}
-                    {resizePlaceholder}
+                    {resizePlaceholderVal}
                 </React.Fragment>
             );
         }

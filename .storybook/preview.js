@@ -16,6 +16,10 @@ export const parameters = {
                 }
             }
 
+            if (a[0].includes("examples-")) {
+                return a - b;
+            }
+
             return a - b;
         },
     },

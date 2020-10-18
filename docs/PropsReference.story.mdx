@@ -20,6 +20,103 @@ This is a props reference for the `OpenJSCAD` component
 
 ## `CameraProps` interface
 
-| Prop Name       | Type     | Description                                                  | Required | default |
-| --------------- | -------- | ------------------------------------------------------------ | -------- | ------- |
-| **jscadScript** | `string` | The [OpenJSCAD](https://openjscad.org) script being rendered | `true`   |         |
+| Prop Name    | Type       | Description                              | Required | default                   |
+| ------------ | ---------- | ---------------------------------------- | -------- | ------------------------- |
+| **angle**    | `XYZCoord` | The view angle about XYZ axis.           | `false`  | `{ x: -60, y: 0, z: 45 }` |
+| **position** | `XYZCoord` | The initial position at XYZ.             | `false`  | `{ x: 0, y: 0, z: 100 }`  |
+| **clip**     | `MinMax`   | Rendering outside this range is clipped. | `false`  | `{ min: 1, max: 1000 }`   |
+| **fox**      | `number`   | The field of view of the camera          | `false`  | 45                        |
+
+## `XYZCoord` interface
+
+| Prop Name | Type     | Description | Required |
+| --------- | -------- | ----------- | -------- |
+| **x**     | `number` |             | `true`   |
+| **y**     | `number` |             | `true`   |
+| **z**     | `number` |             | `true`   |
+
+## `MinMax` interface
+
+| Prop Name | Type     | Description | Required |
+| --------- | -------- | ----------- | -------- |
+| **min**   | `number` |             | `true`   |
+| **max**   | `number` |             | `true`   |
+
+---
+
+TODO - finish transposing + supporting all these types + add examples to stories
+
+```js
+/**
+ * Camera settings
+ * @typedef {Object} CameraSettings
+ * @property {number} fov - field of view.
+ * @property {XYZCoord} angle - view angle about XYZ axis.
+ * @property {XYZCoord} position - initial position at XYZ.
+ * @property {MinMax} clip - rendering outside this range is clipped.
+ */
+
+/**
+ * @typedef {Object} RgbaColor
+ * @property {number} r - red (values 0.0 - 1.0).
+ * @property {number} g - green (values 0.0 - 1.0).
+ * @property {number} b - blue (values 0.0 - 1.0).
+ * @property {number} a - alpha (values 0.0 - 1.0).
+ */
+
+/**
+ * Grid settings
+ * @typedef {Object} GridSettings
+ * @property {number} i - number of units between grid lines.
+ * @property {RgbaColor} color - color.
+ */
+
+/**
+ * @typedef {Object} PlateSettings
+ * @property {boolean} draw draw or not (default: true).
+ * @property {number} size plate size (X and Y) (default: 200).
+ * @property {GridSettings} m minor grid settings.
+ * @property {GridSettings} M major grid settings.
+ */
+
+/**
+ *
+ * @typedef {Object} PosNegColor
+ * @property {RgbaColor} neg color in negative direction.
+ * @property {RgbaColor} pos color in positive direction.
+ */
+
+/**
+ * @typedef {Object} AxisSettings
+ * @property {boolean} draw - draw or not (default: false).
+ * @property {PosNegColor} x
+ * @property {PosNegColor} y
+ * @property {PosNegColor} z
+ */
+
+/**
+ * @typedef {Object} LightGLOptions
+ * @property {Object} canvas - Uses the HTML canvas given in 'options' or creates a new one if necessary.
+ * @property {number} width - width applied to the canvas created when `options.canvas` is not set. (default: 800).
+ * @property {number} height - height applied to the canvas created when `options.canvas` is not set. (default: 600).
+ * @property {number} alpha - The alpha channel is disabled by default because it usually causes unintended transparencies in the canvas.
+ *
+ */
+
+/**
+ * @typedef {Object} JscadViewerOptions
+ * @property {PlateSettings} plate - The grid show in the viewer.
+ * @property {CameraSettings} camera
+ * @property {AxisSettings} axis
+ * @property {LightGLOptions} glOptions - Options sent to `GL.create()`.
+ * @property {Object} processor - options used by the viewer processor.
+ */
+
+/**
+ * @typedef {Object} ProcessorOptions
+ * @property {Element} viewerContext - The main element that jscad uses.  If no canvas element is set, jscad creates one.
+ * @property {Element} viewerdiv - Jscad moves the canvas tag here, or creates one and places it here.
+ * @property {Element} parameterstable - A Table element reference.  The design parameters will be added here.
+ * @property {Element} viewerCanvas - A Canvas element reference that will be used to draw the GL canvas.
+ */
+```

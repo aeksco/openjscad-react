@@ -1,12 +1,11 @@
 import React from "react";
 import "./tailwind.css";
-import { storiesOf } from "@storybook/react";
 import { OpenJSCAD } from "../OpenJSCAD";
-import { withKnobs, text, boolean, number } from '@storybook/addon-knobs';
+import { withKnobs, text } from '@storybook/addon-knobs';
 
 export default {
-    title: 'Examples/Test',
-    decorators: [withKnobs],
+  title: 'Examples/Script Editor',
+  decorators: [withKnobs],
 };
 
 // // // //
@@ -27,7 +26,7 @@ function main () {
 `;
 
 export const scriptEditor = () => (
-    <OpenJSCAD
-        jscadScript={text("JSCAD Script", DEFAULT_SCRIPT)}
-    />
+  <OpenJSCAD
+    jscadScript={text("JSCAD Script", DEFAULT_SCRIPT)}
+  />
 );
