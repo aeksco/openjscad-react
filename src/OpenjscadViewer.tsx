@@ -92,28 +92,28 @@ interface JSCADViewer {
 }
 
 interface ViewerChildProps {
-    /**
-     * viewer TSX
-     */
-    viewer: React.ReactNode;
-    /**
-     * object of refs
-     */
-    refs: {
-      [key: string]: React.RefObject<any>;
-    };
-    /**
-     * the output file text
-     */
-    outputFile: any; // TODO - get beter type for this
-    /**
-     * Status
-     */
-    status: "empty" | "aborted" | "ready" | "rendering"; // TODO - get beter type for this
-    /**
-     * Reset camera
-     */
-    resetCamera: () => void;
+  /**
+   * viewer TSX
+   */
+  viewer: React.ReactNode;
+  /**
+   * object of refs
+   */
+  refs: {
+    [key: string]: React.RefObject<any>;
+  };
+  /**
+   * the output file text
+   */
+  outputFile: any; // TODO - get beter type for this
+  /**
+   * Status
+   */
+  status: "empty" | "aborted" | "ready" | "rendering"; // TODO - get beter type for this
+  /**
+   * Reset camera
+   */
+  resetCamera: () => void;
 }
 
 /**
@@ -169,6 +169,8 @@ interface ViewerState {
 
 // resizeHandleWrapperClass ?: string;
 // resizeHandleWrapperStyle ?: Style;
+
+// TODO - add window observer component
 
 /**
  * Defines class-component for Openjscad viewer

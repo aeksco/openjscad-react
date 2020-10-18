@@ -83,8 +83,9 @@ storiesOf("Tests/Test Story", module)
     "Reset Camera",
     () => {
       return (
-        <div className="w-6/12">
+        <React.Fragment>
           <OpenjscadViewer
+            className="grid grid-cols-1 w-full"
             jscadScript={DEFAULT_SCRIPT}
           >
             {childProps => {
@@ -104,7 +105,7 @@ storiesOf("Tests/Test Story", module)
               );
             }}
           </OpenjscadViewer>
-        </div>
+        </React.Fragment>
       );
     }
   )

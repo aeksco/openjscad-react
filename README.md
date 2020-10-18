@@ -1,4 +1,4 @@
-# react-openjscad
+# openjscad-react
 
 React.js bindings for the OpenJSCAD.org project
 

@@ -5,6 +5,6 @@ export default create({
   // base: "dark",
   base: "light",
   brandTitle: "React OpenJSCAD",
-  brandUrl: "https://github.com/aeksco/react-openjscad"
+  brandUrl: "https://github.com/aeksco/openjscad-react"
   // brandImage: LogoSvg
 });

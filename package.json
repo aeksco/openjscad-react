@@ -1,9 +1,9 @@
 {
-    "name": "react-openjscad",
+    "name": "openjscad-react",
     "version": "0.0.1",
     "description": "React.js bindings for the OpenJSCAD.org project",
     "main": "index.js",
-    "repository": "https://github.com/aeksco/react-openjscad",
+    "repository": "https://github.com/aeksco/openjscad-react",
     "author": "Alexander Schwartzberg <aeksco@gmail.com>",
     "license": "MIT",
     "scripts": {
