@@ -18,6 +18,26 @@ yarn add openjscad-react
 npm install --save openjscad-react
 ```
 
+## Usage
+
+Import the `OpenJSCAD` component in your React component:
+
+```tsx
+import * as React from "react";
+import { OpenJSCAD } from "openjscad-react";
+
+export function MyComponent(props: { script: string }) {
+    return (
+        <OpenJSCAD
+            className="grid grid-cols-1 w-full"
+            jscadScript={props.script}
+        />
+    );
+}
+```
+
+See the [Props Reference](/?path=/story/docs-getting-started-props-reference--page) for more details.
+
 ## Compatibility
 
-The `openjscad-react` module is compatible with React v16+ and works with ReactDOM. React Native is not supported at this time.
+The `openjscad-react` module is compatible with React v16.8+ and works with ReactDOM. React Native is not supported at this time.

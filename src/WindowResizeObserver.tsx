@@ -40,6 +40,12 @@ export class WindowResizeObserver extends React.Component<WindowResizeObserverPr
     }
 
     handleResize() {
+        // Short-circuit change event if window dimensions haven't changed
+        // NOTE - this is necessary to handle erroneous window resize events in iOS devices
+        if (window.innerHeight === this.state.windowHeight && window.innerWidth === this.state.windowWidth) {
+            return;
+        }
+
         this.setState({
             shouldRender: false,
             windowWidth: window.innerWidth,
