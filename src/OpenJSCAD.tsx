@@ -1,4 +1,5 @@
-import * as React from "react";
+import React from "react";
+import debounce from "lodash.debounce";
 import {
   CameraProps,
   OutfileFileDescription,
@@ -8,16 +9,20 @@ import {
   OutfileFileMimeType,
   JSCADViewer,
 } from "./types";
+import { WindowResizeObserver } from "./WindowResizeObserver";
 
 // // // //
 
 export interface ViewerChildProps {
   viewer: React.ReactNode;
   refs: {
-    [key: string]: React.RefObject<any>;
+    viewerCanvas: React.RefObject<any>;
+    viewerContext: React.RefObject<any>;
+    viewerDiv: React.RefObject<any>;
+    parametersTable: React.RefObject<any>;
   };
   outputFile: any; // TODO - get beter type for this
-  status: "empty" | "aborted" | "ready" | "rendering"; // TODO - get beter type for this
+  status: "empty" | "aborted" | "ready" | "rendering"; // TODO - add type union for this
   resetCamera: () => void;
 }
 
@@ -25,6 +30,8 @@ export interface ViewerProps {
   jscadScript: string;
   className?: string;
   camera?: CameraProps;
+  debug?: boolean;
+  resizePlaceholder?: React.ReactNode;
   children?: (childProps: ViewerChildProps) => React.ReactNode;
 }
 
@@ -37,16 +44,10 @@ export interface ViewerState {
 
 // // // //
 
-// TODO - add window resize observer component
-// TODO - add window resize observer component
-// TODO - add window resize observer component
-
-// // // // 
-
 /**
  * Defines class-component for Openjscad viewer
  */
-export class OpenJSCAD extends React.Component<ViewerProps, ViewerState> {
+export class OpenJSCADInternal extends React.Component<ViewerProps, ViewerState> {
   viewerContext: React.RefObject<any>;
   viewerDiv: React.RefObject<any>;
   viewerCanvas: React.RefObject<any>;
@@ -67,7 +68,7 @@ export class OpenJSCAD extends React.Component<ViewerProps, ViewerState> {
     this.state = {
       loadedDynamicImport: false,
       status: "empty",
-      outputFile: null
+      outputFile: null,
     };
   }
 
@@ -77,7 +78,7 @@ export class OpenJSCAD extends React.Component<ViewerProps, ViewerState> {
     }
 
     // @ts-ignore
-    import("@jscad/web").then(module => {
+    import("@jscad/web").then((module) => {
       // Set openjscad module
       this.openScadModule = module.default;
 
@@ -89,14 +90,19 @@ export class OpenJSCAD extends React.Component<ViewerProps, ViewerState> {
   componentDidUpdate(prevProps: ViewerProps, prevState: ViewerState) {
     // Short-circuit if we have not loaded the dynamic import yet
     if (!this.openScadModule) {
+      console.log('NO MODULE?');
       return;
     }
     if (!this.state.loadedDynamicImport) {
+      console.log('NO IMPORT LOADED?');
       return;
     }
 
     if (!this.viewerCanvas.current) {
       console.log("NO VIEWER CANVAS PRESENT");
+      setTimeout(() => {
+        this.forceUpdate();
+      }, 500)
       return;
     }
 
@@ -117,62 +123,67 @@ export class OpenJSCAD extends React.Component<ViewerProps, ViewerState> {
 
     // @ts-ignore
     if (!this._jscadViewer) {
-      this._jscadViewer = this.openScadModule(this.viewerContext.current, {
-        processor: {
-          // * @property {Element} viewerContext - The main element that jscad uses.  If no canvas element is set, jscad creates one.
-          // * @property {Element} viewerdiv - Jscad moves the canvas tag here, or creates one and places it here.
-          // * @property {Element} parameterstable - A Table element reference.  The design parameters will be added here.
-          // * @property {Element} viewerCanvas - A Canvas element reference that will be used to draw the GL canvas.
-          viewerContext: this.viewerContext.current,
-          viewerdiv: this.viewerDiv.current,
-          viewerCanvas: this.viewerCanvas.current,
-          parameterstable: this.parametersTable.current,
-          setStatus: (status: "rendering" | "ready", _: any) => {
-            // console.log("setStatus");
-            // console.log(status);
-            // Updates the internal status
-            this.setState({ status });
-            // console.log(data);
+      this._jscadViewer = this.openScadModule(
+        this.viewerContext.current,
+        {
+          processor: {
+            // * @property {Element} viewerContext - The main element that jscad uses.  If no canvas element is set, jscad creates one.
+            // * @property {Element} viewerdiv - Jscad moves the canvas tag here, or creates one and places it here.
+            // * @property {Element} parameterstable - A Table element reference.  The design parameters will be added here.
+            // * @property {Element} viewerCanvas - A Canvas element reference that will be used to draw the GL canvas.
+            viewerContext: this.viewerContext.current,
+            viewerdiv: this.viewerDiv.current,
+            viewerCanvas: this.viewerCanvas.current,
+            parameterstable: this.parametersTable.current,
+            setStatus: (status: "rendering" | "ready", _: any) => {
+              // console.log("setStatus");
+              // console.log(status);
+              // Updates the internal status
+              this.setState({ status });
+              // console.log(data);
+            },
+            onUpdate: (data: any) => {
+              // console.log("onUpdate");
+              // console.log(data);
+              if (data.outputFile) {
+                this.setState({ outputFile: data.outputFile });
+              }
+            },
           },
-          onUpdate: (data: any) => {
-            // console.log("onUpdate");
-            // console.log(data);
-            if (data.outputFile) {
-              this.setState({ outputFile: data.outputFile });
-            }
-          }
-        },
-        init: {
-          viewerContext: this.viewerContext.current,
-          viewerdiv: this.viewerDiv.current,
-          viewerCanvas: this.viewerCanvas.current,
-          parameterstable: this.parametersTable.current,
-          instantUpdate: true,
-          useAsync: true
-        },
-        viewer: {
-          // axis: this.axis,
-          // plate: {
-          //   draw: true, // draw or not
-          //   size: 200, // plate size (X and Y)
-          //   // minor grid settings
-          //   m: {
-          //     i: 1, // number of units between minor grid lines
-          //     color: { r: 0.8, g: 0.8, b: 0.8, a: 1.0 } // color
-          //   },
-          //   // major grid settings
-          //   M: {
-          //     i: 10, // number of units between major grid lines
-          //     color: { r: 0.5, g: 0.3, b: 0.5, a: 1.0 } // color
-          //   }
-          // },
-          camera: this.props.camera,
-          glOptions: {
-            canvas: this.viewerCanvas.current
+          init: {
+            viewerContext: this.viewerContext.current,
+            viewerdiv: this.viewerDiv.current,
+            viewerCanvas: this.viewerCanvas.current,
+            parameterstable: this.parametersTable.current,
+            instantUpdate: true,
+            useAsync: true,
           },
-          background: { color: { r: 0.3, g: 0.3, b: 0.2, a: 1.0 } } // color
-        }
-      });
+          viewer: {
+            // axis: this.axis,
+            // plate: {
+            //   draw: true, // draw or not
+            //   size: 200, // plate size (X and Y)
+            //   // minor grid settings
+            //   m: {
+            //     i: 1, // number of units between minor grid lines
+            //     color: { r: 0.8, g: 0.8, b: 0.8, a: 1.0 } // color
+            //   },
+            //   // major grid settings
+            //   M: {
+            //     i: 10, // number of units between major grid lines
+            //     color: { r: 0.5, g: 0.3, b: 0.5, a: 1.0 } // color
+            //   }
+            // },
+            camera: this.props.camera,
+            glOptions: {
+              canvas: this.viewerCanvas.current,
+            },
+            background: {
+              color: { r: 0.3, g: 0.3, b: 0.2, a: 1.0 },
+            }, // color
+          },
+        },
+      );
 
       // Ensures the component re-renders after unmounting + mounting again
       this.setState({ loadedDynamicImport: true });
@@ -210,7 +221,7 @@ export class OpenJSCAD extends React.Component<ViewerProps, ViewerState> {
           displayName: OutfileFileDisplayName.stla,
           name: OutfileFileName.stla,
           extension: OutfileFileExtension.stla,
-          mimetype: OutfileFileMimeType.stla
+          mimetype: OutfileFileMimeType.stla,
         });
       }
     }
@@ -257,15 +268,25 @@ export class OpenJSCAD extends React.Component<ViewerProps, ViewerState> {
             refs: {
               viewerCanvas: this.viewerCanvas,
               viewerContext: this.viewerContext,
-              viewerDiv: this.viewerDiv
+              viewerDiv: this.viewerDiv,
+              parametersTable: this.parametersTable,
             },
             resetCamera: () => {
               if (this._jscadViewer) {
                 this._jscadViewer.resetCamera();
               }
-            }
+            },
           })}
       </div>
     );
   }
+}
+
+// export class OpenJSCAD extends React.Component<ViewerProps, ViewerState> {
+export function OpenJSCAD(props: ViewerProps) {
+  return (
+    <WindowResizeObserver debug={props.debug} >
+      <OpenJSCADInternal {...props} />
+    </WindowResizeObserver>
+  );
 }
