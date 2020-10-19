@@ -1,4 +1,4 @@
-import { PosNegColor} from "../types"
+import { PosNegColor } from "../types";
 
 // // // //
 

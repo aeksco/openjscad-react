@@ -4,6 +4,7 @@ import {
     OpenJSCADProps,
     Processor,
     STLA_FORMAT,
+    GenerateOutputFileParams,
 } from "./types";
 import {
     WindowResizeObserver,
@@ -50,9 +51,9 @@ export class OpenJSCADProcessor extends React.Component<
         };
     }
 
-    log(message: any, ...optionalParams: any[] ) {
+    log(message: any, ...optionalParams: any[]) {
         if (this.props.debug) {
-            console.log(message, ...optionalParams)
+            console.log(message, ...optionalParams);
         }
     }
 
@@ -111,10 +112,10 @@ export class OpenJSCADProcessor extends React.Component<
 
         // @ts-ignore
         if (!this.processor) {
-            const glOptions = this.props.viewerOptions &&
-                this.props.viewerOptions.glOptions
-                ? this.props.viewerOptions.glOptions
-                : {}
+            const glOptions =
+                this.props.viewerOptions && this.props.viewerOptions.glOptions
+                    ? this.props.viewerOptions.glOptions
+                    : {};
 
             this.processor = openScadModule(this.viewerContext.current, {
                 processor: {
@@ -212,10 +213,11 @@ export class OpenJSCADProcessor extends React.Component<
                 // TODO - use abort
                 // this.processor.abort();
                 this.processor.setJsCad(this.props.jscadScript);
-            } else if (prevState.status === "rendering") {
-                // Generate the STL if the viewer is ready
-                this.processor.generateOutputFile(STLA_FORMAT);
             }
+            // } else if (prevState.status === "rendering") {
+            //     // Generate the STL if the viewer is ready
+            //     this.processor.generateOutputFile(STLA_FORMAT);
+            // }
         }
     }
 
@@ -253,8 +255,14 @@ export class OpenJSCADProcessor extends React.Component<
                 {this.props.children !== undefined &&
                     this.props.children({
                         viewerElement,
+                        processor: this.processor,
                         outputFile: this.state.outputFile,
                         status: this.state.status,
+                        generateOutputFile: (
+                            params: GenerateOutputFileParams,
+                        ) => {
+                            this.processor.generateOutputFile(params);
+                        },
                         refs: {
                             viewerCanvas: this.viewerCanvas,
                             viewerContext: this.viewerContext,

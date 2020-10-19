@@ -3,6 +3,13 @@ import "./tailwind.css";
 import { storiesOf } from "@storybook/react";
 import { OpenJSCAD } from "../OpenJSCAD";
 import { DEFAULT_SCRIPT, POS_NEG_COLOR } from "./test_state";
+import {
+    STLA_FORMAT,
+    STLB_FORMAT,
+    JSCAD_FORMAT,
+    JS_FORMAT,
+    SVG_FORMAT,
+} from "../types";
 
 // // // //
 
@@ -21,7 +28,7 @@ storiesOf("Examples/Layouts", module)
                 className="grid grid-cols-1 w-full"
                 jscadScript={DEFAULT_SCRIPT}
             >
-                {childProps => {
+                {(childProps) => {
                     return (
                         <div className="grid grid-cols-2 w-full">
                             <div className="px-4">
@@ -67,7 +74,7 @@ storiesOf("Examples/Camera", module)
                 className="grid grid-cols-1 w-full"
                 jscadScript={DEFAULT_SCRIPT}
             >
-                {childProps => {
+                {(childProps) => {
                     return (
                         <div>
                             {childProps.viewerElement}
@@ -274,12 +281,13 @@ storiesOf("Examples/Axis", module)
                 viewerOptions={{
                     axis: {
                         draw: true,
-                        x: POS_NEG_COLOR
+                        x: POS_NEG_COLOR,
                     },
                 }}
             />
         );
-    }).add("y axis colors", () => {
+    })
+    .add("y axis colors", () => {
         return (
             <OpenJSCAD
                 className="grid grid-cols-1 w-full"
@@ -287,12 +295,13 @@ storiesOf("Examples/Axis", module)
                 viewerOptions={{
                     axis: {
                         draw: true,
-                        y: POS_NEG_COLOR
+                        y: POS_NEG_COLOR,
                     },
                 }}
             />
         );
-    }).add("z axis colors", () => {
+    })
+    .add("z axis colors", () => {
         return (
             <OpenJSCAD
                 className="grid grid-cols-1 w-full"
@@ -300,9 +309,105 @@ storiesOf("Examples/Axis", module)
                 viewerOptions={{
                     axis: {
                         draw: true,
-                        z: POS_NEG_COLOR
+                        z: POS_NEG_COLOR,
                     },
                 }}
             />
+        );
+    });
+
+// // // //
+
+storiesOf("Examples/generateOutputFile", module)
+    .add("stla", () => {
+        return (
+            <OpenJSCAD
+                className="grid grid-cols-1 w-full"
+                jscadScript={DEFAULT_SCRIPT}
+            >
+                {({ generateOutputFile, outputFile, viewerElement }) => (
+                    <React.Fragment>
+                        {viewerElement}
+                        <button
+                            className="btn"
+                            onClick={() => {
+                                generateOutputFile(STLA_FORMAT);
+                            }}
+                        >
+                            Generate STL (ASCII)
+                        </button>
+                        <pre>{JSON.stringify({ outputFile }, null, 4)}</pre>
+                    </React.Fragment>
+                )}
+            </OpenJSCAD>
+        );
+    })
+    .add("stlb", () => {
+        return (
+            <OpenJSCAD
+                className="grid grid-cols-1 w-full"
+                jscadScript={DEFAULT_SCRIPT}
+            >
+                {({ generateOutputFile, outputFile, viewerElement }) => (
+                    <React.Fragment>
+                        {viewerElement}
+                        <button
+                            className="btn"
+                            onClick={() => {
+                                generateOutputFile(STLB_FORMAT);
+                            }}
+                        >
+                            Generate STL (Binary)
+                        </button>
+                        <pre>{JSON.stringify({ outputFile }, null, 4)}</pre>
+                    </React.Fragment>
+                )}
+            </OpenJSCAD>
+        );
+    })
+    .add("jscad", () => {
+        return (
+            <OpenJSCAD
+                className="grid grid-cols-1 w-full"
+                jscadScript={DEFAULT_SCRIPT}
+            >
+                {({ generateOutputFile, outputFile, viewerElement }) => (
+                    <React.Fragment>
+                        {viewerElement}
+                        <button
+                            className="btn"
+                            onClick={() => {
+                                generateOutputFile(JSCAD_FORMAT);
+                            }}
+                        >
+                            Generate JSCAD Script
+                        </button>
+                        <pre>{JSON.stringify({ outputFile }, null, 4)}</pre>
+                    </React.Fragment>
+                )}
+            </OpenJSCAD>
+        );
+    })
+    .add("js", () => {
+        return (
+            <OpenJSCAD
+                className="grid grid-cols-1 w-full"
+                jscadScript={DEFAULT_SCRIPT}
+            >
+                {({ generateOutputFile, outputFile, viewerElement }) => (
+                    <React.Fragment>
+                        {viewerElement}
+                        <button
+                            className="btn"
+                            onClick={() => {
+                                generateOutputFile(JS_FORMAT);
+                            }}
+                        >
+                            Generate JS Script
+                        </button>
+                        <pre>{JSON.stringify({ outputFile }, null, 4)}</pre>
+                    </React.Fragment>
+                )}
+            </OpenJSCAD>
         );
     });

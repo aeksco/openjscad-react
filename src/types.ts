@@ -39,6 +39,11 @@ export enum OutfileFileMimeType {
     stlb = "application/sla",
 }
 
+export interface OutputFile {
+    data: string;
+    downloadAttribute: string;
+}
+
 export interface GenerateOutputFileParams {
     convertCAG: boolean;
     convertCSG: boolean;
@@ -190,7 +195,11 @@ interface JscadViewerOptions {
  * Props passed to the `children` function on `OpenJSCADProps`
  * @param props.viewerElement: a pre-built TSX/JSX element that may be returned inside the ReactNode returned by props.children. Useful for positioning the Viewer somewhere specific.
  * @param props.refs: (advanced usage) an object encapsulating required RefObjects that may be assigned to JSX/TSX elements returned by props.children. Note that all refs must be assigned.
- * @param props.outputFile: (advanced usage) an object encapsulating required RefObjects that may be assigned to JSX/TSX elements returned by props.children. Note that all refs must be assigned.
+ * @param props.outputFile: data used by downstream components to save exported files
+ * @param props.status
+ * @param props.generateOutputFile
+ * @param props.processor
+ * @param props.resetCamera
  */
 export interface ViewerChildProps {
     viewerElement: ReactNode;
@@ -200,8 +209,10 @@ export interface ViewerChildProps {
         viewerDiv: RefObject<HTMLDivElement>;
         parametersTable: RefObject<HTMLTableElement>;
     };
-    outputFile: null | string;
+    generateOutputFile: (params: GenerateOutputFileParams) => void;
+    outputFile: null | OutputFile;
     status: ProcessorState;
+    processor: Processor;
     resetCamera: () => void;
 }
 
@@ -219,82 +230,95 @@ export interface OpenJSCADProps {
 
 // // // //
 
+export enum ExportFormats {
+    stla = "stla",
+    stlb = "stlb",
+    amf = "amf",
+    x3d = "x3d",
+    dxf = "dxf",
+    jscad = "jscad",
+    js = "js",
+}
+
+// TODO - move these into consts
 export const STLA_FORMAT: GenerateOutputFileParams = {
-        name: "stla",
-        displayName: 'STL (ASCII)',
-        description: 'STereoLithography, ASCII',
-        extension: 'stl',
-        mimetype: 'application/sla',
-        convertCSG: true,
-        convertCAG: false
-    }
+    name: "stla",
+    displayName: "STL (ASCII)",
+    description: "STereoLithography, ASCII",
+    extension: "stl",
+    mimetype: "application/sla",
+    convertCSG: true,
+    convertCAG: false,
+};
 
 export const STLB_FORMAT: GenerateOutputFileParams = {
-        name: "stlb",
-        displayName: 'STL (Binary)',
-        description: 'STereoLithography, Binary',
-        extension: 'stl',
-        mimetype: 'application/sla',
-        convertCSG: true,
-        convertCAG: false
-    }
+    name: "stlb",
+    displayName: "STL (Binary)",
+    description: "STereoLithography, Binary",
+    extension: "stl",
+    mimetype: "application/sla",
+    convertCSG: true,
+    convertCAG: false,
+};
 
 export const AMF_FORMAT: GenerateOutputFileParams = {
-        name: "amf",
-        displayName: 'AMF (experimental)',
-        description: 'Additive Manufacturing File Format',
-        extension: 'amf',
-        mimetype: 'application/amf+xml',
-        convertCSG: true,
-        convertCAG: false
-    }
+    name: "amf",
+    displayName: "AMF (experimental)",
+    description: "Additive Manufacturing File Format",
+    extension: "amf",
+    mimetype: "application/amf+xml",
+    convertCSG: true,
+    convertCAG: false,
+};
 
-export const X3D_FORMAT: GenerateOutputFileParams= {
-        name: "x3d",
-        displayName: 'X3D',
-        description: 'X3D File Format',
-        extension: 'x3d',
-        mimetype: 'model/x3d+xml',
-        convertCSG: true,
-        convertCAG: false
-    }
+export const X3D_FORMAT: GenerateOutputFileParams = {
+    name: "x3d",
+    displayName: "X3D",
+    description: "X3D File Format",
+    extension: "x3d",
+    mimetype: "model/x3d+xml",
+    convertCSG: true,
+    convertCAG: false,
+};
 
-export const DXF_FORMAT: GenerateOutputFileParams =  {
-        name: "dxf",
-        displayName: 'DXF',
-        description: 'AutoCAD Drawing Exchange Format',
-        extension: 'dxf',
-        mimetype: 'application/dxf',
-        convertCSG: true,
-        convertCAG: true
-    }
+export const DXF_FORMAT: GenerateOutputFileParams = {
+    name: "dxf",
+    displayName: "DXF",
+    description: "AutoCAD Drawing Exchange Format",
+    extension: "dxf",
+    mimetype: "application/dxf",
+    convertCSG: true,
+    convertCAG: true,
+};
 
-export const JSCAD_FORMAT: GenerateOutputFileParams= {
-        name: "jscad",
-        displayName: 'JSCAD',
-        description: 'OpenJSCAD.org Source',
-        extension: 'jscad',
-        mimetype: 'application/javascript',
-        convertCSG: true,
-        convertCAG: true
-    }
+export const JSCAD_FORMAT: GenerateOutputFileParams = {
+    name: "jscad",
+    displayName: "JSCAD",
+    description: "OpenJSCAD.org Source",
+    extension: "jscad",
+    mimetype: "application/javascript",
+    convertCSG: true,
+    convertCAG: true,
+};
 
 export const JS_FORMAT: GenerateOutputFileParams = {
-        name: "js",
-        displayName: 'js',
-        description: 'JavaScript Source',
-        extension: 'js',
-        mimetype: 'application/javascript',
-        convertCSG: true,
-        convertCAG: true
-    }
+    name: "js",
+    displayName: "js",
+    description: "JavaScript Source",
+    extension: "js",
+    mimetype: "application/javascript",
+    convertCSG: true,
+    convertCAG: true,
+};
 
-export const SVG_FORMAT: GenerateOutputFileParams =  {
-        name: "svg",
-        displayName: 'SVG',
-        description: 'Scalable Vector Graphics Format',
-        extension: 'svg',
-        mimetype: 'image/svg+xml',
-        convertCSG: false,
-        convertCAG: true
-    }
+export const EXPORT_FORMATS: {
+    [key in ExportFormats]: GenerateOutputFileParams;
+} = {
+    [ExportFormats.amf]: AMF_FORMAT,
+    [ExportFormats.js]: JS_FORMAT,
+    [ExportFormats.jscad]: JSCAD_FORMAT,
+    [ExportFormats.stla]: STLA_FORMAT,
+    [ExportFormats.stlb]: STLB_FORMAT,
+    [ExportFormats.x3d]: X3D_FORMAT,
+    [ExportFormats.dxf]: DXF_FORMAT,
+};
