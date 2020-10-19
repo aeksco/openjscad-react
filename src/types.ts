@@ -1,3 +1,7 @@
+import { ReactNode, RefObject } from "react";
+
+// // // //
+
 export interface CameraSettings {
     angle?: { x: Number; y: Number; z: Number };
     position?: { x: Number; y: Number; z: Number };
@@ -168,4 +172,36 @@ interface ProcessorOptions {
     viewerdiv: any; // TODO - replace with ref
     parameterstable: any; // TODO - replace with ref
     viewerCanvas: any; // TODO - replace with ref
+}
+
+/**
+ * ViewerChildProps
+ * Props passed to the `children` function on `OpenJSCADProps`
+ * @param props.viewerElement: a pre-built TSX/JSX element that may be returned inside the ReactNode returned by props.children. Useful for positioning the Viewer somewhere specific.
+ * @param props.refs: (advanced usage) an object encapsulating required RefObjects that may be assigned to JSX/TSX elements returned by props.children. Note that all refs must be assigned.
+ * @param props.outputFile: (advanced usage) an object encapsulating required RefObjects that may be assigned to JSX/TSX elements returned by props.children. Note that all refs must be assigned.
+ */
+export interface ViewerChildProps {
+    viewerElement: ReactNode;
+    refs: {
+        viewerCanvas: RefObject<HTMLCanvasElement>;
+        viewerContext: RefObject<HTMLDivElement>;
+        viewerDiv: RefObject<HTMLDivElement>;
+        parametersTable: RefObject<HTMLTableElement>;
+    };
+    outputFile: null | string;
+    status: ProcessorState;
+    resetCamera: () => void;
+}
+
+/**
+ * OpenJSCADProps
+ * TODO - annotate this
+ */
+export interface OpenJSCADProps {
+    jscadScript: string;
+    className?: string;
+    camera?: CameraSettings;
+    debug?: boolean;
+    children?: (childProps: ViewerChildProps) => ReactNode;
 }

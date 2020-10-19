@@ -4,7 +4,7 @@ import React from "react";
 // // // //
 
 export interface WindowResizeObserverProps {
-    debug?: boolean
+    debug?: boolean;
     resizePlaceholder?: React.ReactNode | (() => React.ReactNode);
 }
 
@@ -18,13 +18,20 @@ interface WindowResizeObserverState {
  * WindowResizeObserver
  * TODO - annotate this
  */
-export class WindowResizeObserver extends React.Component<WindowResizeObserverProps & { children: React.ReactNode; }, WindowResizeObserverState> {
-    constructor(props: WindowResizeObserverProps & { children: React.ReactNode; }) {
+export class WindowResizeObserver extends React.Component<
+    WindowResizeObserverProps & { children: React.ReactNode },
+    WindowResizeObserverState
+> {
+    constructor(
+        props: WindowResizeObserverProps & { children: React.ReactNode },
+    ) {
         super(props);
 
-        this.handleResize = debounce(this.handleResize, 50).bind(this)
+        this.handleResize = debounce(this.handleResize, 50).bind(this);
         // this.handleResize = this.handleResize.bind(this)
-        this.handleShouldRender = debounce(this.handleShouldRender, 500).bind(this)
+        this.handleShouldRender = debounce(this.handleShouldRender, 500).bind(
+            this,
+        );
 
         this.state = {
             shouldRender: true,
@@ -36,13 +43,16 @@ export class WindowResizeObserver extends React.Component<WindowResizeObserverPr
     handleShouldRender() {
         this.setState({
             shouldRender: true,
-        })
+        });
     }
 
     handleResize() {
         // Short-circuit change event if window dimensions haven't changed
         // NOTE - this is necessary to handle erroneous window resize events in iOS devices
-        if (window.innerHeight === this.state.windowHeight && window.innerWidth === this.state.windowWidth) {
+        if (
+            window.innerHeight === this.state.windowHeight &&
+            window.innerWidth === this.state.windowWidth
+        ) {
             return;
         }
 
@@ -50,7 +60,7 @@ export class WindowResizeObserver extends React.Component<WindowResizeObserverPr
             shouldRender: false,
             windowWidth: window.innerWidth,
             windowHeight: window.innerHeight,
-        })
+        });
 
         // Fires off debounces function to show the input again
         this.handleShouldRender();
@@ -61,14 +71,14 @@ export class WindowResizeObserver extends React.Component<WindowResizeObserverPr
         this.setState({
             windowWidth: window.innerWidth,
             windowHeight: window.innerHeight,
-        })
+        });
 
         // Add resize event listener
-        window.addEventListener('resize', this.handleResize)
+        window.addEventListener("resize", this.handleResize);
     }
 
     componentWillUnmount() {
-        window.removeEventListener('resize', this.handleResize)
+        window.removeEventListener("resize", this.handleResize);
     }
 
     render() {
@@ -77,7 +87,10 @@ export class WindowResizeObserver extends React.Component<WindowResizeObserverPr
 
         let resizePlaceholderVal: React.ReactNode | null = null;
 
-        if (resizePlaceholder !== null && typeof resizePlaceholder === "function") {
+        if (
+            resizePlaceholder !== null &&
+            typeof resizePlaceholder === "function"
+        ) {
             resizePlaceholderVal = resizePlaceholder();
         } else if (resizePlaceholder !== null) {
             resizePlaceholderVal = resizePlaceholder;
@@ -87,7 +100,13 @@ export class WindowResizeObserver extends React.Component<WindowResizeObserverPr
             return (
                 <React.Fragment>
                     {debug && (
-                        <pre>{JSON.stringify({ windowWidth, windowHeight, shouldRender }, null, 4)}</pre>
+                        <pre>
+                            {JSON.stringify(
+                                { windowWidth, windowHeight, shouldRender },
+                                null,
+                                4,
+                            )}
+                        </pre>
                     )}
                     {resizePlaceholderVal}
                 </React.Fragment>
@@ -98,7 +117,13 @@ export class WindowResizeObserver extends React.Component<WindowResizeObserverPr
             return (
                 <React.Fragment>
                     {debug && (
-                        <pre>{JSON.stringify({ windowWidth, windowHeight, shouldRender }, null, 4)}</pre>
+                        <pre>
+                            {JSON.stringify(
+                                { windowWidth, windowHeight, shouldRender },
+                                null,
+                                4,
+                            )}
+                        </pre>
                     )}
                     {this.props.children}
                 </React.Fragment>
