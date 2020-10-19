@@ -24,27 +24,45 @@ export enum OutfileFileDisplayName {
 // QUESTION - change these enums to type unions?
 export enum OutfileFileName {
     stla = "stla",
+    stlb = "stlb",
 }
 
 // QUESTION - change these enums to type unions?
 export enum OutfileFileExtension {
     stla = "stl",
+    stlb = "stl",
 }
 
 // QUESTION - change these enums to type unions?
 export enum OutfileFileMimeType {
     stla = "application/sla",
+    stlb = "application/sla",
 }
 
 export interface GenerateOutputFileParams {
     convertCAG: boolean;
     convertCSG: boolean;
-    description: OutfileFileDescription;
-    displayName: OutfileFileDisplayName;
-    name: OutfileFileName;
-    extension: OutfileFileExtension;
-    mimetype: OutfileFileMimeType;
+    description: string;
+    displayName: string;
+    // description: OutfileFileDescription;
+    // displayName: OutfileFileDisplayName;
+    // name: OutfileFileName;
+    name: string;
+    // extension: OutfileFileExtension;
+    extension: string;
+    // mimetype: OutfileFileMimeType;
+    mimetype: string;
 }
+
+// const stlbFileparams: GenerateOutputFileParams = {
+//     displayName: 'STL (Binary)',
+//     description: 'STereoLithography, Binary',
+//     extension: 'stl',
+//     mimetype: 'application/sla',
+//     name: "stlb",
+//     convertCSG: true,
+//     convertCAG: false
+// }
 
 export type ProcessorState =
     | "empty"
@@ -118,9 +136,6 @@ export interface Processor {
 //   topRight?: string;
 // }
 
-// resizeHandleWrapperClass ?: string;
-// resizeHandleWrapperStyle ?: Style;
-
 interface RgbaColor {
     r: number;
     g: number;
@@ -134,44 +149,40 @@ interface GridSettings {
 }
 
 interface PlateSettings {
-    draw: boolean;
-    size: number;
-    m: GridSettings;
-    M: GridSettings;
+    draw?: boolean;
+    size?: number;
+    m?: GridSettings;
+    M?: GridSettings;
 }
 
-interface PosNegColor {
+export interface PosNegColor {
     neg: RgbaColor;
     pos: RgbaColor;
 }
 
 interface AxisSettings {
-    draw: boolean;
-    x: PosNegColor;
-    y: PosNegColor;
-    z: PosNegColor;
+    draw?: boolean;
+    x?: PosNegColor;
+    y?: PosNegColor;
+    z?: PosNegColor;
 }
 
 interface LightGLOptions {
-    canvas: any; // Uses the HTML canvas given in 'options' or creates a new one if necessary.
+    canvas: any; // TODO - change this from any Uses the HTML canvas given in 'options' or creates a new one if necessary.
     width: number;
     height: number;
     alpha: number;
 }
 
 interface JscadViewerOptions {
-    plate: PlateSettings;
-    camera: CameraSettings;
-    axis: AxisSettings;
-    glOptions: LightGLOptions;
-    processor: Object;
-}
-
-interface ProcessorOptions {
-    viewerContext: any; // TODO - replace with ref
-    viewerdiv: any; // TODO - replace with ref
-    parameterstable: any; // TODO - replace with ref
-    viewerCanvas: any; // TODO - replace with ref
+    plate?: PlateSettings;
+    camera?: CameraSettings;
+    axis?: AxisSettings;
+    glOptions?: LightGLOptions;
+    canvasDimensions?: {
+        width: string;
+        height: string;
+    };
 }
 
 /**
@@ -201,7 +212,89 @@ export interface ViewerChildProps {
 export interface OpenJSCADProps {
     jscadScript: string;
     className?: string;
-    camera?: CameraSettings;
     debug?: boolean;
+    viewerOptions?: JscadViewerOptions;
     children?: (childProps: ViewerChildProps) => ReactNode;
 }
+
+// // // //
+
+export const STLA_FORMAT: GenerateOutputFileParams = {
+        name: "stla",
+        displayName: 'STL (ASCII)',
+        description: 'STereoLithography, ASCII',
+        extension: 'stl',
+        mimetype: 'application/sla',
+        convertCSG: true,
+        convertCAG: false
+    }
+
+export const STLB_FORMAT: GenerateOutputFileParams = {
+        name: "stlb",
+        displayName: 'STL (Binary)',
+        description: 'STereoLithography, Binary',
+        extension: 'stl',
+        mimetype: 'application/sla',
+        convertCSG: true,
+        convertCAG: false
+    }
+
+export const AMF_FORMAT: GenerateOutputFileParams = {
+        name: "amf",
+        displayName: 'AMF (experimental)',
+        description: 'Additive Manufacturing File Format',
+        extension: 'amf',
+        mimetype: 'application/amf+xml',
+        convertCSG: true,
+        convertCAG: false
+    }
+
+export const X3D_FORMAT: GenerateOutputFileParams= {
+        name: "x3d",
+        displayName: 'X3D',
+        description: 'X3D File Format',
+        extension: 'x3d',
+        mimetype: 'model/x3d+xml',
+        convertCSG: true,
+        convertCAG: false
+    }
+
+export const DXF_FORMAT: GenerateOutputFileParams =  {
+        name: "dxf",
+        displayName: 'DXF',
+        description: 'AutoCAD Drawing Exchange Format',
+        extension: 'dxf',
+        mimetype: 'application/dxf',
+        convertCSG: true,
+        convertCAG: true
+    }
+
+export const JSCAD_FORMAT: GenerateOutputFileParams= {
+        name: "jscad",
+        displayName: 'JSCAD',
+        description: 'OpenJSCAD.org Source',
+        extension: 'jscad',
+        mimetype: 'application/javascript',
+        convertCSG: true,
+        convertCAG: true
+    }
+
+export const JS_FORMAT: GenerateOutputFileParams = {
+        name: "js",
+        displayName: 'js',
+        description: 'JavaScript Source',
+        extension: 'js',
+        mimetype: 'application/javascript',
+        convertCSG: true,
+        convertCAG: true
+    }
+
+export const SVG_FORMAT: GenerateOutputFileParams =  {
+        name: "svg",
+        displayName: 'SVG',
+        description: 'Scalable Vector Graphics Format',
+        extension: 'svg',
+        mimetype: 'image/svg+xml',
+        convertCSG: false,
+        convertCAG: true
+    }

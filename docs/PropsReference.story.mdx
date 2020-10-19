@@ -18,6 +18,7 @@ This is a props reference for the `OpenJSCAD` component
 | **children**          | `(childProps: ViewerChildProps) => React.ReactNode` | See `ViewerChildProps` type documentation below                                                       | `false`  | `undefined` |
 | **camera**            | `CameraProps`                                       | See `CameraProps` type documentation below                                                            | `false`  | `undefined` |
 
+
 ## `CameraProps` interface
 
 | Prop Name    | Type       | Description                              | Required | default                   |
@@ -27,6 +28,7 @@ This is a props reference for the `OpenJSCAD` component
 | **clip**     | `MinMax`   | Rendering outside this range is clipped. | `false`  | `{ min: 1, max: 1000 }`   |
 | **fox**      | `number`   | The field of view of the camera          | `false`  | 45                        |
 
+
 ## `XYZCoord` interface
 
 | Prop Name | Type     | Description | Required |
@@ -35,12 +37,14 @@ This is a props reference for the `OpenJSCAD` component
 | **y**     | `number` |             | `true`   |
 | **z**     | `number` |             | `true`   |
 
+
 ## `MinMax` interface
 
 | Prop Name | Type     | Description | Required |
 | --------- | -------- | ----------- | -------- |
 | **min**   | `number` |             | `true`   |
 | **max**   | `number` |             | `true`   |
+
 
 ## `RgbaColor` interface
 
@@ -58,6 +62,7 @@ This is a props reference for the `OpenJSCAD` component
 | --------- | -------- | ----------- | -------- |
 | **i**   | `number` |     number of units between grid lines        | `true`   |
 | **color**   | `RgbaColor` |   color of the grid          | `true`   |
+
 
 ## `PlateSettings` interface
 
@@ -105,14 +110,3 @@ This is a props reference for the `OpenJSCAD` component
 | **camera**   | `CameraSettings` | width applied to the canvas created when `options.canvas` is not set | `false` |
 | **axis**   | `AxisSettings` | axis settings | `false` |
 | **glOptions**   | `LightGLOptions` | options sent to GL.create() | `false` |
-
-
-## `ProcessorOptions` interface
-
-| Prop Name | Type     | Description |
-| --------- | -------- | ----------- |
-| **viewerContext**   | `Element` | The main element that jscad uses. |
-| **viewerDiv**   | `Element` | Jscad moves the canvas tag here, or creates one and places it here. |
-| **parametersTable**   | `Element` | A Table element reference.  The design parameters will be added here. |
-| **viewerCanvas**   | `Element` | A Canvas element reference that will be used to draw the GL canvas. |
-

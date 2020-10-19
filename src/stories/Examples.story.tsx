@@ -2,7 +2,7 @@ import React from "react";
 import "./tailwind.css";
 import { storiesOf } from "@storybook/react";
 import { OpenJSCAD } from "../OpenJSCAD";
-import { DEFAULT_SCRIPT } from "./test_state";
+import { DEFAULT_SCRIPT, POS_NEG_COLOR } from "./test_state";
 
 // // // //
 
@@ -21,7 +21,7 @@ storiesOf("Examples/Layouts", module)
                 className="grid grid-cols-1 w-full"
                 jscadScript={DEFAULT_SCRIPT}
             >
-                {(childProps) => {
+                {childProps => {
                     return (
                         <div className="grid grid-cols-2 w-full">
                             <div className="px-4">
@@ -67,7 +67,7 @@ storiesOf("Examples/Camera", module)
                 className="grid grid-cols-1 w-full"
                 jscadScript={DEFAULT_SCRIPT}
             >
-                {(childProps) => {
+                {childProps => {
                     return (
                         <div>
                             {childProps.viewerElement}
@@ -91,8 +91,10 @@ storiesOf("Examples/Camera", module)
             <OpenJSCAD
                 className="grid grid-cols-1 w-full"
                 jscadScript={DEFAULT_SCRIPT}
-                camera={{
-                    clip: { min: 1, max: 500 },
+                viewerOptions={{
+                    camera: {
+                        clip: { min: 1, max: 500 },
+                    },
                 }}
             />
         );
@@ -102,8 +104,11 @@ storiesOf("Examples/Camera", module)
             <OpenJSCAD
                 className="grid grid-cols-1 w-full"
                 jscadScript={DEFAULT_SCRIPT}
-                camera={{
-                    position: { x: 50, y: 50, z: 250 },
+                viewerOptions={{
+                    camera: {
+                        position: { x: 50, y: 50, z: 250 },
+                        angle: { x: -60, y: 0, z: 45 },
+                    },
                 }}
             />
         );
@@ -113,9 +118,10 @@ storiesOf("Examples/Camera", module)
             <OpenJSCAD
                 className="grid grid-cols-1 w-full"
                 jscadScript={DEFAULT_SCRIPT}
-                camera={{
-                    // angle: { x: -45, y: 0, z: 170 },
-                    angle: { x: -60, y: 0, z: 45 },
+                viewerOptions={{
+                    camera: {
+                        angle: { x: -60, y: 0, z: 45 },
+                    },
                 }}
             />
         );
@@ -125,8 +131,10 @@ storiesOf("Examples/Camera", module)
             <OpenJSCAD
                 className="grid grid-cols-1 w-full"
                 jscadScript={DEFAULT_SCRIPT}
-                camera={{
-                    fov: 15,
+                viewerOptions={{
+                    camera: {
+                        fov: 15,
+                    },
                 }}
             />
         );
@@ -165,6 +173,135 @@ storiesOf("Examples/Resize Placeholder", module)
                             </p>
                         </div>
                     );
+                }}
+            />
+        );
+    });
+
+// // // //
+
+storiesOf("Examples/Plate", module)
+    .add("size", () => {
+        return (
+            <OpenJSCAD
+                className="grid grid-cols-1 w-full"
+                jscadScript={DEFAULT_SCRIPT}
+                viewerOptions={{
+                    plate: {
+                        size: 100,
+                    },
+                }}
+            />
+        );
+    })
+    .add("draw", () => {
+        return (
+            <OpenJSCAD
+                className="grid grid-cols-1 w-full"
+                jscadScript={DEFAULT_SCRIPT}
+                viewerOptions={{
+                    plate: {
+                        draw: false,
+                    },
+                }}
+            />
+        );
+    })
+    .add("minor grid size + color", () => {
+        return (
+            <OpenJSCAD
+                className="grid grid-cols-1 w-full"
+                jscadScript={DEFAULT_SCRIPT}
+                viewerOptions={{
+                    plate: {
+                        m: {
+                            i: 5,
+                            color: {
+                                r: 0.8,
+                                g: 0.8,
+                                b: 0.8,
+                                a: 1,
+                            },
+                        },
+                    },
+                }}
+            />
+        );
+    })
+    .add("major grid size + color", () => {
+        return (
+            <OpenJSCAD
+                className="grid grid-cols-1 w-full"
+                jscadScript={DEFAULT_SCRIPT}
+                viewerOptions={{
+                    plate: {
+                        M: {
+                            i: 10,
+                            color: {
+                                r: 0.5,
+                                g: 0.5,
+                                b: 0.5,
+                                a: 1,
+                            },
+                        },
+                    },
+                }}
+            />
+        );
+    });
+
+// // // //
+
+storiesOf("Examples/Axis", module)
+    .add("draw", () => {
+        return (
+            <OpenJSCAD
+                className="grid grid-cols-1 w-full"
+                jscadScript={DEFAULT_SCRIPT}
+                viewerOptions={{
+                    axis: {
+                        draw: true,
+                    },
+                }}
+            />
+        );
+    })
+    .add("x axis colors", () => {
+        return (
+            <OpenJSCAD
+                className="grid grid-cols-1 w-full"
+                jscadScript={DEFAULT_SCRIPT}
+                viewerOptions={{
+                    axis: {
+                        draw: true,
+                        x: POS_NEG_COLOR
+                    },
+                }}
+            />
+        );
+    }).add("y axis colors", () => {
+        return (
+            <OpenJSCAD
+                className="grid grid-cols-1 w-full"
+                jscadScript={DEFAULT_SCRIPT}
+                viewerOptions={{
+                    axis: {
+                        draw: true,
+                        y: POS_NEG_COLOR
+                    },
+                }}
+            />
+        );
+    }).add("z axis colors", () => {
+        return (
+            <OpenJSCAD
+                className="grid grid-cols-1 w-full"
+                jscadScript={DEFAULT_SCRIPT}
+                viewerOptions={{
+                    axis: {
+                        draw: true,
+                        z: POS_NEG_COLOR
+                    },
                 }}
             />
         );
