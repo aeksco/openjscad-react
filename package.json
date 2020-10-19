@@ -6,8 +6,8 @@
     "author": "Alexander Schwartzberg <aeksco@gmail.com>",
     "license": "MIT",
     "scripts": {
-        "start": "start-storybook -p 6006 -s public",
-        "storybook:build": "build-storybook -s public",
+        "start": "start-storybook -p 6006",
+        "storybook:build": "build-storybook",
         "prettify": "prettier --config ./.prettierrc.js 'src/**/*.ts*' --write",
         "build": "npm run clean && npm run compile",
         "clean": "rm -rf ./dist",

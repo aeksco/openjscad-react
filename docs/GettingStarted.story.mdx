@@ -36,7 +36,36 @@ export function MyComponent(props: { script: string }) {
 }
 ```
 
-See the [Props Reference](/?path=/story/docs-getting-started-props-reference--page) for more details.
+## Next.js
+
+If you're using a server-side rendered framework like Vercel's [Next.js](https://nextjs.org/), you will need to import the `OpenJSCAD` component using a [dynamic import](https://nextjs.org/docs/advanced-features/dynamic-import):
+
+```tsx
+import * as React from "react";
+import dynamic from "next/dynamic";
+import { ViewerProps } from "openjscad-react";
+
+const OpenJSCAD: React.ComponentType<ViewerProps> = dynamic(
+    () =>
+        import("openjscad-react/dist/src/OpenJSCAD").then(
+            (mod) => mod.OpenJSCAD,
+        ),
+    { ssr: false },
+);
+
+export function MyComponent(props: { script: string }) {
+    return (
+        <OpenJSCAD
+            className="grid grid-cols-1 w-full"
+            jscadScript={props.script}
+        />
+    );
+}
+```
+
+## Configuration
+
+See the [Props Reference](/?path=/story/docs-getting-started-props-reference--page) for more details about Configuration
 
 ## Compatibility
 
