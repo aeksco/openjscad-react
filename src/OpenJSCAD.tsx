@@ -2,7 +2,6 @@ import React, {
   ReactNode,
   RefObject,
 } from "react";
-import debounce from "lodash.debounce";
 import {
   CameraSettings,
   OutfileFileDescription,
@@ -14,7 +13,9 @@ import {
   Processor,
 } from "./types";
 import { WindowResizeObserver, WindowResizeObserverProps } from "./WindowResizeObserver";
-import * as openScadModule from "@jscad/web"
+
+// import * as openScadModule from "@jscad/web"
+const openScadModule = require("@jscad/web")
 
 // // // //
 

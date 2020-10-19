@@ -1,5 +1,26 @@
 {
   "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "watch": false,
+    "skipLibCheck": true,
+    "outDir": "./dist",
+    "module": "commonjs",
+    // "module": "es2015",
+    "target": "es5",
+    "allowSyntheticDefaultImports": true,
+    "lib": ["es6", "dom"],
+    "sourceMap": true,
+    "allowJs": false,
+    "jsx": "react",
+    "moduleResolution": "node",
+    "rootDir": "./",
+    "baseUrl": "./",
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "declaration": true
+  },
   "include": ["src/**/*"],
   "exclude": [
     "node_modules",

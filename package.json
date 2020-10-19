@@ -1,6 +1,6 @@
 {
     "name": "openjscad-react",
-    "version": "0.0.1-canary-01",
+    "version": "0.0.1-canary-02",
     "description": "React.js component for the OpenJSCAD.org project",
     "repository": "https://github.com/aeksco/openjscad-react",
     "author": "Alexander Schwartzberg <aeksco@gmail.com>",
