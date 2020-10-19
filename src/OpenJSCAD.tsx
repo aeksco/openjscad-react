@@ -13,9 +13,6 @@ import {
     WindowResizeObserver,
     WindowResizeObserverProps,
 } from "./WindowResizeObserver";
-
-// import * as openScadModule from "@jscad/web"
-// const openScadModule = require("@jscad/web")
 import * as openScadModule from "@jscad/web/src/ui/umd.js";
 
 // // // //
