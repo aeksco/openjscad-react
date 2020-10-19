@@ -14,6 +14,7 @@ import {
   Processor,
 } from "./types";
 import { WindowResizeObserver, WindowResizeObserverProps } from "./WindowResizeObserver";
+import * as openScadModule from "@jscad/web"
 
 // // // //
 
@@ -59,6 +60,8 @@ export interface ViewerState {
 
 // // // //
 
+// let openScadModule: null | any = null;
+
 // TODO - annotate
 // TODO - rename this.
 export class OpenJSCADInternal extends React.Component<ViewerProps, ViewerState> {
@@ -67,12 +70,12 @@ export class OpenJSCADInternal extends React.Component<ViewerProps, ViewerState>
   viewerCanvas: React.RefObject<HTMLCanvasElement>;
   parametersTable: React.RefObject<HTMLTableElement>;
   processor: null | Processor;
-  openScadModule: any;
+  // openScadModule: any;
 
   constructor(props: ViewerProps) {
     super(props);
 
-    this.openScadModule = null;
+    // openScadModule = null;
     this.viewerContext = React.createRef();
     this.viewerDiv = React.createRef();
     this.viewerCanvas = React.createRef();
@@ -87,23 +90,24 @@ export class OpenJSCADInternal extends React.Component<ViewerProps, ViewerState>
   }
 
   componentDidMount() {
-    if (this.openScadModule) {
+    if (openScadModule) {
       this.setState({ loadedDynamicImport: true });
+      return;
     }
 
-    // @ts-ignore
-    import("@jscad/web").then((module) => {
-      // Set openjscad module
-      this.openScadModule = module.default;
+    // // @ts-ignore
+    // import("@jscad/web").then((module) => {
+    //   // Set openjscad module
+    //   openScadModule = module.default;
 
-      // Set state.ready to true
-      this.setState({ loadedDynamicImport: true });
-    });
+    //   // Set state.ready to true
+    //   this.setState({ loadedDynamicImport: true });
+    // });
   }
 
   componentDidUpdate(prevProps: ViewerProps, prevState: ViewerState) {
     // Short-circuit if we have not loaded the dynamic import yet
-    if (!this.openScadModule) {
+    if (!openScadModule) {
       console.log('NO MODULE?');
       return;
     }
@@ -139,7 +143,7 @@ export class OpenJSCADInternal extends React.Component<ViewerProps, ViewerState>
 
     // @ts-ignore
     if (!this.processor) {
-      this.processor = this.openScadModule(
+      this.processor = openScadModule(
         this.viewerContext.current,
         {
           processor: {
