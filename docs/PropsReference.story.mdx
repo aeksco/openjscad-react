@@ -42,81 +42,77 @@ This is a props reference for the `OpenJSCAD` component
 | **min**   | `number` |             | `true`   |
 | **max**   | `number` |             | `true`   |
 
----
+## `RgbaColor` interface
 
-TODO - finish transposing + supporting all these types + add examples to stories
+| Prop Name | Type     | Description | Required |
+| --------- | -------- | ----------- | -------- |
+| **r**     | `number` |     red (values 0.0 - 1.0)        | `true`   |
+| **g**     | `number` |      green (values 0.0 - 1.0)       | `true`   |
+| **b**     | `number` |       blue (values 0.0 - 1.0)      | `true`   |
+| **a**     | `number` |       alpha (values 0.0 - 1.0)      | `true`   |
 
-```js
-/**
- * Camera settings
- * @typedef {Object} CameraSettings
- * @property {number} fov - field of view.
- * @property {XYZCoord} angle - view angle about XYZ axis.
- * @property {XYZCoord} position - initial position at XYZ.
- * @property {MinMax} clip - rendering outside this range is clipped.
- */
 
-/**
- * @typedef {Object} RgbaColor
- * @property {number} r - red (values 0.0 - 1.0).
- * @property {number} g - green (values 0.0 - 1.0).
- * @property {number} b - blue (values 0.0 - 1.0).
- * @property {number} a - alpha (values 0.0 - 1.0).
- */
+## `GridSettings` interface
 
-/**
- * Grid settings
- * @typedef {Object} GridSettings
- * @property {number} i - number of units between grid lines.
- * @property {RgbaColor} color - color.
- */
+| Prop Name | Type     | Description | Required |
+| --------- | -------- | ----------- | -------- |
+| **i**   | `number` |     number of units between grid lines        | `true`   |
+| **color**   | `RgbaColor` |   color of the grid          | `true`   |
 
-/**
- * @typedef {Object} PlateSettings
- * @property {boolean} draw draw or not (default: true).
- * @property {number} size plate size (X and Y) (default: 200).
- * @property {GridSettings} m minor grid settings.
- * @property {GridSettings} M major grid settings.
- */
+## `PlateSettings` interface
 
-/**
- *
- * @typedef {Object} PosNegColor
- * @property {RgbaColor} neg color in negative direction.
- * @property {RgbaColor} pos color in positive direction.
- */
+| Prop Name | Type     | Description | Required | Defualt Value|
+| --------- | -------- | ----------- | -------- |-------- |
+| **draw**   | `boolean` |     draw or note        | `false`   | `true` |
+| **size**   | `number` |   plate size (X and Y)          | `false`   | `200` |
+| **m**   | `GridSettings` |   minor grid settings          | `false`   |  |
+| **M**   | `GridSettings` |   minor grid settings          | `false`   | |
 
-/**
- * @typedef {Object} AxisSettings
- * @property {boolean} draw - draw or not (default: false).
- * @property {PosNegColor} x
- * @property {PosNegColor} y
- * @property {PosNegColor} z
- */
 
-/**
- * @typedef {Object} LightGLOptions
- * @property {Object} canvas - Uses the HTML canvas given in 'options' or creates a new one if necessary.
- * @property {number} width - width applied to the canvas created when `options.canvas` is not set. (default: 800).
- * @property {number} height - height applied to the canvas created when `options.canvas` is not set. (default: 600).
- * @property {number} alpha - The alpha channel is disabled by default because it usually causes unintended transparencies in the canvas.
- *
- */
+## `PosNegColor` interface
 
-/**
- * @typedef {Object} JscadViewerOptions
- * @property {PlateSettings} plate - The grid show in the viewer.
- * @property {CameraSettings} camera
- * @property {AxisSettings} axis
- * @property {LightGLOptions} glOptions - Options sent to `GL.create()`.
- * @property {Object} processor - options used by the viewer processor.
- */
+| Prop Name | Type     | Description | Required |
+| --------- | -------- | ----------- | -------- |
+| **neg**   | `RgbaColor` | color in negative direction | `false` |
+| **pos**   | `RgbaColor` |   plate size (X and Y)          | `false` |
 
-/**
- * @typedef {Object} ProcessorOptions
- * @property {Element} viewerContext - The main element that jscad uses.  If no canvas element is set, jscad creates one.
- * @property {Element} viewerdiv - Jscad moves the canvas tag here, or creates one and places it here.
- * @property {Element} parameterstable - A Table element reference.  The design parameters will be added here.
- * @property {Element} viewerCanvas - A Canvas element reference that will be used to draw the GL canvas.
- */
-```
+
+## `AxisSettings` interface
+
+| Prop Name | Type     | Description | Required | Default Value|
+| --------- | -------- | ----------- | -------- |-------- |
+| **draw**   | `boolean` | draw or not | `false` |`false` |
+| **x**   | `PosNegColor` | colors for x axis | `false` | |
+| **y**   | `PosNegColor` | colors for y axis | `false` | |
+| **z**   | `PosNegColor` | colors for z axis | `false` | |
+
+
+## `LightGLOptions` interface
+
+| Prop Name | Type     | Description | Required | Default Value|
+| --------- | -------- | ----------- | -------- |-------- |
+| **canvas**   | `Object` | Uses the HTML canvas given in 'options' or creates a new one if necessary | `false` | |
+| **width**   | `number` | width applied to the canvas created when `options.canvas` is not set | `false` | `600` |
+| **height**   | `number` | height applied to the canvas created when `options.canvas` is not set | `false` | `600` |
+| **alpha**   | `number` | The alpha channel is disabled by default because it usually causes unintended transparencies in the canvas | `false` |  |
+
+
+## `JscadViewerOptions` interface
+
+| Prop Name | Type     | Description | Required |
+| --------- | -------- | ----------- | -------- |
+| **plate**   | `PlateSettings` | Uses the HTML canvas given in 'options' or creates a new one if necessary | `false` |
+| **camera**   | `CameraSettings` | width applied to the canvas created when `options.canvas` is not set | `false` |
+| **axis**   | `AxisSettings` | axis settings | `false` |
+| **glOptions**   | `LightGLOptions` | options sent to GL.create() | `false` |
+
+
+## `ProcessorOptions` interface
+
+| Prop Name | Type     | Description |
+| --------- | -------- | ----------- |
+| **viewerContext**   | `Element` | The main element that jscad uses. |
+| **viewerDiv**   | `Element` | Jscad moves the canvas tag here, or creates one and places it here. |
+| **parametersTable**   | `Element` | A Table element reference.  The design parameters will be added here. |
+| **viewerCanvas**   | `Element` | A Canvas element reference that will be used to draw the GL canvas. |
+

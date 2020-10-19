@@ -18,21 +18,15 @@ import * as openScadModule from "@jscad/web/src/ui/umd.js";
 // // // //
 
 // TODO - rename this interface to not use Viewer terminology
+// TODO - simplify this state interface
 export interface ViewerState {
     loadedDynamicImport: boolean;
     status: ProcessorState;
     outputFile: any;
-    // TODO - add camera
-    // TODO - add other props here
-    // TODO - add other props here
-    // TODO - add other props here
 }
 
-// let openScadModule: null | any = null;
-
 // TODO - annotate
-// TODO - rename this.
-export class OpenJSCADInternal extends React.Component<
+export class OpenJSCADProcessor extends React.Component<
     OpenJSCADProps,
     ViewerState
 > {
@@ -41,12 +35,10 @@ export class OpenJSCADInternal extends React.Component<
     viewerCanvas: React.RefObject<HTMLCanvasElement>;
     parametersTable: React.RefObject<HTMLTableElement>;
     processor: null | Processor;
-    // openScadModule: any;
 
     constructor(props: OpenJSCADProps) {
         super(props);
 
-        // openScadModule = null;
         this.viewerContext = React.createRef();
         this.viewerDiv = React.createRef();
         this.viewerCanvas = React.createRef();
@@ -308,7 +300,7 @@ export function OpenJSCAD(props: OpenJSCADProps & WindowResizeObserverProps) {
             debug={props.debug}
             resizePlaceholder={props.resizePlaceholder}
         >
-            <OpenJSCADInternal {...props} />
+            <OpenJSCADProcessor {...props} />
         </WindowResizeObserver>
     );
 }

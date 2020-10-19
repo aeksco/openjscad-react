@@ -1,7 +1,7 @@
 import React from "react";
 import "./tailwind.css";
 import { storiesOf } from "@storybook/react";
-import { OpenJSCAD, OpenJSCADInternal } from "../OpenJSCAD";
+import { OpenJSCAD } from "../OpenJSCAD";
 import { DEFAULT_SCRIPT } from "./test_state";
 
 // // // //
@@ -145,14 +145,6 @@ storiesOf("Examples/Resize Placeholder", module)
                         <p className="py-56">Resizing...</p>
                     </div>
                 }
-            />
-        );
-    })
-    .add("static w/o window resize", () => {
-        return (
-            <OpenJSCADInternal
-                className="grid grid-cols-1 w-full"
-                jscadScript={DEFAULT_SCRIPT}
             />
         );
     })
