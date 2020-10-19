@@ -3,7 +3,6 @@ import {
     ProcessorState,
     OpenJSCADProps,
     Processor,
-    STLA_FORMAT,
     GenerateOutputFileParams,
 } from "./types";
 import {
@@ -103,7 +102,9 @@ export class OpenJSCADProcessor extends React.Component<
                 this.processor &&
                 prevProps.jscadScript !== this.props.jscadScript
             ) {
-                // this.log("JSCAD SCRIPT UPDATED");
+                // Log debug statement
+                this.log("props.jscadScript Updated");
+
                 // TODO - use abort
                 this.processor.abort();
                 this.processor.setJsCad(this.props.jscadScript);
@@ -112,6 +113,7 @@ export class OpenJSCADProcessor extends React.Component<
 
         // @ts-ignore
         if (!this.processor) {
+            // Safely pulls glOptions from this.props.viewerOptions
             const glOptions =
                 this.props.viewerOptions && this.props.viewerOptions.glOptions
                     ? this.props.viewerOptions.glOptions
@@ -119,32 +121,27 @@ export class OpenJSCADProcessor extends React.Component<
 
             this.processor = openScadModule(this.viewerContext.current, {
                 processor: {
-                    // * @property {Element} viewerContext - The main element that jscad uses.  If no canvas element is set, jscad creates one.
-                    // * @property {Element} viewerdiv - Jscad moves the canvas tag here, or creates one and places it here.
-                    // * @property {Element} parameterstable - A Table element reference.  The design parameters will be added here.
-                    // * @property {Element} viewerCanvas - A Canvas element reference that will be used to draw the GL canvas.
                     viewerContext: this.viewerContext.current,
                     viewerdiv: this.viewerDiv.current,
                     viewerCanvas: this.viewerCanvas.current,
                     parameterstable: this.parametersTable.current,
-
                     // debug: false,
                     // libraries: [],
                     // openJsCadPath: '',
                     // useAsync: true,
                     // useSync: true,
-                    // viewer: {}
-
                     setStatus: (status: "rendering" | "ready", _: any) => {
-                        // this.log("setStatus");
-                        // this.log(status);
+                        // Logs debug statement
+                        this.log("processor.setStatus", status);
+
                         // Updates the internal status
                         this.setState({ status });
-                        // this.log(data);
                     },
                     onUpdate: (data: any) => {
-                        // this.log("onUpdate");
-                        // this.log(data);
+                        // Logs debug statement
+                        console.log("processor.onUpdate", data);
+
+                        // If data.outputFile is defined -> update state.outputFile
                         if (data.outputFile) {
                             this.setState({
                                 outputFile: data.outputFile,
@@ -161,6 +158,7 @@ export class OpenJSCADProcessor extends React.Component<
                     useAsync: true, // QUESTION - what does this do?
                 },
                 viewer: {
+                    // TODO - tighten this up
                     axis:
                         this.props.viewerOptions &&
                         this.props.viewerOptions.axis
@@ -190,9 +188,6 @@ export class OpenJSCADProcessor extends React.Component<
             this.setState({ loadedDynamicImport: true });
             return;
         }
-
-        // Applies props to build jscad script
-        // this.log("UPDATE JSCAD?");
 
         // SETS INITIAL VIEWER STATE
         if (this.state.status === "empty") {
@@ -224,13 +219,14 @@ export class OpenJSCADProcessor extends React.Component<
     render() {
         const { viewerOptions, className = undefined } = this.props;
 
-        // TODO - annotate
+        // Defines canvasDimensions from props or defaults
         const canvasDimensions =
             viewerOptions && viewerOptions.canvasDimensions
                 ? viewerOptions.canvasDimensions
                 : { width: "100%", height: "480px" };
 
-        // TODO - annotate
+        // Defines the viewerElement passed
+        // Passed to props.children or rendered by itself when props.children is not defined
         const viewerElement = (
             <div className={className}>
                 <div ref={this.viewerContext}>
@@ -246,6 +242,7 @@ export class OpenJSCADProcessor extends React.Component<
 
         return (
             <div className={className}>
+                {/* TODO - render parameters table inside viewerElement? */}
                 <table ref={this.parametersTable}></table>
 
                 {/* Render viewer element  */}
@@ -284,8 +281,8 @@ export class OpenJSCADProcessor extends React.Component<
 
 /**
  * OpenJSCAD
- * TODO - annotate
- * @param props
+ * Exports the OpenJSCADProcessor component wrapped in the WindowResizeObserver
+ * @param props - See `OpenJSCADProps` and `WindowResizeObserverProps`
  */
 export function OpenJSCAD(props: OpenJSCADProps & WindowResizeObserverProps) {
     return (
