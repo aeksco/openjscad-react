@@ -217,33 +217,40 @@ export class OpenJSCADProcessor extends React.Component<
     }
 
     render() {
-        const { viewerOptions, className = undefined } = this.props;
-
-        // Defines canvasDimensions from props or defaults
-        const canvasDimensions =
-            viewerOptions && viewerOptions.canvasDimensions
-                ? viewerOptions.canvasDimensions
-                : { width: "100%", height: "480px" };
+        const { style={}, className = {} } = this.props;
 
         // Defines the viewerElement passed
         // Passed to props.children or rendered by itself when props.children is not defined
         const viewerElement = (
-            <div className={className}>
-                <div ref={this.viewerContext}>
-                    <div ref={this.viewerDiv}></div>
+            <div className={className.wrapperDiv}>
+                <table
+                    className={className.parametersTable}
+                    style={style.parametersTable}
+                    ref={this.parametersTable}
+                />
+
+                <div
+                    className={className.viewerContext}
+                    style={style.viewerContext}
+                    ref={this.viewerContext}
+                >
+                    <div
+                        className={className.viewerDiv}
+                        style={style.viewerDiv}
+                        ref={this.viewerDiv}
+                    ></div>
                 </div>
 
                 <canvas
-                    style={{ ...canvasDimensions }}
+                    className={className.viewerCanvas}
+                    style={style.viewerCanvas}
                     ref={this.viewerCanvas}
                 />
             </div>
         );
 
         return (
-            <div className={className}>
-                {/* TODO - render parameters table inside viewerElement? */}
-                <table ref={this.parametersTable}></table>
+            <React.Fragment>
 
                 {/* Render viewer element  */}
                 {this.props.children === undefined && viewerElement}
@@ -272,7 +279,7 @@ export class OpenJSCADProcessor extends React.Component<
                             }
                         },
                     })}
-            </div>
+            </React.Fragment>
         );
     }
 }

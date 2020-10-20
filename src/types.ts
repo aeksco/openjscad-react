@@ -184,7 +184,7 @@ interface JscadViewerOptions {
     camera?: CameraSettings;
     axis?: AxisSettings;
     glOptions?: LightGLOptions;
-    canvasDimensions?: {
+    canvasDimensions?: { // TOOD - remove this
         width: string;
         height: string;
     };
@@ -222,10 +222,23 @@ export interface ViewerChildProps {
  */
 export interface OpenJSCADProps {
     jscadScript: string;
-    className?: string;
     debug?: boolean;
     viewerOptions?: JscadViewerOptions;
     children?: (childProps: ViewerChildProps) => ReactNode;
+    style?: {
+        wrapperDiv?: React.CSSProperties;
+        viewerCanvas?: React.CSSProperties;
+        viewerContext?: React.CSSProperties;
+        viewerDiv?: React.CSSProperties;
+        parametersTable?: React.CSSProperties;
+    };
+    className?: {
+        wrapperDiv?: string;
+        viewerCanvas?: string;
+        viewerContext?: string;
+        viewerDiv?: string;
+        parametersTable?: string;
+    }
 }
 
 // // // //

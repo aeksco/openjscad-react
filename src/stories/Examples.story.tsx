@@ -8,16 +8,28 @@ import {
     STLB_FORMAT,
     JSCAD_FORMAT,
     JS_FORMAT,
-    SVG_FORMAT,
 } from "../types";
 
 // // // //
+
+const EXAMPLE_STYLES = {
+    viewerCanvas: {
+        height: "480px",
+        width: "100%"
+    }
+}
+
+const EXAMPLE_CLASSNAME = {
+    wrapperDiv: "grid grid-cols-1 w-full"
+}
+
 
 storiesOf("Examples/Layouts", module)
     .add("Simple", () => {
         return (
             <OpenJSCAD
-                className="grid grid-cols-1 w-full"
+                className={EXAMPLE_CLASSNAME}
+                style={EXAMPLE_STYLES}
                 jscadScript={DEFAULT_SCRIPT}
             />
         );
@@ -25,7 +37,8 @@ storiesOf("Examples/Layouts", module)
     .add("Custom", () => {
         return (
             <OpenJSCAD
-                className="grid grid-cols-1 w-full"
+                className={EXAMPLE_CLASSNAME}
+                style={EXAMPLE_STYLES}
                 jscadScript={DEFAULT_SCRIPT}
             >
                 {(childProps) => {
@@ -71,7 +84,8 @@ storiesOf("Examples/Camera", module)
     .add("Reset Camera", () => {
         return (
             <OpenJSCAD
-                className="grid grid-cols-1 w-full"
+                className={EXAMPLE_CLASSNAME}
+                style={EXAMPLE_STYLES}
                 jscadScript={DEFAULT_SCRIPT}
             >
                 {(childProps) => {
@@ -96,7 +110,8 @@ storiesOf("Examples/Camera", module)
     .add("Starting Position - Clip", () => {
         return (
             <OpenJSCAD
-                className="grid grid-cols-1 w-full"
+                className={EXAMPLE_CLASSNAME}
+                style={EXAMPLE_STYLES}
                 jscadScript={DEFAULT_SCRIPT}
                 viewerOptions={{
                     camera: {
@@ -109,7 +124,8 @@ storiesOf("Examples/Camera", module)
     .add("Starting Position - Position", () => {
         return (
             <OpenJSCAD
-                className="grid grid-cols-1 w-full"
+                className={EXAMPLE_CLASSNAME}
+                style={EXAMPLE_STYLES}
                 jscadScript={DEFAULT_SCRIPT}
                 viewerOptions={{
                     camera: {
@@ -123,7 +139,8 @@ storiesOf("Examples/Camera", module)
     .add("Starting Position - Angle", () => {
         return (
             <OpenJSCAD
-                className="grid grid-cols-1 w-full"
+                className={EXAMPLE_CLASSNAME}
+                style={EXAMPLE_STYLES}
                 jscadScript={DEFAULT_SCRIPT}
                 viewerOptions={{
                     camera: {
@@ -136,7 +153,8 @@ storiesOf("Examples/Camera", module)
     .add("Starting Position - Field Of View", () => {
         return (
             <OpenJSCAD
-                className="grid grid-cols-1 w-full"
+                className={EXAMPLE_CLASSNAME}
+                style={EXAMPLE_STYLES}
                 jscadScript={DEFAULT_SCRIPT}
                 viewerOptions={{
                     camera: {
@@ -153,7 +171,8 @@ storiesOf("Examples/Resize Placeholder", module)
     .add("static", () => {
         return (
             <OpenJSCAD
-                className="grid grid-cols-1 w-full"
+                className={EXAMPLE_CLASSNAME}
+                style={EXAMPLE_STYLES}
                 jscadScript={DEFAULT_SCRIPT}
                 resizePlaceholder={
                     <div className="w-full min-h-full h-full bg-gray-100 flex justify-center">
@@ -166,7 +185,8 @@ storiesOf("Examples/Resize Placeholder", module)
     .add("function", () => {
         return (
             <OpenJSCAD
-                className="grid grid-cols-1 w-full"
+                className={EXAMPLE_CLASSNAME}
+                style={EXAMPLE_STYLES}
                 jscadScript={DEFAULT_SCRIPT}
                 resizePlaceholder={() => {
                     const currentTime = new Date().toUTCString();
@@ -191,7 +211,8 @@ storiesOf("Examples/Plate", module)
     .add("size", () => {
         return (
             <OpenJSCAD
-                className="grid grid-cols-1 w-full"
+                className={EXAMPLE_CLASSNAME}
+                style={EXAMPLE_STYLES}
                 jscadScript={DEFAULT_SCRIPT}
                 viewerOptions={{
                     plate: {
@@ -204,7 +225,8 @@ storiesOf("Examples/Plate", module)
     .add("draw", () => {
         return (
             <OpenJSCAD
-                className="grid grid-cols-1 w-full"
+                className={EXAMPLE_CLASSNAME}
+                style={EXAMPLE_STYLES}
                 jscadScript={DEFAULT_SCRIPT}
                 viewerOptions={{
                     plate: {
@@ -217,7 +239,8 @@ storiesOf("Examples/Plate", module)
     .add("minor grid size + color", () => {
         return (
             <OpenJSCAD
-                className="grid grid-cols-1 w-full"
+                className={EXAMPLE_CLASSNAME}
+                style={EXAMPLE_STYLES}
                 jscadScript={DEFAULT_SCRIPT}
                 viewerOptions={{
                     plate: {
@@ -238,7 +261,8 @@ storiesOf("Examples/Plate", module)
     .add("major grid size + color", () => {
         return (
             <OpenJSCAD
-                className="grid grid-cols-1 w-full"
+                className={EXAMPLE_CLASSNAME}
+                style={EXAMPLE_STYLES}
                 jscadScript={DEFAULT_SCRIPT}
                 viewerOptions={{
                     plate: {
@@ -263,7 +287,8 @@ storiesOf("Examples/Axis", module)
     .add("draw", () => {
         return (
             <OpenJSCAD
-                className="grid grid-cols-1 w-full"
+                className={EXAMPLE_CLASSNAME}
+                style={EXAMPLE_STYLES}
                 jscadScript={DEFAULT_SCRIPT}
                 viewerOptions={{
                     axis: {
@@ -276,7 +301,8 @@ storiesOf("Examples/Axis", module)
     .add("x axis colors", () => {
         return (
             <OpenJSCAD
-                className="grid grid-cols-1 w-full"
+                className={EXAMPLE_CLASSNAME}
+                style={EXAMPLE_STYLES}
                 jscadScript={DEFAULT_SCRIPT}
                 viewerOptions={{
                     axis: {
@@ -290,7 +316,8 @@ storiesOf("Examples/Axis", module)
     .add("y axis colors", () => {
         return (
             <OpenJSCAD
-                className="grid grid-cols-1 w-full"
+                className={EXAMPLE_CLASSNAME}
+                style={EXAMPLE_STYLES}
                 jscadScript={DEFAULT_SCRIPT}
                 viewerOptions={{
                     axis: {
@@ -304,7 +331,8 @@ storiesOf("Examples/Axis", module)
     .add("z axis colors", () => {
         return (
             <OpenJSCAD
-                className="grid grid-cols-1 w-full"
+                className={EXAMPLE_CLASSNAME}
+                style={EXAMPLE_STYLES}
                 jscadScript={DEFAULT_SCRIPT}
                 viewerOptions={{
                     axis: {
@@ -322,7 +350,8 @@ storiesOf("Examples/generateOutputFile", module)
     .add("stla", () => {
         return (
             <OpenJSCAD
-                className="grid grid-cols-1 w-full"
+                className={EXAMPLE_CLASSNAME}
+                style={EXAMPLE_STYLES}
                 jscadScript={DEFAULT_SCRIPT}
             >
                 {({ generateOutputFile, outputFile, viewerElement }) => (
@@ -345,7 +374,8 @@ storiesOf("Examples/generateOutputFile", module)
     .add("stlb", () => {
         return (
             <OpenJSCAD
-                className="grid grid-cols-1 w-full"
+                className={EXAMPLE_CLASSNAME}
+                style={EXAMPLE_STYLES}
                 jscadScript={DEFAULT_SCRIPT}
             >
                 {({ generateOutputFile, outputFile, viewerElement }) => (
@@ -368,7 +398,8 @@ storiesOf("Examples/generateOutputFile", module)
     .add("jscad", () => {
         return (
             <OpenJSCAD
-                className="grid grid-cols-1 w-full"
+                className={EXAMPLE_CLASSNAME}
+                style={EXAMPLE_STYLES}
                 jscadScript={DEFAULT_SCRIPT}
             >
                 {({ generateOutputFile, outputFile, viewerElement }) => (
@@ -391,7 +422,8 @@ storiesOf("Examples/generateOutputFile", module)
     .add("js", () => {
         return (
             <OpenJSCAD
-                className="grid grid-cols-1 w-full"
+                className={EXAMPLE_CLASSNAME}
+                style={EXAMPLE_STYLES}
                 jscadScript={DEFAULT_SCRIPT}
             >
                 {({ generateOutputFile, outputFile, viewerElement }) => (
