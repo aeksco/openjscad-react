@@ -5,7 +5,7 @@ import React from "react";
 
 export interface WindowResizeObserverProps {
     debug?: boolean;
-    resizePlaceholder?: React.ReactNode | (() => React.ReactNode);
+    resizePlaceholder?: React.ReactNode | (() => React.ReactNode); // TODO - rename this to loadingPlaceholder, pass into <OpenJSCAD/> to render while initializing
 }
 
 interface WindowResizeObserverState {
