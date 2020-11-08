@@ -35,11 +35,11 @@ jobs:
               run: |
                   git fetch
                   git checkout gh-pages
-                  rm -rf ./docs
-                  cp -R ./storybook-static ./docs
+                  mv ./docs ./docs-old
+                  mv ./storybook-static ./docs
                   git config --global user.email "aeksco@gmail.com"
                   git config --global user.name "Alexander Schwartzberg"
-                  git add .
+                  git add ./docs
                   git commit -m 'Updated gh-pages with latest storybook build'
                   git push origin gh-pages
             # Runs Build the GH pages site
