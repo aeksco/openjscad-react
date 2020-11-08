@@ -1,23 +1,14 @@
-# [build]
-#   command = "yarn storybook:build"
-#   publish = "storybook-static"
-
 name: GH-Pages-Deploy
 
-# Run this workflow every time a new commit pushed to your repository
+# Run this workflow every time a new commit pushed to the repository
 on: push
 
 jobs:
-    # Set the job key. The key is displayed as the job name
-    # when a job name is not provided
-    super-lint:
-        # Name the Job
+    gh-pages-deploy:
         name: Deploy Storybook to gh-pages
-        # Set the type of machine to run on
         runs-on: ubuntu-latest
 
         steps:
-            # Checks out a copy of your repository on the ubuntu-latest machine
             - name: Checkout code
               uses: actions/checkout@v2
 
@@ -31,7 +22,7 @@ jobs:
               with:
                   cmd: storybook:build # runs `yarn storybook:build` command
 
-            - name: Checkout GH pages branch
+            - name: Update gh-pages branch
               run: |
                   git fetch
                   git checkout gh-pages
@@ -42,9 +33,3 @@ jobs:
                   git add ./docs
                   git commit -m 'Updated gh-pages with latest storybook build'
                   git push origin gh-pages
-            # Runs Build the GH pages site
-            # - name: Build the GH pages site
-            #   uses: github/super-linter@v3
-            #   env:
-            #     DEFAULT_BRANCH: main
-            #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
