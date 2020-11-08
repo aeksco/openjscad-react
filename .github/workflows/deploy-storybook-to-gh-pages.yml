@@ -35,7 +35,7 @@ jobs:
               run: |
                   git fetch
                   git checkout gh-pages
-                  mv ./docs ./docs-old
+                  rm -rf ./docs
                   mv ./storybook-static ./docs
                   git config --global user.email "aeksco@gmail.com"
                   git config --global user.name "Alexander Schwartzberg"
