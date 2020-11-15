@@ -10,7 +10,7 @@ import {
     JS_FORMAT,
     EXPORT_FORMATS,
 } from "../constants";
-import { ExportFormats } from "../types"
+import { ExportFormats } from "../types";
 
 // // // //
 
@@ -175,7 +175,7 @@ storiesOf("Examples/Resize Placeholder", module)
                 className={EXAMPLE_CLASSNAME}
                 style={EXAMPLE_STYLES}
                 jscadScript={DEFAULT_SCRIPT}
-                resizePlaceholder={
+                loadingPlaceholder={
                     <div className="w-full min-h-full h-full bg-gray-100 flex justify-center">
                         <p className="py-56">Resizing...</p>
                     </div>
@@ -189,7 +189,7 @@ storiesOf("Examples/Resize Placeholder", module)
                 className={EXAMPLE_CLASSNAME}
                 style={EXAMPLE_STYLES}
                 jscadScript={DEFAULT_SCRIPT}
-                resizePlaceholder={() => {
+                loadingPlaceholder={() => {
                     const currentTime = new Date().toUTCString();
                     return (
                         <div className="w-full min-h-full h-full bg-gray-200 flex justify-center">
@@ -359,7 +359,7 @@ storiesOf("Examples/generateOutputFile", module)
                     <React.Fragment>
                         {viewerElement}
                         <button
-                            className="btn"
+                            className="btn mt-2"
                             onClick={() => {
                                 generateOutputFile(STLA_FORMAT);
                             }}
@@ -383,7 +383,7 @@ storiesOf("Examples/generateOutputFile", module)
                     <React.Fragment>
                         {viewerElement}
                         <button
-                            className="btn"
+                            className="btn mt-2"
                             onClick={() => {
                                 generateOutputFile(STLB_FORMAT);
                             }}
@@ -407,7 +407,7 @@ storiesOf("Examples/generateOutputFile", module)
                     <React.Fragment>
                         {viewerElement}
                         <button
-                            className="btn"
+                            className="btn mt-2"
                             onClick={() => {
                                 generateOutputFile(JSCAD_FORMAT);
                             }}
@@ -431,7 +431,7 @@ storiesOf("Examples/generateOutputFile", module)
                     <React.Fragment>
                         {viewerElement}
                         <button
-                            className="btn"
+                            className="btn mt-2"
                             onClick={() => {
                                 generateOutputFile(JS_FORMAT);
                             }}
@@ -561,9 +561,8 @@ const outputFileFormats: ExportFormats[] = [
     ExportFormats.js,
 ];
 
-outputFileFormats.forEach((format) => {
+outputFileFormats.forEach(format => {
     outputFileStories.add(format, () => {
-
         // Pulls metadata for export (file extension)
         const formatMetadata = EXPORT_FORMATS[format];
 
@@ -592,4 +591,4 @@ outputFileFormats.forEach((format) => {
             </OpenJSCAD>
         );
     });
-})
+});

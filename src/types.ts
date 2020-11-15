@@ -58,6 +58,14 @@ export type ProcessorState =
     | "rendering"
     | "error";
 
+export enum ProcessorStates {
+    empty = "empty",
+    aborted = "aborted",
+    ready = "ready",
+    rendering = "rendering",
+    error = "error",
+}
+
 // Reference: https://github.com/jscad/OpenJSCAD.org/blob/master/packages/web/src/jscad/processor.js
 export interface Processor {
     abort: () => void;

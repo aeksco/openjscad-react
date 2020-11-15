@@ -3,9 +3,10 @@ import React from "react";
 
 // // // //
 
+// TODO - pass into <OpenJSCAD/> to render while initializing
 export interface WindowResizeObserverProps {
     debug?: boolean;
-    resizePlaceholder?: React.ReactNode | (() => React.ReactNode); // TODO - rename this to loadingPlaceholder, pass into <OpenJSCAD/> to render while initializing
+    loadingPlaceholder?: React.ReactNode | (() => React.ReactNode);
 }
 
 interface WindowResizeObserverState {
@@ -16,7 +17,7 @@ interface WindowResizeObserverState {
 
 /**
  * WindowResizeObserver
- * TODO - annotate this
+ * Listens for window resize events and re-renders props.children when a change is detected
  */
 export class WindowResizeObserver extends React.Component<
     WindowResizeObserverProps & { children: React.ReactNode },
@@ -82,7 +83,10 @@ export class WindowResizeObserver extends React.Component<
     }
 
     render() {
-        const { debug, resizePlaceholder = null } = this.props;
+        const {
+            debug,
+            loadingPlaceholder: resizePlaceholder = null,
+        } = this.props;
         const { shouldRender, windowWidth, windowHeight } = this.state;
 
         let resizePlaceholderVal: React.ReactNode | null = null;

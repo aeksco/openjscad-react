@@ -1,6 +1,7 @@
 import React from "react";
 import {
     ProcessorState,
+    ProcessorStates,
     OpenJSCADProps,
     Processor,
     GenerateOutputFileParams,
@@ -14,18 +15,23 @@ import { EXPORT_FORMATS } from "./constants";
 
 // // // //
 
-// TODO - rename this interface to not use Viewer terminology
-// TODO - simplify this state interface
-export interface ViewerState {
+/**
+ * OpenJSCADState
+ * Encapsulates the state of the OpenJSCADProcessor component
+ */
+export interface OpenJSCADState {
     loadedDynamicImport: boolean;
     status: ProcessorState;
     outputFile: any;
 }
 
-// TODO - annotate
+/**
+ * OpenJSCADProcessor
+ * @param props - see OpenJSCADProps
+ */
 export class OpenJSCADProcessor extends React.Component<
     OpenJSCADProps,
-    ViewerState
+    OpenJSCADState
 > {
     viewerContext: React.RefObject<HTMLDivElement>;
     viewerDiv: React.RefObject<HTMLDivElement>;
@@ -46,7 +52,7 @@ export class OpenJSCADProcessor extends React.Component<
 
         this.state = {
             loadedDynamicImport: false,
-            status: "empty",
+            status: ProcessorStates.empty,
             outputFile: null,
         };
     }
@@ -74,17 +80,21 @@ export class OpenJSCADProcessor extends React.Component<
         // });
     }
 
-    componentDidUpdate(prevProps: OpenJSCADProps, prevState: ViewerState) {
+    componentDidUpdate(prevProps: OpenJSCADProps, prevState: OpenJSCADState) {
         // Short-circuit if we have not loaded the dynamic import yet
         if (!openScadModule) {
             this.log("NO MODULE?");
             return;
         }
+
+        // Short-circuit if dynamic import hasn't loaded yet
         if (!this.state.loadedDynamicImport) {
             this.log("NO IMPORT LOADED?");
             return;
         }
 
+        // If the viewerCanvas hasn't been rendered yet,
+        // short-circut `componentDidUpdate` and invoke forceUpdate after a 500ms delay
         if (!this.viewerCanvas.current) {
             this.log("NO VIEWER CANVAS PRESENT");
             setTimeout(() => {
@@ -93,10 +103,11 @@ export class OpenJSCADProcessor extends React.Component<
             return;
         }
 
+        // Logs the processor
         this.log(this.processor);
 
         // Short-circuit function if current state is rendering
-        if (this.state.status === "rendering") {
+        if (this.state.status === ProcessorStates.rendering) {
             // return;
 
             if (
@@ -106,7 +117,7 @@ export class OpenJSCADProcessor extends React.Component<
                 // Log debug statement
                 this.log("props.jscadScript Updated");
 
-                // TODO - use abort
+                // Abort the current processor job and reset the jscadScript value
                 this.processor.abort();
                 this.processor.setJsCad(this.props.jscadScript);
             }
@@ -120,6 +131,8 @@ export class OpenJSCADProcessor extends React.Component<
                     ? this.props.viewerOptions.glOptions
                     : {};
 
+            const { viewerOptions } = this.props;
+
             this.processor = openScadModule(this.viewerContext.current, {
                 processor: {
                     viewerContext: this.viewerContext.current,
@@ -131,7 +144,12 @@ export class OpenJSCADProcessor extends React.Component<
                     // openJsCadPath: '',
                     // useAsync: true,
                     // useSync: true,
-                    setStatus: (status: "rendering" | "ready", _: any) => {
+                    setStatus: (
+                        status:
+                            | ProcessorStates.rendering
+                            | ProcessorStates.ready,
+                        _: any,
+                    ) => {
                         // Logs debug statement
                         this.log("processor.setStatus", status);
 
@@ -161,37 +179,33 @@ export class OpenJSCADProcessor extends React.Component<
                 viewer: {
                     // TODO - tighten this up
                     axis:
-                        this.props.viewerOptions &&
-                        this.props.viewerOptions.axis
-                            ? this.props.viewerOptions.axis
+                        viewerOptions && viewerOptions.axis
+                            ? viewerOptions.axis
                             : undefined,
                     plate:
-                        this.props.viewerOptions &&
-                        this.props.viewerOptions.plate
-                            ? this.props.viewerOptions.plate
+                        viewerOptions && viewerOptions.plate
+                            ? viewerOptions.plate
                             : undefined,
                     camera:
-                        this.props.viewerOptions &&
-                        this.props.viewerOptions.camera
-                            ? this.props.viewerOptions.camera
+                        viewerOptions && viewerOptions.camera
+                            ? viewerOptions.camera
                             : undefined,
                     solid:
-                        this.props.viewerOptions &&
-                            this.props.viewerOptions.solid
-                            ? this.props.viewerOptions.solid
+                        viewerOptions && viewerOptions.solid
+                            ? viewerOptions.solid
                             : undefined,
                     glOptions: {
                         canvas: this.viewerCanvas.current,
                         ...glOptions,
                     },
                     background: {
-                        // THIS DOESNT WORK, DOES IT?
+                        // TODO - THIS DOESNT WORK, DOES IT?
                         color: { r: 1.0, g: 0.4, b: 1.0, a: 1.0 },
                     },
                 },
             });
 
-            // Ensures the component re-renders after unmounting + mounting again
+            // Ensures the dynamic import hasn't loaded yet re-renders after unmounting + mounting again
             this.setState({ loadedDynamicImport: true });
             return;
         }
@@ -222,7 +236,7 @@ export class OpenJSCADProcessor extends React.Component<
                         EXPORT_FORMATS[this.props.outputFileExport],
                     );
                 }
-                console.log('BUILD FILE');
+                console.log("BUILD FILE");
             }
         }
     }
@@ -305,7 +319,7 @@ export function OpenJSCAD(props: OpenJSCADProps & WindowResizeObserverProps) {
     return (
         <WindowResizeObserver
             debug={props.debug}
-            resizePlaceholder={props.resizePlaceholder}
+            loadingPlaceholder={props.loadingPlaceholder}
         >
             <OpenJSCADProcessor {...props} />
         </WindowResizeObserver>
