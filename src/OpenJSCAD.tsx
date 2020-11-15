@@ -64,6 +64,9 @@ export class OpenJSCADProcessor extends React.Component<
     }
 
     componentDidMount() {
+        // TODO - figure out what's going on here
+        // TODO - figure out what's going on here
+        // TODO - figure out what's going on here
         if (openScadModule) {
             this.setState({ loadedDynamicImport: true });
             return;
@@ -84,6 +87,7 @@ export class OpenJSCADProcessor extends React.Component<
         // Short-circuit if we have not loaded the dynamic import yet
         if (!openScadModule) {
             this.log("NO MODULE?");
+            // TODO - does this ever get hit? Do we need this, or want to add a timeout here?
             return;
         }
 
