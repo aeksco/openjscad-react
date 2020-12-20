@@ -34,24 +34,10 @@ import { Meta, Story } from "@storybook/addon-docs/blocks";
 </a>
 
 <img
-    alt="npm bundle size"
-    src="https://img.shields.io/bundlephobia/min/openjscad-react"
-    className="my-0 mx-1"
-    height="18"
-/>
-
-<img
     alt="GitHub issues"
     src="https://img.shields.io/github/issues/aeksco/openjscad-react"
     height="18"
     className="my-0 mx-1"
-/>
-
-<img
-    alt="Netlify"
-    height="18"
-    className="my-0 mx-1"
-    src="https://img.shields.io/netlify/e1c4766e-5b53-4ba1-a8cd-7705216f3429"
 />
 
 <img
@@ -70,8 +56,6 @@ import { Meta, Story } from "@storybook/addon-docs/blocks";
     />
   </a>
 </div>
-
-
 </div>
 
 
@@ -88,21 +72,16 @@ import { Meta, Story } from "@storybook/addon-docs/blocks";
 </p>
 
 <p className="text-center">
-    <span className="text-gray-600 block py-3">
-        Please see open{" "}
-        <a
-            href="https://github.com/aeksco/openjscad-react/issues"
-            target="_blank"
-        >
-            GitHub issues
-        </a>{" "}
-        if you'd like to lend a hand &#128516;
+    <span className="text-gray-800">
+        Write your <code>OpenJSCAD</code> script and wire it up to some{" "}
+        <code>{"<input />"}</code> elements and start exporting
+        user-customizable designs!
     </span>
 </p>
 
 <br />
 <div className="grid grid-cols-1 w-full">
-    <Story id="examples-layouts--complete" />
+    <Story id="demos-simple--name-plate" />
 </div>
 <br />
 
@@ -121,5 +100,18 @@ import { Meta, Story } from "@storybook/addon-docs/blocks";
         <a href="https://openjscad.org" target="_blank">
             OpenJSCAD.org.
         </a>
+    </span>
+</p>
+
+<p className="text-center">
+    <span className="text-gray-600 block">
+        Please see open{" "}
+        <a
+            href="https://github.com/aeksco/openjscad-react/issues"
+            target="_blank"
+        >
+            GitHub issues
+        </a>{" "}
+        if you'd like to lend a hand &#128516;
     </span>
 </p>

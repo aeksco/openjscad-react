@@ -2,7 +2,6 @@ import { GenerateOutputFileParams, ExportFormats } from "./types";
 
 // // // //
 
-// TODO - move these into consts
 export const STLA_FORMAT: GenerateOutputFileParams = {
     name: "stla",
     displayName: "STL (ASCII)",

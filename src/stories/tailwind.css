@@ -3,9 +3,9 @@
 @import "tailwindcss/utilities";
 
 .btn {
-    @apply mr-5 bg-blue-700 text-white border border-blue-700 font-semibold py-2 px-6 rounded-lg;
+    @apply mr-5 bg-blue-700 text-white border border-blue-700 font-semibold py-2 px-6 rounded-3xl;
 }
 
 .card {
-    @apply bg-white rounded-xl px-4 py-4 shadow-lg;
+    @apply bg-white rounded-3xl px-4 py-4 shadow-lg;
 }
