@@ -2,8 +2,8 @@ const TerserPlugin = require("terser-webpack-plugin");
 
 module.exports = {
     stories: ["../src/**/*.story.tsx", "../docs/**/*.story.mdx"],
-    addons: ["@storybook/addon-knobs", "@storybook/addon-docs/preset"],
-    webpackFinal: config => {
+    addons: ["@storybook/addon-docs/preset"],
+    webpackFinal: (config) => {
         return {
             ...config,
             optimization: {
@@ -38,7 +38,7 @@ module.exports = {
                 rules: [
                     // Filter out the default .css rule.
                     ...config.module.rules.filter(
-                        rule => /\.css$/ !== rule.test,
+                        (rule) => /\.css$/ !== rule.test,
                     ),
                     // Add our own css rule which in turn will read the postcss.config.js from project root.
                     {

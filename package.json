@@ -43,7 +43,6 @@
     },
     "devDependencies": {
         "@storybook/addon-docs": "6.0.26",
-        "@storybook/addon-knobs": "6.0.26",
         "@storybook/addons": "6.0.26",
         "@storybook/react": "6.0.26",
         "@types/classnames": "^2.2.10",
