@@ -314,18 +314,56 @@ export class OpenJSCADProcessor extends React.Component<
 
 // // // //
 
+import lodashDebounce from "lodash.debounce";
+
+export const useDebounce = (obj: any = null, wait: number = 1000) => {
+    const [state, setState] = React.useState(obj);
+
+    const setDebouncedState = (_val: any) => {
+        debounce(_val);
+    };
+
+    const debounce = React.useCallback(
+        lodashDebounce((_prop: string) => {
+            console.log("updating search");
+            setState(_prop);
+        }, wait),
+        [],
+    );
+
+    return [state, setDebouncedState];
+};
+
+// // // //
+
 /**
  * OpenJSCAD
  * Exports the OpenJSCADProcessor component wrapped in the WindowResizeObserver
  * @param props - See `OpenJSCADProps` and `WindowResizeObserverProps`
  */
 export function OpenJSCAD(props: OpenJSCADProps & WindowResizeObserverProps) {
+    // Sets up debounce for changes in props.jscadScript
+    // Significatnly improves performance
+    const { debounceTimeout = 500 } = props;
+    const [state, setState] = useDebounce(
+        {
+            jscadScript: props.jscadScript,
+        },
+        debounceTimeout,
+    );
+
+    React.useEffect(() => {
+        setState({
+            jscadScript: props.jscadScript,
+        });
+    }, [props.jscadScript]);
+
     return (
         <WindowResizeObserver
             debug={props.debug}
             loadingPlaceholder={props.loadingPlaceholder}
         >
-            <OpenJSCADProcessor {...props} />
+            <OpenJSCADProcessor {...props} jscadScript={state.jscadScript} />
         </WindowResizeObserver>
     );
 }
