@@ -76,11 +76,11 @@ export const JS_FORMAT: GenerateOutputFileParams = {
 export const EXPORT_FORMATS: {
     [key in ExportFormats]: GenerateOutputFileParams;
 } = {
-    "amf": AMF_FORMAT,
-    "js": JS_FORMAT,
-    "jscad": JSCAD_FORMAT,
-    "stla": STLA_FORMAT,
-    "stlb": STLB_FORMAT,
-    "x3d": X3D_FORMAT,
-    "dxf": DXF_FORMAT,
+    amf: AMF_FORMAT,
+    js: JS_FORMAT,
+    jscad: JSCAD_FORMAT,
+    stla: STLA_FORMAT,
+    stlb: STLB_FORMAT,
+    x3d: X3D_FORMAT,
+    dxf: DXF_FORMAT,
 };

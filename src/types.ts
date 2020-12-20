@@ -200,6 +200,7 @@ export interface OpenJSCADProps {
     debug?: boolean;
     outputFileExport?: ExportFormat | ExportFormats;
     viewerOptions?: JscadViewerOptions;
+    debounceTimeout?: number;
     children?: (childProps: ViewerChildProps) => ReactNode;
     style?: {
         wrapperDiv?: React.CSSProperties;
