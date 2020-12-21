@@ -1,22 +1,64 @@
-[![GitHub stars](https://img.shields.io/github/stars/aeksco/openjscad-react.svg?style=social&label=Stars&style=plastic)]()
-[![GitHub watchers](https://img.shields.io/github/watchers/aeksco/openjscad-react.svg?style=social&label=Watch&style=plastic)]()
-[![GitHub forks](https://img.shields.io/github/forks/aeksco/openjscad-react.svg?style=social&label=Fork&style=plastic)]()
-[![GitHub contributors](https://img.shields.io/github/contributors/aeksco/openjscad-react.svg)](https://github.com/aeksco/openjscad-react/graphs/contributors)
-[![MIT License](https://img.shields.io/apm/l/atomic-design-ui.svg?)](https://github.com/tterb/atomic-design-ui/blob/master/LICENSEs)
-[![GitHub issues](https://img.shields.io/github/issues/aeksco/openjscad-react.svg)](https://github.com/aeksco/openjscad-react/issues)
-[![GitHub last commit](https://img.shields.io/github/last-commit/aeksco/openjscad-react.svg)](https://github.com/aeksco/openjscad-react/commits/master)
-[![GitHub pull requests](https://img.shields.io/github/issues-pr/aeksco/openjscad-react.svg?style=flat)]()
-[![PR's Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat)](http://makeapullrequest.com)
+<h1 align="center">openjscad-react</h1>
 
-[![HitCount](http://hits.dwyl.com/aeksco/openjscad-react.svg)](http://hits.dwyl.com/aeksco/openjscad-react)
-[![Tweet](https://img.shields.io/twitter/url/https/github.com/aeksco/openjscad-react.svg?style=social)](https://twitter.com/intent/tweet?text=https://github.com/aeksco/openjscad-react)
-[![Twitter Follow](https://img.shields.io/twitter/follow/aeksco.svg?style=social)](https://twitter.com/aeksco)
+<div align="center">
+  <strong>React.js component for rendering + exporting OpenJSCAD scripts</strong>
+</div>
+
+<br />
+
+<div align="center">
+  Save <i>weeks</i> of development time on your next web project :tada:
+</div>
+
+<br />
+
+<div align="center">
+  <!-- GitHub Stars -->
+  <img src="https://img.shields.io/github/stars/aeksco/openjscad-react.svg?style=social&label=Star" alt="GitHub Stars" />
+
+  <!-- MIT License -->
+  <img src="https://img.shields.io/apm/l/atomic-design-ui.svg" alt="MIT License" />
+
+  <!-- Hit Count -->
+  <img src="http://hits.dwyl.com/aeksco/openjscad-react.svg" alt="Hit Count" />
+
+  <!-- PRs Welcome -->
+  <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat" alt="Hit Count" />
+
+  <!-- Build Status -->
+  <!-- Test Coverage -->
+  <!-- Download Count -->
+</div>
+
+<div align="center">
+  <h3>
+    <a href="https://codotype.io">
+      Website
+    </a>
+    <span> | </span>
+    <a href="https://codotype.org">
+      Examples
+    </a>
+    <span> | </span>
+    <a href="https://codotype.org">
+      Next.js Starter Kit
+    </a>
+  </h3>
+</div>
 
 ![Demo Example](https://i.imgur.com/9NijaGj.png "Demo Example")
 
-# openjscad-react
+## Table of Contents
 
-React.js bindings for the OpenJSCAD.org project
+-   [Quick Start](#quick-start)
+-   [Install](#install)
+-   [Usage](#usage)
+-   [Configuration](#configuration)
+-   [Developing](#developing)
+-   [Compatibility](#compatibility)
+-   [License](#license)
+
+<hr/>
 
 ## Quick Start
 
@@ -121,8 +163,6 @@ The `openjscad-react` module is compatible with React v16.8+ and works with Reac
 
 -   Clean up Examples.stories.tsx
 -   Add GitHub community wellness check
--   TODO - add image to `README.md`
--   TODO - add "Built with <3 by aeksco" to README
 -   Publish 0.1.0 package
 -   Update `https://github.com/aeksco/openjscad-react-next-starter` + add to `README.md`
 
@@ -134,4 +174,6 @@ The `openjscad-react` module is compatible with React v16.8+ and works with Reac
 
 ### License
 
-Open source under the [MIT License](https://github.com/aeksco/openjscad-react/blob/main/LICENSE). Built with&nbsp;:heart:&nbsp;by [@aeksco](https://github.com/aeksco)
+Open source under the [MIT License](https://github.com/aeksco/openjscad-react/blob/main/LICENSE). Built with&nbsp;:heart:&nbsp; by [@aeksco](https://github.com/aeksco)
+
+[![Tweet](https://img.shields.io/twitter/url/https/github.com/aeksco/openjscad-react.svg?style=social)](https://twitter.com/intent/tweet?text=https://github.com/aeksco/openjscad-react)
