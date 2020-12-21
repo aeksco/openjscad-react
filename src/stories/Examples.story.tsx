@@ -73,10 +73,36 @@ storiesOf("Examples/Layouts", module)
                                     <button
                                         className="btn w-full mt-2"
                                         onClick={() => {
-                                            childProps.resetCamera();
+                                            childProps.processor.resetCamera();
                                         }}
                                     >
                                         Reset Camera
+                                    </button>
+
+                                    <p>{childProps.status}</p>
+
+                                    <button
+                                        onClick={() => {
+                                            childProps.processor.rebuildSolids();
+                                        }}
+                                    >
+                                        rebuildSolids
+                                    </button>
+
+                                    <button
+                                        onClick={() => {
+                                            childProps.processor.abort();
+                                        }}
+                                    >
+                                        abort
+                                    </button>
+
+                                    <button
+                                        onClick={() => {
+                                            childProps.processor.clearOutputFile();
+                                        }}
+                                    >
+                                        clearOutputFile
                                     </button>
                                 </div>
                             </div>
@@ -105,7 +131,7 @@ storiesOf("Examples/Camera", module)
                             <button
                                 className="btn mt-2"
                                 onClick={() => {
-                                    childProps.resetCamera();
+                                    childProps.processor.resetCamera();
                                 }}
                             >
                                 Reset Camera

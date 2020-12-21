@@ -1,0 +1,788 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Storyshots Examples/Axis draw 1`] = `
+<div
+  className="grid grid-cols-1 w-full"
+>
+  <table />
+  <div>
+    <div />
+  </div>
+  <canvas
+    style={
+      Object {
+        "height": "480px",
+        "width": "100%",
+      }
+    }
+  />
+</div>
+`;
+
+exports[`Storyshots Examples/Axis x axis colors 1`] = `
+<div
+  className="grid grid-cols-1 w-full"
+>
+  <table />
+  <div>
+    <div />
+  </div>
+  <canvas
+    style={
+      Object {
+        "height": "480px",
+        "width": "100%",
+      }
+    }
+  />
+</div>
+`;
+
+exports[`Storyshots Examples/Axis y axis colors 1`] = `
+<div
+  className="grid grid-cols-1 w-full"
+>
+  <table />
+  <div>
+    <div />
+  </div>
+  <canvas
+    style={
+      Object {
+        "height": "480px",
+        "width": "100%",
+      }
+    }
+  />
+</div>
+`;
+
+exports[`Storyshots Examples/Axis z axis colors 1`] = `
+<div
+  className="grid grid-cols-1 w-full"
+>
+  <table />
+  <div>
+    <div />
+  </div>
+  <canvas
+    style={
+      Object {
+        "height": "480px",
+        "width": "100%",
+      }
+    }
+  />
+</div>
+`;
+
+exports[`Storyshots Examples/Camera Reset Camera 1`] = `
+<div>
+  <div
+    className="grid grid-cols-1 w-full"
+  >
+    <table />
+    <div>
+      <div />
+    </div>
+    <canvas
+      style={
+        Object {
+          "height": "480px",
+          "width": "100%",
+        }
+      }
+    />
+  </div>
+  <button
+    className="btn mt-2"
+    onClick={[Function]}
+  >
+    Reset Camera
+  </button>
+</div>
+`;
+
+exports[`Storyshots Examples/Camera Starting Position - Angle 1`] = `
+<div
+  className="grid grid-cols-1 w-full"
+>
+  <table />
+  <div>
+    <div />
+  </div>
+  <canvas
+    style={
+      Object {
+        "height": "480px",
+        "width": "100%",
+      }
+    }
+  />
+</div>
+`;
+
+exports[`Storyshots Examples/Camera Starting Position - Clip 1`] = `
+<div
+  className="grid grid-cols-1 w-full"
+>
+  <table />
+  <div>
+    <div />
+  </div>
+  <canvas
+    style={
+      Object {
+        "height": "480px",
+        "width": "100%",
+      }
+    }
+  />
+</div>
+`;
+
+exports[`Storyshots Examples/Camera Starting Position - Field Of View 1`] = `
+<div
+  className="grid grid-cols-1 w-full"
+>
+  <table />
+  <div>
+    <div />
+  </div>
+  <canvas
+    style={
+      Object {
+        "height": "480px",
+        "width": "100%",
+      }
+    }
+  />
+</div>
+`;
+
+exports[`Storyshots Examples/Camera Starting Position - Position 1`] = `
+<div
+  className="grid grid-cols-1 w-full"
+>
+  <table />
+  <div>
+    <div />
+  </div>
+  <canvas
+    style={
+      Object {
+        "height": "480px",
+        "width": "100%",
+      }
+    }
+  />
+</div>
+`;
+
+exports[`Storyshots Examples/Layouts Custom 1`] = `
+<div
+  className="card"
+>
+  <div
+    className="grid grid-cols-3 w-full"
+  >
+    <div
+      className="pr-4"
+    >
+      <p
+        className=""
+      >
+        Custom Layout
+      </p>
+    </div>
+    <div
+      className="pl-4 col-span-2"
+    >
+      <div>
+        <div />
+      </div>
+      <table />
+      <canvas
+        style={
+          Object {
+            "height": "480px",
+            "width": "100%",
+          }
+        }
+      />
+      <button
+        className="btn w-full mt-2"
+        onClick={[Function]}
+      >
+        Reset Camera
+      </button>
+      <p>
+        empty
+      </p>
+      <button
+        onClick={[Function]}
+      >
+        rebuildSolids
+      </button>
+      <button
+        onClick={[Function]}
+      >
+        abort
+      </button>
+      <button
+        onClick={[Function]}
+      >
+        clearOutputFile
+      </button>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Examples/Layouts Simple 1`] = `
+<div
+  className="grid grid-cols-1 w-full"
+>
+  <table />
+  <div>
+    <div />
+  </div>
+  <canvas
+    style={
+      Object {
+        "height": "480px",
+        "width": "100%",
+      }
+    }
+  />
+</div>
+`;
+
+exports[`Storyshots Examples/Plate draw 1`] = `
+<div
+  className="grid grid-cols-1 w-full"
+>
+  <table />
+  <div>
+    <div />
+  </div>
+  <canvas
+    style={
+      Object {
+        "height": "480px",
+        "width": "100%",
+      }
+    }
+  />
+</div>
+`;
+
+exports[`Storyshots Examples/Plate major grid size + color 1`] = `
+<div
+  className="grid grid-cols-1 w-full"
+>
+  <table />
+  <div>
+    <div />
+  </div>
+  <canvas
+    style={
+      Object {
+        "height": "480px",
+        "width": "100%",
+      }
+    }
+  />
+</div>
+`;
+
+exports[`Storyshots Examples/Plate minor grid size + color 1`] = `
+<div
+  className="grid grid-cols-1 w-full"
+>
+  <table />
+  <div>
+    <div />
+  </div>
+  <canvas
+    style={
+      Object {
+        "height": "480px",
+        "width": "100%",
+      }
+    }
+  />
+</div>
+`;
+
+exports[`Storyshots Examples/Plate size 1`] = `
+<div
+  className="grid grid-cols-1 w-full"
+>
+  <table />
+  <div>
+    <div />
+  </div>
+  <canvas
+    style={
+      Object {
+        "height": "480px",
+        "width": "100%",
+      }
+    }
+  />
+</div>
+`;
+
+exports[`Storyshots Examples/Resize Placeholder function 1`] = `
+<div
+  className="grid grid-cols-1 w-full"
+>
+  <table />
+  <div>
+    <div />
+  </div>
+  <canvas
+    style={
+      Object {
+        "height": "480px",
+        "width": "100%",
+      }
+    }
+  />
+</div>
+`;
+
+exports[`Storyshots Examples/Resize Placeholder static 1`] = `
+<div
+  className="grid grid-cols-1 w-full"
+>
+  <table />
+  <div>
+    <div />
+  </div>
+  <canvas
+    style={
+      Object {
+        "height": "480px",
+        "width": "100%",
+      }
+    }
+  />
+</div>
+`;
+
+exports[`Storyshots Examples/generateOutputFile js 1`] = `
+Array [
+  <div
+    className="grid grid-cols-1 w-full"
+  >
+    <table />
+    <div>
+      <div />
+    </div>
+    <canvas
+      style={
+        Object {
+          "height": "480px",
+          "width": "100%",
+        }
+      }
+    />
+  </div>,
+  <button
+    className="btn mt-2"
+    onClick={[Function]}
+  >
+    Generate JS Script
+  </button>,
+  <pre>
+    {
+    "outputFile": null
+}
+  </pre>,
+]
+`;
+
+exports[`Storyshots Examples/generateOutputFile jscad 1`] = `
+Array [
+  <div
+    className="grid grid-cols-1 w-full"
+  >
+    <table />
+    <div>
+      <div />
+    </div>
+    <canvas
+      style={
+        Object {
+          "height": "480px",
+          "width": "100%",
+        }
+      }
+    />
+  </div>,
+  <button
+    className="btn mt-2"
+    onClick={[Function]}
+  >
+    Generate JSCAD Script
+  </button>,
+  <pre>
+    {
+    "outputFile": null
+}
+  </pre>,
+]
+`;
+
+exports[`Storyshots Examples/generateOutputFile stla 1`] = `
+Array [
+  <div
+    className="grid grid-cols-1 w-full"
+  >
+    <table />
+    <div>
+      <div />
+    </div>
+    <canvas
+      style={
+        Object {
+          "height": "480px",
+          "width": "100%",
+        }
+      }
+    />
+  </div>,
+  <button
+    className="btn mt-2"
+    onClick={[Function]}
+  >
+    Generate STL (ASCII)
+  </button>,
+  <pre>
+    {
+    "outputFile": null
+}
+  </pre>,
+]
+`;
+
+exports[`Storyshots Examples/generateOutputFile stlb 1`] = `
+Array [
+  <div
+    className="grid grid-cols-1 w-full"
+  >
+    <table />
+    <div>
+      <div />
+    </div>
+    <canvas
+      style={
+        Object {
+          "height": "480px",
+          "width": "100%",
+        }
+      }
+    />
+  </div>,
+  <button
+    className="btn mt-2"
+    onClick={[Function]}
+  >
+    Generate STL (Binary)
+  </button>,
+  <pre>
+    {
+    "outputFile": null
+}
+  </pre>,
+]
+`;
+
+exports[`Storyshots Examples/outputFileExport amf 1`] = `
+<div>
+  <div
+    className="grid grid-cols-1 w-full"
+  >
+    <table />
+    <div>
+      <div />
+    </div>
+    <canvas
+      style={
+        Object {
+          "height": "480px",
+          "width": "100%",
+        }
+      }
+    />
+  </div>
+  <br />
+</div>
+`;
+
+exports[`Storyshots Examples/outputFileExport dxf 1`] = `
+<div>
+  <div
+    className="grid grid-cols-1 w-full"
+  >
+    <table />
+    <div>
+      <div />
+    </div>
+    <canvas
+      style={
+        Object {
+          "height": "480px",
+          "width": "100%",
+        }
+      }
+    />
+  </div>
+  <br />
+</div>
+`;
+
+exports[`Storyshots Examples/outputFileExport js 1`] = `
+<div>
+  <div
+    className="grid grid-cols-1 w-full"
+  >
+    <table />
+    <div>
+      <div />
+    </div>
+    <canvas
+      style={
+        Object {
+          "height": "480px",
+          "width": "100%",
+        }
+      }
+    />
+  </div>
+  <br />
+</div>
+`;
+
+exports[`Storyshots Examples/outputFileExport jscad 1`] = `
+<div>
+  <div
+    className="grid grid-cols-1 w-full"
+  >
+    <table />
+    <div>
+      <div />
+    </div>
+    <canvas
+      style={
+        Object {
+          "height": "480px",
+          "width": "100%",
+        }
+      }
+    />
+  </div>
+  <br />
+</div>
+`;
+
+exports[`Storyshots Examples/outputFileExport stla 1`] = `
+<div>
+  <div
+    className="grid grid-cols-1 w-full"
+  >
+    <table />
+    <div>
+      <div />
+    </div>
+    <canvas
+      style={
+        Object {
+          "height": "480px",
+          "width": "100%",
+        }
+      }
+    />
+  </div>
+  <br />
+</div>
+`;
+
+exports[`Storyshots Examples/outputFileExport stlb 1`] = `
+<div>
+  <div
+    className="grid grid-cols-1 w-full"
+  >
+    <table />
+    <div>
+      <div />
+    </div>
+    <canvas
+      style={
+        Object {
+          "height": "480px",
+          "width": "100%",
+        }
+      }
+    />
+  </div>
+  <br />
+</div>
+`;
+
+exports[`Storyshots Examples/outputFileExport x3d 1`] = `
+<div>
+  <div
+    className="grid grid-cols-1 w-full"
+  >
+    <table />
+    <div>
+      <div />
+    </div>
+    <canvas
+      style={
+        Object {
+          "height": "480px",
+          "width": "100%",
+        }
+      }
+    />
+  </div>
+  <br />
+</div>
+`;
+
+exports[`Storyshots Examples/solid draw 1`] = `
+<div
+  className="grid grid-cols-1 w-full"
+>
+  <table />
+  <div>
+    <div />
+  </div>
+  <canvas
+    style={
+      Object {
+        "height": "480px",
+        "width": "100%",
+      }
+    }
+  />
+</div>
+`;
+
+exports[`Storyshots Examples/solid faceColor 1`] = `
+<div
+  className="grid grid-cols-1 w-full"
+>
+  <table />
+  <div>
+    <div />
+  </div>
+  <canvas
+    style={
+      Object {
+        "height": "480px",
+        "width": "100%",
+      }
+    }
+  />
+</div>
+`;
+
+exports[`Storyshots Examples/solid faces 1`] = `
+<div
+  className="grid grid-cols-1 w-full"
+>
+  <table />
+  <div>
+    <div />
+  </div>
+  <canvas
+    style={
+      Object {
+        "height": "480px",
+        "width": "100%",
+      }
+    }
+  />
+</div>
+`;
+
+exports[`Storyshots Examples/solid lines 1`] = `
+<div
+  className="grid grid-cols-1 w-full"
+>
+  <table />
+  <div>
+    <div />
+  </div>
+  <canvas
+    style={
+      Object {
+        "height": "480px",
+        "width": "100%",
+      }
+    }
+  />
+</div>
+`;
+
+exports[`Storyshots Examples/solid outlineColor 1`] = `
+<div
+  className="grid grid-cols-1 w-full"
+>
+  <table />
+  <div>
+    <div />
+  </div>
+  <canvas
+    style={
+      Object {
+        "height": "480px",
+        "width": "100%",
+      }
+    }
+  />
+</div>
+`;
+
+exports[`Storyshots Examples/solid overlay 1`] = `
+<div
+  className="grid grid-cols-1 w-full"
+>
+  <table />
+  <div>
+    <div />
+  </div>
+  <canvas
+    style={
+      Object {
+        "height": "480px",
+        "width": "100%",
+      }
+    }
+  />
+</div>
+`;
+
+exports[`Storyshots Examples/solid smooth 1`] = `
+<div
+  className="grid grid-cols-1 w-full"
+>
+  <table />
+  <div>
+    <div />
+  </div>
+  <canvas
+    style={
+      Object {
+        "height": "480px",
+        "width": "100%",
+      }
+    }
+  />
+</div>
+`;

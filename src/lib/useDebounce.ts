@@ -8,7 +8,7 @@ import lodashDebounce from "lodash.debounce";
  * @param obj - The state being stored in a debounced state
  * @param wait - optional - the debounce timeout
  */
-export function useDebounce(obj: any = null, wait: number = 1000) {
+export function useDebounce(obj: any = null, wait = 1000) {
     const [state, setState] = React.useState(obj);
 
     const setDebouncedState = (_val: any) => {

@@ -15,7 +15,10 @@ import { OpenJSCADProcessor } from "./OpenJSCADProcessor";
  * the WindowResizeObserver w/ debounced state for props.jscadScript
  * @param props - See `OpenJSCADProps` and `WindowResizeObserverProps`
  */
-export function OpenJSCAD(props: OpenJSCADProps & WindowResizeObserverProps) {
+export function OpenJSCAD(
+    props: OpenJSCADProps &
+        WindowResizeObserverProps & { debounceTimeout?: number },
+) {
     // Sets up debounce for changes in props.jscadScript
     // Significatnly improves performance
     const { debounceTimeout = 500 } = props;

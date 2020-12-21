@@ -3,7 +3,7 @@ import React from "react";
 
 // // // //
 
-// TODO - pass into <OpenJSCAD/> to render while initializing
+// Feature - pass loadingPlaceholder into <OpenJSCAD/> to render while initializing?
 export interface WindowResizeObserverProps {
     debug?: boolean;
     loadingPlaceholder?: React.ReactNode | (() => React.ReactNode);
@@ -29,8 +29,7 @@ export class WindowResizeObserver extends React.Component<
         super(props);
 
         this.handleResize = debounce(this.handleResize, 50).bind(this);
-        // this.handleResize = this.handleResize.bind(this)
-        this.handleShouldRender = debounce(this.handleShouldRender, 500).bind(
+        this.handleShouldRender = debounce(this.handleShouldRender, 250).bind(
             this,
         );
 

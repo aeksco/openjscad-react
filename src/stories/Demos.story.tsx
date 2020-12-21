@@ -18,9 +18,26 @@ const EXAMPLE_CLASSNAME = {
 
 // // // //
 
-function getNamePlate(props: { name?: string; height?: number }) {
-    const { name = "Hello, OpenJSCAD!", height = 4 } = props;
-    const namePlateJSCAD: string = `
+function FormGroup(props: { label: string; children: React.ReactNode }) {
+    return (
+        <div className="mt-5">
+            <p className="font-semibold mb-2">{props.label}</p>
+            {props.children}
+        </div>
+    );
+}
+
+// // // //
+
+function getSign(props: { name?: string; height?: number; padding?: number }) {
+    let { name = "Hello, OpenJSCAD!" } = props;
+    const { height = 4, padding = 2 } = props;
+
+    // Removes all double quotes and back-slashes (prevents issues when interpolating below)
+    name = name.replace(/[\"/s]/gi, "").replace(/[/\/s]/gi, "");
+
+    // Renders sign JSCAD script
+    const signJscad = `
 function main (param) {
     var o = []; // our stack of objects
     var l = []; // our stack of line segments (when rendering vector text)
@@ -37,7 +54,7 @@ function main (param) {
     o.push(union(p).setColor([0.3, 0.3, 0.3]).scale([1 / 3, 1 / 3, 1 / 3]).center([true, true, false]).translate([0, 0, thickness]));
     
     var b = o[0].getBounds();
-    var m = 2;
+    var m = ${padding};
     var w = b[1].x - b[0].x + m * 2;
     var h = b[1].y - b[0].y + m * 2;
     o.push(cube({size: [w, h, thickness], round: true, radius: 0.5}).translate([b[0].x - m, b[0].y - m, 0]).setColor([0.8, 0.8, 0.8]));
@@ -46,7 +63,7 @@ function main (param) {
     }
 `;
 
-    return namePlateJSCAD;
+    return signJscad;
 }
 
 // // // //
@@ -55,6 +72,7 @@ storiesOf("Demos/Simple", module).add("Name Plate", () => {
     const DEFAULT_NAME = "Hello, OpenJSCAD!";
     const [name, setName] = React.useState<string>(DEFAULT_NAME);
     const [height, setHeight] = React.useState<number>(4);
+    const [padding, setPadding] = React.useState<number>(6);
 
     return (
         <OpenJSCAD
@@ -66,9 +84,10 @@ storiesOf("Demos/Simple", module).add("Name Plate", () => {
                     angle: { x: -30, y: 0, z: 0 },
                 },
             }}
-            jscadScript={getNamePlate({
+            jscadScript={getSign({
                 name,
                 height,
+                padding,
             })}
             loadingPlaceholder={() => {
                 return (
@@ -88,14 +107,13 @@ storiesOf("Demos/Simple", module).add("Name Plate", () => {
                             <div className="lg:pr-2 pl-0 flex flex-col justify-between col-span-2 lg:col-span-1">
                                 <div>
                                     <h2 className="text-center text-xl mb-3">
-                                        Customize &amp; 3D Print
+                                        Customize 3D Model
                                     </h2>
                                     <hr />
 
-                                    <div className="mt-5">
-                                        <p>Text</p>
+                                    <FormGroup label="Text">
                                         <input
-                                            className="bg-purple-white shadow rounded border-0 p-3 w-full"
+                                            className="bg-white shadow rounded p-3 w-full border border-gray-200"
                                             placeholder="Enter a name"
                                             value={name}
                                             onChange={(e) => {
@@ -104,13 +122,12 @@ storiesOf("Demos/Simple", module).add("Name Plate", () => {
                                                 setName(updatedName);
                                             }}
                                         />
-                                    </div>
+                                    </FormGroup>
 
-                                    <div className="mt-8">
-                                        <p>Height</p>
+                                    <FormGroup label="Height">
                                         <input
                                             type="range"
-                                            className="focus:outline-none rounded-xl overflow-hidden appearance-none bg-gray-400 h-3 w-full"
+                                            className="focus:outline-none rounded-xl overflow-hidden appearance-none bg-gray-400 h-5 w-full"
                                             step={1}
                                             min={2}
                                             max={15}
@@ -122,7 +139,24 @@ storiesOf("Demos/Simple", module).add("Name Plate", () => {
                                                 setHeight(updatedHeight);
                                             }}
                                         />
-                                    </div>
+                                    </FormGroup>
+
+                                    <FormGroup label="Padding">
+                                        <input
+                                            type="range"
+                                            className="focus:outline-none rounded-xl overflow-hidden appearance-none bg-gray-400 h-5 w-full"
+                                            step={1}
+                                            min={0}
+                                            max={15}
+                                            value={padding}
+                                            onChange={(e) => {
+                                                const updatedPadding = Number(
+                                                    e.currentTarget.value,
+                                                );
+                                                setPadding(updatedPadding);
+                                            }}
+                                        />
+                                    </FormGroup>
                                 </div>
 
                                 {childProps.outputFile === null ||

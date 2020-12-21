@@ -1,6 +1,7 @@
 import { GenerateOutputFileParams, ExportFormats } from "./types";
 
 // // // //
+// TODO - annotate this file
 
 export const STLA_FORMAT: GenerateOutputFileParams = {
     name: "stla",

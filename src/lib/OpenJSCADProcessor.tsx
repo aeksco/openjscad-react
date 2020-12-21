@@ -62,21 +62,11 @@ export class OpenJSCADProcessor extends React.Component<
     componentDidMount() {
         // TODO - figure out what's going on here
         // TODO - figure out what's going on here
-        // TODO - figure out what's going on here
+        // TODO - TODO - REMOVE THIS??
         if (openScadModule) {
             this.setState({ loadedDynamicImport: true });
             return;
         }
-
-        // TODO - remove this
-        // // @ts-ignore
-        // import("@jscad/web").then((module) => {
-        //   // Set openjscad module
-        //   openScadModule = module.default;
-
-        //   // Set state.ready to true
-        //   this.setState({ loadedDynamicImport: true });
-        // });
     }
 
     componentDidUpdate(prevProps: OpenJSCADProps, prevState: OpenJSCADState) {
@@ -158,7 +148,7 @@ export class OpenJSCADProcessor extends React.Component<
                     },
                     onUpdate: (data: any) => {
                         // Logs debug statement
-                        console.log("processor.onUpdate", data);
+                        this.log("processor.onUpdate", data);
 
                         // If data.outputFile is defined -> update state.outputFile
                         if (data.outputFile) {
@@ -236,7 +226,7 @@ export class OpenJSCADProcessor extends React.Component<
                         EXPORT_FORMATS[this.props.outputFileExport],
                     );
                 }
-                console.log("BUILD FILE");
+                this.log("BUILD FILE");
             }
         }
     }
@@ -296,11 +286,6 @@ export class OpenJSCADProcessor extends React.Component<
                             viewerContext: this.viewerContext,
                             viewerDiv: this.viewerDiv,
                             parametersTable: this.parametersTable,
-                        },
-                        resetCamera: () => {
-                            if (this.processor) {
-                                this.processor.resetCamera();
-                            }
                         },
                     })}
             </React.Fragment>
