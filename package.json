@@ -1,6 +1,6 @@
 {
     "name": "openjscad-react",
-    "version": "0.0.1-canary-06",
+    "version": "0.0.1-canary-07",
     "description": "React.js component for the OpenJSCAD.org project",
     "repository": "https://github.com/aeksco/openjscad-react",
     "author": "Alexander Schwartzberg <aeksco@gmail.com>",
@@ -12,12 +12,15 @@
         "lint": "eslint --fix -c ./.eslintrc.js \"src/**/*.ts*\"",
         "prettify": "prettier --config ./.prettierrc.js 'src/**/*.ts*' --write",
         "build": "npm run clean && npm run compile",
-        "clean": "rm -rf ./dist",
+        "clean": "rm -rf ./lib && rm -rf ./__tests__",
         "compile": "tsc -p tsconfig.build.json",
         "prepublishOnly": "npm run build"
     },
     "files": [
-        "dist"
+        "lib",
+        "index.d.ts",
+        "index.js",
+        "index.js.map"
     ],
     "main": "./dist/src/index.js",
     "types": "./dist/src/index.d.ts",

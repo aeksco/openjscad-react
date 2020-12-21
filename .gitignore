@@ -1,2 +1,11 @@
 storybook-static
-dist
+
+# Ignore build files in root of repository
+index.d.ts
+index.js
+index.js.map
+lib
+__tests__
+
+# Always include contents of src directory
+!src/*
