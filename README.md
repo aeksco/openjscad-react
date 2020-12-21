@@ -32,8 +32,8 @@
       Website
     </a>
     <span> | </span>
-    <a href="https://aeksco.github.io/openjscad-react">
-      Examples
+    <a href="https://openjscad-react-next-starter.netlify.app">
+      Example
     </a>
     <span> | </span>
     <a href="https://github.com/aeksco/openjscad-react-next-starter">
