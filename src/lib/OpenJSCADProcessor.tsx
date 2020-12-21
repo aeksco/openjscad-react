@@ -3,7 +3,7 @@ import {
     ProcessorState,
     ProcessorStates,
     OutputFile,
-    OpenJSCADProps,
+    OpenJSCADProcessorProps,
     Processor,
     GenerateOutputFileParams,
 } from "./types";
@@ -27,7 +27,7 @@ export interface OpenJSCADState {
  * @param props - see OpenJSCADProps
  */
 export class OpenJSCADProcessor extends React.Component<
-    OpenJSCADProps,
+    OpenJSCADProcessorProps,
     OpenJSCADState
 > {
     viewerContext: React.RefObject<HTMLDivElement>;
@@ -36,7 +36,7 @@ export class OpenJSCADProcessor extends React.Component<
     parametersTable: React.RefObject<HTMLTableElement>;
     processor: null | Processor;
 
-    constructor(props: OpenJSCADProps) {
+    constructor(props: OpenJSCADProcessorProps) {
         super(props);
 
         this.viewerContext = React.createRef();
@@ -60,7 +60,16 @@ export class OpenJSCADProcessor extends React.Component<
         }
     }
 
-    componentDidUpdate(prevProps: OpenJSCADProps, prevState: OpenJSCADState) {
+    componentDidMount() {
+        this.setState({
+            initializedProcessor: true,
+        });
+    }
+
+    componentDidUpdate(
+        prevProps: OpenJSCADProcessorProps,
+        prevState: OpenJSCADState,
+    ) {
         // Short-circuit if we have not loaded the dynamic import yet
         if (!openScadModule) {
             // Logs debug message

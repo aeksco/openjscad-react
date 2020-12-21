@@ -181,7 +181,7 @@ storiesOf("Demos/Simple", module).add("Name Plate", () => {
                             </div>
 
                             <div className="col-span-2 lg:pl-2 sm:pl-0 mt-3 lg:mt-0 rounded-xl">
-                                {/* EXAMPLE USING REFS DIRECTLY */}
+                                {/* Example using refs directly */}
                                 <div
                                     ref={childProps.refs.viewerContext}
                                     className="rounded-xl bg-white overflow-hidden"

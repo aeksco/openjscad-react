@@ -1,4 +1,5 @@
 import { ReactNode, RefObject } from "react";
+import { WindowResizeObserverProps } from "./WindowResizeObserver";
 
 // // // //
 
@@ -307,7 +308,7 @@ export interface ViewerChildProps {
  * @param style - optional object of React.CSSProperties to apply to the TSX rendered by the processor
  * @param className - optional object of className properties to apply to the TSX rendered by the processor
  */
-export interface OpenJSCADProps {
+export interface OpenJSCADProcessorProps {
     jscadScript: string;
     debug?: boolean;
     outputFileExport?: ExportFormat | ExportFormats;
@@ -328,3 +329,6 @@ export interface OpenJSCADProps {
         parametersTable?: string;
     };
 }
+
+export type OpenJSCADProps = OpenJSCADProcessorProps &
+    WindowResizeObserverProps & { debounceTimeout?: number };
