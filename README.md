@@ -88,10 +88,13 @@ The `openjscad-react` module is compatible with React v16.8+ and works with Reac
 
 ### TODOs + Known Issues
 
--   Add Jest tests w/ JSDom
 -   Add Eslint
 -   Clean up Examples.stories.tsx
+-   Add link to `https://github.com/aeksco/openjscad-react-next-starter` in `README.md`
+
+### GitHub Issues to add
+
+-   Update Storybook to 6.1.11
+-   Improve documentation with better examples
 -   Cannot instantiate multiple `OpenJSCAD` components on the page simultaneiously (this may be due to limitations in the `@jscad/web` package, but I'm positive)
 -   The `ResizeObserver` component ideally shouldn't exist, but the `OpenJSCAD` component blows up without the extra layer in place
--   Add link to `https://github.com/aeksco/openjscad-react-next-starter` in `README.md`
--   Update Storybook to 6.1.11

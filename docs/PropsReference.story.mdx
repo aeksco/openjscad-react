@@ -18,7 +18,6 @@ This is a props reference for the `OpenJSCAD` component
 | **children**          | `(childProps: ViewerChildProps) => React.ReactNode` | See `ViewerChildProps` type documentation below                                                       | `false`  | `undefined` |
 | **camera**            | `CameraProps`                                       | See `CameraProps` type documentation below                                                            | `false`  | `undefined` |
 
-
 ## `CameraProps` interface
 
 | Prop Name    | Type       | Description                              | Required | default                   |
@@ -26,8 +25,7 @@ This is a props reference for the `OpenJSCAD` component
 | **angle**    | `XYZCoord` | The view angle about XYZ axis.           | `false`  | `{ x: -60, y: 0, z: 45 }` |
 | **position** | `XYZCoord` | The initial position at XYZ.             | `false`  | `{ x: 0, y: 0, z: 100 }`  |
 | **clip**     | `MinMax`   | Rendering outside this range is clipped. | `false`  | `{ min: 1, max: 1000 }`   |
-| **fox**      | `number`   | The field of view of the camera          | `false`  | 45                        |
-
+| **fov**      | `number`   | The field of view of the camera          | `false`  | 45                        |
 
 ## `XYZCoord` interface
 
@@ -37,7 +35,6 @@ This is a props reference for the `OpenJSCAD` component
 | **y**     | `number` |             | `true`   |
 | **z**     | `number` |             | `true`   |
 
-
 ## `MinMax` interface
 
 | Prop Name | Type     | Description | Required |
@@ -45,68 +42,61 @@ This is a props reference for the `OpenJSCAD` component
 | **min**   | `number` |             | `true`   |
 | **max**   | `number` |             | `true`   |
 
-
 ## `RgbaColor` interface
 
-| Prop Name | Type     | Description | Required |
-| --------- | -------- | ----------- | -------- |
-| **r**     | `number` |     red (values 0.0 - 1.0)        | `true`   |
-| **g**     | `number` |      green (values 0.0 - 1.0)       | `true`   |
-| **b**     | `number` |       blue (values 0.0 - 1.0)      | `true`   |
-| **a**     | `number` |       alpha (values 0.0 - 1.0)      | `true`   |
-
+| Prop Name | Type     | Description              | Required |
+| --------- | -------- | ------------------------ | -------- |
+| **r**     | `number` | red (values 0.0 - 1.0)   | `true`   |
+| **g**     | `number` | green (values 0.0 - 1.0) | `true`   |
+| **b**     | `number` | blue (values 0.0 - 1.0)  | `true`   |
+| **a**     | `number` | alpha (values 0.0 - 1.0) | `true`   |
 
 ## `GridSettings` interface
 
-| Prop Name | Type     | Description | Required |
-| --------- | -------- | ----------- | -------- |
-| **i**   | `number` |     number of units between grid lines        | `true`   |
-| **color**   | `RgbaColor` |   color of the grid          | `true`   |
-
+| Prop Name | Type        | Description                        | Required |
+| --------- | ----------- | ---------------------------------- | -------- |
+| **i**     | `number`    | number of units between grid lines | `true`   |
+| **color** | `RgbaColor` | color of the grid                  | `true`   |
 
 ## `PlateSettings` interface
 
-| Prop Name | Type     | Description | Required | Defualt Value|
-| --------- | -------- | ----------- | -------- |-------- |
-| **draw**   | `boolean` |     draw or note        | `false`   | `true` |
-| **size**   | `number` |   plate size (X and Y)          | `false`   | `200` |
-| **m**   | `GridSettings` |   minor grid settings          | `false`   |  |
-| **M**   | `GridSettings` |   minor grid settings          | `false`   | |
-
+| Prop Name | Type           | Description          | Required | Defualt Value |
+| --------- | -------------- | -------------------- | -------- | ------------- |
+| **draw**  | `boolean`      | draw or note         | `false`  | `true`        |
+| **size**  | `number`       | plate size (X and Y) | `false`  | `200`         |
+| **m**     | `GridSettings` | minor grid settings  | `false`  |               |
+| **M**     | `GridSettings` | minor grid settings  | `false`  |               |
 
 ## `PosNegColor` interface
 
-| Prop Name | Type     | Description | Required |
-| --------- | -------- | ----------- | -------- |
-| **neg**   | `RgbaColor` | color in negative direction | `false` |
-| **pos**   | `RgbaColor` |   plate size (X and Y)          | `false` |
-
+| Prop Name | Type        | Description                 | Required |
+| --------- | ----------- | --------------------------- | -------- |
+| **neg**   | `RgbaColor` | color in negative direction | `false`  |
+| **pos**   | `RgbaColor` | plate size (X and Y)        | `false`  |
 
 ## `AxisSettings` interface
 
-| Prop Name | Type     | Description | Required | Default Value|
-| --------- | -------- | ----------- | -------- |-------- |
-| **draw**   | `boolean` | draw or not | `false` |`false` |
-| **x**   | `PosNegColor` | colors for x axis | `false` | |
-| **y**   | `PosNegColor` | colors for y axis | `false` | |
-| **z**   | `PosNegColor` | colors for z axis | `false` | |
-
+| Prop Name | Type          | Description       | Required | Default Value |
+| --------- | ------------- | ----------------- | -------- | ------------- |
+| **draw**  | `boolean`     | draw or not       | `false`  | `false`       |
+| **x**     | `PosNegColor` | colors for x axis | `false`  |               |
+| **y**     | `PosNegColor` | colors for y axis | `false`  |               |
+| **z**     | `PosNegColor` | colors for z axis | `false`  |               |
 
 ## `LightGLOptions` interface
 
-| Prop Name | Type     | Description | Required | Default Value|
-| --------- | -------- | ----------- | -------- |-------- |
-| **canvas**   | `Object` | Uses the HTML canvas given in 'options' or creates a new one if necessary | `false` | |
-| **width**   | `number` | width applied to the canvas created when `options.canvas` is not set | `false` | `600` |
-| **height**   | `number` | height applied to the canvas created when `options.canvas` is not set | `false` | `600` |
-| **alpha**   | `number` | The alpha channel is disabled by default because it usually causes unintended transparencies in the canvas | `false` |  |
-
+| Prop Name  | Type     | Description                                                                                                | Required | Default Value |
+| ---------- | -------- | ---------------------------------------------------------------------------------------------------------- | -------- | ------------- |
+| **canvas** | `Object` | Uses the HTML canvas given in 'options' or creates a new one if necessary                                  | `false`  |               |
+| **width**  | `number` | width applied to the canvas created when `options.canvas` is not set                                       | `false`  | `600`         |
+| **height** | `number` | height applied to the canvas created when `options.canvas` is not set                                      | `false`  | `600`         |
+| **alpha**  | `number` | The alpha channel is disabled by default because it usually causes unintended transparencies in the canvas | `false`  |               |
 
 ## `JscadViewerOptions` interface
 
-| Prop Name | Type     | Description | Required |
-| --------- | -------- | ----------- | -------- |
-| **plate**   | `PlateSettings` | Uses the HTML canvas given in 'options' or creates a new one if necessary | `false` |
-| **camera**   | `CameraSettings` | width applied to the canvas created when `options.canvas` is not set | `false` |
-| **axis**   | `AxisSettings` | axis settings | `false` |
-| **glOptions**   | `LightGLOptions` | options sent to GL.create() | `false` |
+| Prop Name     | Type             | Description                                                               | Required |
+| ------------- | ---------------- | ------------------------------------------------------------------------- | -------- |
+| **plate**     | `PlateSettings`  | Uses the HTML canvas given in 'options' or creates a new one if necessary | `false`  |
+| **camera**    | `CameraSettings` | width applied to the canvas created when `options.canvas` is not set      | `false`  |
+| **axis**      | `AxisSettings`   | axis settings                                                             | `false`  |
+| **glOptions** | `LightGLOptions` | options sent to GL.create()                                               | `false`  |
