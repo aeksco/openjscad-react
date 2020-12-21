@@ -31,3 +31,14 @@ export const POS_NEG_COLOR: PosNegColor = {
         a: 1,
     },
 };
+
+export const EXAMPLE_STYLES = {
+    viewerCanvas: {
+        height: "480px",
+        width: "100%",
+    },
+};
+
+export const EXAMPLE_CLASSNAME = {
+    wrapperDiv: "grid grid-cols-1 w-full",
+};

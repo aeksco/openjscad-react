@@ -146,7 +146,6 @@ The `openjscad-react` module is compatible with React v16.8+ and works with Reac
 
 ### TODOs + Known Issues
 
--   Clean up Examples.stories.tsx
 -   Publish 0.1.0 package
 -   Update `https://github.com/aeksco/openjscad-react-next-starter`
 
