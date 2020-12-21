@@ -1,13 +1,13 @@
 <h1 align="center">openjscad-react</h1>
 
 <div align="center">
-  <strong>React.js component for rendering + exporting OpenJSCAD scripts</strong>
+  <strong>React.js component for rendering &amp; exporting OpenJSCAD scripts</strong>
 </div>
 
 <br />
 
 <div align="center">
-  Save <i>weeks</i> of development time on your next web project :tada:
+  Write an <code>OpenJSCAD</code> script and wire it up to some inputs to start exporting user-customizable designs
 </div>
 
 <br />
@@ -24,23 +24,19 @@
 
   <!-- PRs Welcome -->
   <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat" alt="Hit Count" />
-
-  <!-- Build Status -->
-  <!-- Test Coverage -->
-  <!-- Download Count -->
 </div>
 
 <div align="center">
   <h3>
-    <a href="https://codotype.io">
+    <a href="https://aeksco.github.io/openjscad-react">
       Website
     </a>
     <span> | </span>
-    <a href="https://codotype.org">
+    <a href="https://aeksco.github.io/openjscad-react">
       Examples
     </a>
     <span> | </span>
-    <a href="https://codotype.org">
+    <a href="https://github.com/aeksco/openjscad-react-next-starter">
       Next.js Starter Kit
     </a>
   </h3>
@@ -164,7 +160,7 @@ The `openjscad-react` module is compatible with React v16.8+ and works with Reac
 -   Clean up Examples.stories.tsx
 -   Add GitHub community wellness check
 -   Publish 0.1.0 package
--   Update `https://github.com/aeksco/openjscad-react-next-starter` + add to `README.md`
+-   Update `https://github.com/aeksco/openjscad-react-next-starter`
 
 ### GitHub Issues to add
 
