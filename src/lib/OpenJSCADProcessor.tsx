@@ -2,6 +2,7 @@ import React from "react";
 import {
     ProcessorState,
     ProcessorStates,
+    OutputFile,
     OpenJSCADProps,
     Processor,
     GenerateOutputFileParams,
@@ -18,7 +19,7 @@ import { EXPORT_FORMATS } from "./constants";
 export interface OpenJSCADState {
     loadedDynamicImport: boolean;
     status: ProcessorState;
-    outputFile: any; // TODO - fix
+    outputFile: null | OutputFile;
 }
 
 /**
@@ -28,7 +29,7 @@ export interface OpenJSCADState {
 export class OpenJSCADProcessor extends React.Component<
     OpenJSCADProps,
     OpenJSCADState
-> {
+    > {
     viewerContext: React.RefObject<HTMLDivElement>;
     viewerDiv: React.RefObject<HTMLDivElement>;
     viewerCanvas: React.RefObject<HTMLCanvasElement>;

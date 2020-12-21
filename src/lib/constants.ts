@@ -1,7 +1,6 @@
 import { GenerateOutputFileParams, ExportFormats } from "./types";
 
 // // // //
-// TODO - annotate this file
 
 export const STLA_FORMAT: GenerateOutputFileParams = {
     name: "stla",
@@ -73,6 +72,9 @@ export const JS_FORMAT: GenerateOutputFileParams = {
     convertCAG: true,
 };
 
+/**
+ * Defines the different variations of GenerateOutputFileParams to handle each ExportFormats
+ */
 export const EXPORT_FORMATS: {
     [key in ExportFormats]: GenerateOutputFileParams;
 } = {
