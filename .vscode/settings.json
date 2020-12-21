@@ -1,0 +1,6 @@
+{
+  "css.customData": [".vscode/css_custom_data.json"],
+  "css.lint.unknownAtRules": "ignore",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true
+}
