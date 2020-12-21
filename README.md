@@ -121,18 +121,7 @@ See the [Props Reference](/?path=/story/docs-getting-started-props-reference--pa
 
 ## Developing
 
-Run the [Storybook](https://storybook.js.org/) server by running the following commands:
-
-```
-yarn install
-yarn start
-```
-
-Run [Jest](https://jestjs.io) tests wi the following command:
-
-```
-yarn test
-```
+Consult the [Contribution Guide]() to get started :rocket:
 
 ## Compatibility
 
