@@ -121,11 +121,11 @@ See the [Props Reference](/?path=/story/docs-getting-started-props-reference--pa
 
 ## Developing
 
-Consult the [Contribution Guide]() to get started :rocket:
+Consult the [Contribution Guide](https://github.com/aeksco/openjscad-react/blob/main/CONTRIBUTING.md) to get started :rocket:
 
 ## Compatibility
 
-The `openjscad-react` module is compatible with React v16.8+ and works with ReactDOM. React Native is not supported at this time.
+The `openjscad-react` module is compatible with React v16.8+ and works with ReactDOM. Next.js is supported. React Native is not supported at this time.
 
 ## Built with
 
@@ -147,7 +147,6 @@ The `openjscad-react` module is compatible with React v16.8+ and works with Reac
 ### TODOs + Known Issues
 
 -   Clean up Examples.stories.tsx
--   Add GitHub community wellness check
 -   Publish 0.1.0 package
 -   Update `https://github.com/aeksco/openjscad-react-next-starter`
 
