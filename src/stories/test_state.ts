@@ -1,21 +1,31 @@
+import { CSSProperties } from "react";
 import { PosNegColor } from "../lib/types";
+// UG! 'modeling' is cluttering GLOBAL name space
+// @ts-ignore
+import { primitives } from "@jscad/modeling";
 
 // // // //
 
-export const DEFAULT_SCRIPT = `
-function main () {
-  return union(
-    difference(
-      cube({size: 3, center: true}),
-      sphere({r: 2, center: true})
-    ),
-    intersection(
-      sphere({r: 1.3, center: true}),
-      cube({size: 2.1, center: true})
-    )
-  ).translate([0, 0, 1.5]).scale(10);
-}
-`;
+export const DEFAULT_SCRIPT = [
+    primitives.cube({
+        center: [0, 0, 0],
+        size: 10,
+    }),
+];
+// `
+// function main () {
+//   return union(
+//     difference(
+//       cube({size: 3, center: true}),
+//       sphere({r: 2, center: true})
+//     ),
+//     intersection(
+//       sphere({r: 1.3, center: true}),
+//       cube({size: 2.1, center: true})
+//     )
+//   ).translate([0, 0, 1.5]).scale(10);
+// }
+// `;
 
 export const POS_NEG_COLOR: PosNegColor = {
     pos: {
@@ -32,13 +42,9 @@ export const POS_NEG_COLOR: PosNegColor = {
     },
 };
 
-export const EXAMPLE_STYLES = {
-    viewerCanvas: {
-        height: "480px",
-        width: "100%",
-    },
+export const EXAMPLE_STYLES: CSSProperties = {
+    height: "480px",
+    width: "100%",
 };
 
-export const EXAMPLE_CLASSNAME = {
-    wrapperDiv: "grid grid-cols-1 w-full",
-};
+export const EXAMPLE_CLASSNAME: string = "grid grid-cols-1 w-full";

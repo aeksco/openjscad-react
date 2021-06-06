@@ -84,7 +84,7 @@ export function MyComponent(props: { script: string }) {
     return (
         <OpenJSCAD
             className="grid grid-cols-1 w-full"
-            jscadScript={props.script}
+            solids={props.script}
         />
     );
 }
@@ -109,7 +109,7 @@ export function MyComponent(props: { script: string }) {
     return (
         <OpenJSCAD
             className="grid grid-cols-1 w-full"
-            jscadScript={props.script}
+            solids={props.script}
         />
     );
 }
