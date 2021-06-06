@@ -154,7 +154,7 @@ export enum ProcessorStates {
  */
 export interface Processor {
     abort: () => void;
-    setJsCad: (jscadScript: string) => void;
+    setJsCad: (solids: string) => void;
     generateOutputFile: (params: GenerateOutputFileParams) => void;
     resetCamera: () => void;
     enableItems: () => void;
@@ -300,34 +300,22 @@ export interface ViewerChildProps {
 
 /**
  * Props for the OpenJSCADProcessor component
- * @param jscadScript - the stringified OpenJSCAD script to render in the processor
+ * @param solids - the stringified OpenJSCAD script to render in the processor
  * @param debug - optional debug logs for OpenJSCADProcessor
- * @param outputFileExport - optional default ExportFormat. When this is included, the OpenJSCADProcessor component will always re-generate the export when a change to `props.jscadScript` is detected.
+ * @param outputFileExport - optional default ExportFormat. When this is included, the OpenJSCADProcessor component will always re-generate the export when a change to `props.solids` is detected.
  * @param viewerOptions - optional parameters to configure the Viewer component
  * @param children - optional render prop that accepts `ViewerChildProps` and returns `React.ReactNode`
  * @param style - optional object of React.CSSProperties to apply to the TSX rendered by the processor
  * @param className - optional object of className properties to apply to the TSX rendered by the processor
  */
 export interface OpenJSCADProcessorProps {
-    jscadScript: string;
+    solids?: any[]; // TOOD - this should be typed
     debug?: boolean;
     outputFileExport?: ExportFormat | ExportFormats;
     viewerOptions?: JscadViewerOptions;
-    children?: (childProps: ViewerChildProps) => ReactNode;
-    style?: {
-        wrapperDiv?: React.CSSProperties;
-        viewerCanvas?: React.CSSProperties;
-        viewerContext?: React.CSSProperties;
-        viewerDiv?: React.CSSProperties;
-        parametersTable?: React.CSSProperties;
-    };
-    className?: {
-        wrapperDiv?: string;
-        viewerCanvas?: string;
-        viewerContext?: string;
-        viewerDiv?: string;
-        parametersTable?: string;
-    };
+    // children?: (childProps: ViewerChildProps) => ReactNode;
+    style?: React.CSSProperties
+    className?: string;
 }
 
 export type OpenJSCADProps = OpenJSCADProcessorProps &

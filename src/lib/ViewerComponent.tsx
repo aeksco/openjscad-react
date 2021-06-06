@@ -1,15 +1,5 @@
 import React from "react";
 import {
-    ProcessorState,
-    // ProcessorStates,
-    OutputFile,
-    OpenJSCADProcessorProps,
-    // Processor,
-    // GenerateOutputFileParams,
-} from "./types";
-// import * as openScadModule from "@jscad/web/src/ui/umd.js";
-// import { EXPORT_FORMATS } from "./constants";
-import {
     prepareRender,
     drawCommands,
     cameras,
@@ -20,7 +10,7 @@ import {
 import { getPrimitives } from "./primitives";
 
 // // // //
-// From Viewer Component
+
 const perspectiveCamera = cameras.perspective;
 const orbitControls = controls.orbit;
 
@@ -94,6 +84,7 @@ const axisOptions: AxisOptions = {
     },
 };
 
+// // // //
 // COMPONENT STATE
 
 // count() {
@@ -108,11 +99,19 @@ const axisOptions: AxisOptions = {
 //   return this.$store.state.solids
 // }
 
+// // // //
+
 // TODO - get different container heights
 // const width = containerElement.clientWidth
 // const height = containerElement.clientHeight
 const width = 800;
 const height = 600;
+
+// // // //
+
+interface OpenJSCADProcessorProps {
+    solids: any[];
+}
 
 /**
  * OpenJSCADState
@@ -122,13 +121,11 @@ export interface OpenJSCADState {
     initializedProcessor: boolean;
 }
 
-// // // //
-
 /**
  * OpenJSCADProcessor
  * @param props - see OpenJSCADProps
  */
-export class OpenJSCADProcessor extends React.Component<
+export class ViewerComponent extends React.Component<
     OpenJSCADProcessorProps,
     ViewerState
 > {
@@ -148,24 +145,20 @@ export class OpenJSCADProcessor extends React.Component<
         this.doRotatePanZoom = this.doRotatePanZoom.bind(this);
 
         this.viewerContext = React.createRef();
+        // this.viewerCanvas = React.createRef();
+        // this.parametersTable = React.createRef();
+        // this.processor = null;
+        // this.log = this.log.bind(this);
 
         // Auto-increments the number of instances
         numberOfInstances++;
         this.id = numberOfInstances;
-        console.log("numberOfInstances");
-        console.log(numberOfInstances);
 
         // Defines default camera settings
         const camera: any = {
             ...Object.assign({}, perspectiveCamera.defaults),
             position: [150, -180, 233],
         };
-
-        // const count = Number(Date.now()
-        //     .toString()
-        //     .split("")
-        //     .pop())
-        const { solids = getPrimitives(0) } = props;
 
         this.state = {
             camera,
@@ -184,7 +177,8 @@ export class OpenJSCADProcessor extends React.Component<
                 entities: [
                     gridOptions,
                     axisOptions,
-                    ...entitiesFromSolids({}, solids),
+                    // ...entitiesFromSolids({}, props.solids),
+                    ...entitiesFromSolids({}, getPrimitives(1)),
                 ],
             },
             rotateDelta: [0, 0],
@@ -253,41 +247,14 @@ export class OpenJSCADProcessor extends React.Component<
         this.setState(updatedState);
     }
 
-    componentDidUpdate(prevProps: OpenJSCADProcessorProps) {
-        // console.log(props);
-
-        if (prevProps.solids.length !== this.props.solids.length) {
-            console.log("componentDidUpdate - props.solids");
-            this.setState({
-                ...this.state,
-                content: {
-                    ...this.state.content,
-                    entities: [
-                        gridOptions,
-                        axisOptions,
-                        ...entitiesFromSolids({}, prevProps.solids),
-                    ],
-                },
-            });
-            return;
-        }
-    }
-
     componentDidMount() {
-        console.log("COMPONENT DID MOUNT");
-        if (typeof window == "undefined" || typeof document == "undefined") {
-            console.log("WINDOW COMPROMISED?");
-            return;
-        }
-
-        if (!this.viewerContext.current) {
-            console.log("NOT YET MOUNTED");
-            return;
-        }
+        // console.log("COMPONENT DID MOUNT");
         // console.log(this.viewerContext.current);
         // this.$el.id = `viewer${this.id}`
         // this.renderer = setupRenderer(this.$el, this.$data)
-        // this.viewerContext.current;
+
+        this.viewerContext.current;
+
         // Define setup options
         const setupOptions: SetupOptions = {
             glOptions: { container: this.viewerContext.current },
@@ -297,6 +264,7 @@ export class OpenJSCADProcessor extends React.Component<
 
         // the heart of rendering, as themes, controls, etc change
         const updateAndRender = (timestamp: any) => {
+            window.cancelAnimationFrame(timestamp);
             this.doRotatePanZoom();
 
             const updates = orbitControls.update({
@@ -313,11 +281,6 @@ export class OpenJSCADProcessor extends React.Component<
             perspectiveCamera.update(this.state.camera);
 
             renderer(this.state.content);
-            // window.requestAnimationFrame(updateAndRender);
-            // setTimeout(() => {
-            //     if (this.viewerContext.current) {
-            //     }
-            // }, 100);
             window.requestAnimationFrame(updateAndRender);
         };
 
@@ -326,14 +289,11 @@ export class OpenJSCADProcessor extends React.Component<
 
         // Testing this..
         if (this.viewerContext.current) {
-            this.viewerContext.current.addEventListener("wheel", this.onWheel, {
-                passive: false,
-            });
+            this.viewerContext.current.addEventListener("wheel", this.onWheel);
         }
     }
 
     componentWillUnmount() {
-        console.log("Will Unmount");
         if (this.viewerContext.current) {
             this.viewerContext.current.removeEventListener(
                 "wheel",

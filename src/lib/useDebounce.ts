@@ -4,7 +4,7 @@ import lodashDebounce from "lodash.debounce";
 /**
  * useDebounce
  * Debounce function used by OpenJSCAD component to debounce
- * changes in props.jscadScript passed into the OpenJSCADProcessor component
+ * changes in props.solids passed into the OpenJSCADProcessor component
  * @param obj - The state being stored in a debounced state
  * @param wait - optional - the debounce timeout
  */
