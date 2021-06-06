@@ -20,18 +20,15 @@ npm install --save openjscad-react
 
 ## Usage
 
-Import the `OpenJSCAD` component in your React component and pass in a valid OpenJSCAD script:
+Import the `OpenJSCAD` component in your React component and pass in a valid OpenJSCAD solids:
 
 ```tsx
 import * as React from "react";
 import { OpenJSCAD } from "openjscad-react";
 
-export function MyComponent(props: { script: string }) {
+export function MyComponent(props: { solids: Solid[] }) {
     return (
-        <OpenJSCAD
-            className="grid grid-cols-1 w-full"
-            jscadScript={props.script}
-        />
+        <OpenJSCAD className="grid grid-cols-1 w-full" solids={props.solids} />
     );
 }
 ```
@@ -45,18 +42,13 @@ import { ViewerProps } from "openjscad-react";
 
 const OpenJSCAD: React.ComponentType<ViewerProps> = dynamic(
     () =>
-        import("openjscad-react/dist/src/OpenJSCAD").then(
-            (mod) => mod.OpenJSCAD,
-        ),
+        import("openjscad-react/dist/src/OpenJSCAD").then(mod => mod.OpenJSCAD),
     { ssr: false },
 );
 
-export function MyComponent(props: { script: string }) {
+export function MyComponent(props: { solids: Solid[] }) {
     return (
-        <OpenJSCAD
-            className="grid grid-cols-1 w-full"
-            jscadScript={props.script}
-        />
+        <OpenJSCAD className="grid grid-cols-1 w-full" solids={props.solids} />
     );
 }
 ```
