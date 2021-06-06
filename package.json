@@ -74,7 +74,6 @@
         "react-dom": "^16.13.1",
         "react-test-renderer": "^17.0.1",
         "tailwindcss": "^1.8.10",
-        "terser-webpack-plugin": "^4.2.3",
         "ts-jest": "^26.4.1",
         "ts-loader": "^8.0.4",
         "typescript": "^3.9.7"
