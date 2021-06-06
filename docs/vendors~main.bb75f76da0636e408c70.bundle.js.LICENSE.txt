@@ -25,13 +25,6 @@ object-assign
  */
 
 /*!
- * The buffer module from node.js, for the browser.
- *
- * @author   Feross Aboukhadijeh <http://feross.org>
- * @license  MIT
- */
-
-/*!
  * https://github.com/es-shims/es5-shim
  * @license es5-shim Copyright 2009-2020 by contributors, MIT License
  * see https://github.com/es-shims/es5-shim/blob/master/LICENSE
@@ -61,10 +54,6 @@ object-assign
  * Released under the MIT License.
  */
 
-/*! http://mths.be/fromcodepoint v0.1.0 by @mathias */
-
-/*! safe-buffer. MIT License. Feross Aboukhadijeh <https://feross.org/opensource> */
-
 /**
  * Prism: Lightweight, robust, elegant syntax highlighting
  *
@@ -73,12 +62,6 @@ object-assign
  * @namespace
  * @public
  */
-
-/** @license MIT License (c) copyright 2010-2014 original author or authors */
-
-/** @license MIT License (c) copyright 2010-2016 original author or authors */
-
-/** @license MIT License (c) copyright 2010-2017 original author or authors */
 
 /** @license React v0.19.1
  * scheduler.production.min.js
