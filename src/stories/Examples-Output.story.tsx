@@ -24,23 +24,23 @@ storiesOf("Examples/generateOutputFile", module)
             <OpenJSCAD
                 className={EXAMPLE_CLASSNAME}
                 style={EXAMPLE_STYLES}
-                jscadScript={DEFAULT_SCRIPT}
-            >
-                {({ generateOutputFile, outputFile, viewerElement }) => (
-                    <React.Fragment>
-                        {viewerElement}
-                        <button
-                            className="btn mt-2"
-                            onClick={() => {
-                                generateOutputFile(STLA_FORMAT);
-                            }}
-                        >
-                            Generate STL (ASCII)
-                        </button>
-                        <pre>{JSON.stringify({ outputFile }, null, 4)}</pre>
-                    </React.Fragment>
-                )}
-            </OpenJSCAD>
+                solids={DEFAULT_SCRIPT}
+            />
+            //     {({ generateOutputFile, outputFile, viewerElement }) => (
+            //         <React.Fragment>
+            //             {viewerElement}
+            //             <button
+            //                 className="btn mt-2"
+            //                 onClick={() => {
+            //                     generateOutputFile(STLA_FORMAT);
+            //                 }}
+            //             >
+            //                 Generate STL (ASCII)
+            //             </button>
+            //             <pre>{JSON.stringify({ outputFile }, null, 4)}</pre>
+            //         </React.Fragment>
+            //     )}
+            // </OpenJSCAD>
         );
     })
     .add("stlb", () => {
@@ -48,23 +48,23 @@ storiesOf("Examples/generateOutputFile", module)
             <OpenJSCAD
                 className={EXAMPLE_CLASSNAME}
                 style={EXAMPLE_STYLES}
-                jscadScript={DEFAULT_SCRIPT}
-            >
-                {({ generateOutputFile, outputFile, viewerElement }) => (
-                    <React.Fragment>
-                        {viewerElement}
-                        <button
-                            className="btn mt-2"
-                            onClick={() => {
-                                generateOutputFile(STLB_FORMAT);
-                            }}
-                        >
-                            Generate STL (Binary)
-                        </button>
-                        <pre>{JSON.stringify({ outputFile }, null, 4)}</pre>
-                    </React.Fragment>
-                )}
-            </OpenJSCAD>
+                solids={DEFAULT_SCRIPT}
+            />
+            //     {({ generateOutputFile, outputFile, viewerElement }) => (
+            //         <React.Fragment>
+            //             {viewerElement}
+            //             <button
+            //                 className="btn mt-2"
+            //                 onClick={() => {
+            //                     generateOutputFile(STLB_FORMAT);
+            //                 }}
+            //             >
+            //                 Generate STL (Binary)
+            //             </button>
+            //             <pre>{JSON.stringify({ outputFile }, null, 4)}</pre>
+            //         </React.Fragment>
+            //     )}
+            // </OpenJSCAD>
         );
     })
     .add("jscad", () => {
@@ -72,23 +72,23 @@ storiesOf("Examples/generateOutputFile", module)
             <OpenJSCAD
                 className={EXAMPLE_CLASSNAME}
                 style={EXAMPLE_STYLES}
-                jscadScript={DEFAULT_SCRIPT}
-            >
-                {({ generateOutputFile, outputFile, viewerElement }) => (
-                    <React.Fragment>
-                        {viewerElement}
-                        <button
-                            className="btn mt-2"
-                            onClick={() => {
-                                generateOutputFile(JSCAD_FORMAT);
-                            }}
-                        >
-                            Generate JSCAD Script
-                        </button>
-                        <pre>{JSON.stringify({ outputFile }, null, 4)}</pre>
-                    </React.Fragment>
-                )}
-            </OpenJSCAD>
+                solids={DEFAULT_SCRIPT}
+            />
+            //     {({ generateOutputFile, outputFile, viewerElement }) => (
+            //         <React.Fragment>
+            //             {viewerElement}
+            //             <button
+            //                 className="btn mt-2"
+            //                 onClick={() => {
+            //                     generateOutputFile(JSCAD_FORMAT);
+            //                 }}
+            //             >
+            //                 Generate JSCAD Script
+            //             </button>
+            //             <pre>{JSON.stringify({ outputFile }, null, 4)}</pre>
+            //         </React.Fragment>
+            //     )}
+            // </OpenJSCAD>
         );
     })
     .add("js", () => {
@@ -96,23 +96,23 @@ storiesOf("Examples/generateOutputFile", module)
             <OpenJSCAD
                 className={EXAMPLE_CLASSNAME}
                 style={EXAMPLE_STYLES}
-                jscadScript={DEFAULT_SCRIPT}
-            >
-                {({ generateOutputFile, outputFile, viewerElement }) => (
-                    <React.Fragment>
-                        {viewerElement}
-                        <button
-                            className="btn mt-2"
-                            onClick={() => {
-                                generateOutputFile(JS_FORMAT);
-                            }}
-                        >
-                            Generate JS Script
-                        </button>
-                        <pre>{JSON.stringify({ outputFile }, null, 4)}</pre>
-                    </React.Fragment>
-                )}
-            </OpenJSCAD>
+                solids={DEFAULT_SCRIPT}
+            />
+            //     {({ generateOutputFile, outputFile, viewerElement }) => (
+            //         <React.Fragment>
+            //             {viewerElement}
+            //             <button
+            //                 className="btn mt-2"
+            //                 onClick={() => {
+            //                     generateOutputFile(JS_FORMAT);
+            //                 }}
+            //             >
+            //                 Generate JS Script
+            //             </button>
+            //             <pre>{JSON.stringify({ outputFile }, null, 4)}</pre>
+            //         </React.Fragment>
+            //     )}
+            // </OpenJSCAD>
         );
     });
 
@@ -130,34 +130,33 @@ const outputFileFormats: ExportFormats[] = [
     ExportFormats.js,
 ];
 
-outputFileFormats.forEach((format) => {
+outputFileFormats.forEach(format => {
     outputFileStories.add(format, () => {
         // Pulls metadata for export (file extension)
         const formatMetadata = EXPORT_FORMATS[format];
 
         return (
-            <OpenJSCAD
-                className={EXAMPLE_CLASSNAME}
-                style={EXAMPLE_STYLES}
-                jscadScript={DEFAULT_SCRIPT}
-                outputFileExport={format}
-            >
-                {({ viewerElement, outputFile }) => (
-                    <div>
-                        {viewerElement}
-                        <br />
-                        {outputFile !== null && (
-                            <a
-                                className="btn mt-2"
-                                download={`${formatMetadata.name}-export.${formatMetadata.extension}`}
-                                href={outputFile.data}
-                            >
-                                Download {formatMetadata.displayName}
-                            </a>
-                        )}
-                    </div>
-                )}
-            </OpenJSCAD>
+            <>
+                <OpenJSCAD
+                    className={EXAMPLE_CLASSNAME}
+                    style={EXAMPLE_STYLES}
+                    outputFileExport={format}
+                />
+                {/* <OpenJSCAD
+                    className={EXAMPLE_CLASSNAME}
+                    style={EXAMPLE_STYLES}
+                    solids={DEFAULT_SCRIPT}
+                    outputFileExport={format}
+                /> */}
+            </>
         );
+        //             {outputFile !== null && (
+        //                 <a
+        //                     className="btn mt-2"
+        //                     download={`${formatMetadata.name}-export.${formatMetadata.extension}`}
+        //                     href={outputFile.data}
+        //                 >
+        //                     Download {formatMetadata.displayName}
+        //                 </a>
     });
 });

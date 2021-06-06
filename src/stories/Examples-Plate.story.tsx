@@ -16,7 +16,7 @@ storiesOf("Examples/Plate", module)
             <OpenJSCAD
                 className={EXAMPLE_CLASSNAME}
                 style={EXAMPLE_STYLES}
-                jscadScript={DEFAULT_SCRIPT}
+                solids={DEFAULT_SCRIPT}
                 viewerOptions={{
                     plate: {
                         size: 100,
@@ -30,7 +30,7 @@ storiesOf("Examples/Plate", module)
             <OpenJSCAD
                 className={EXAMPLE_CLASSNAME}
                 style={EXAMPLE_STYLES}
-                jscadScript={DEFAULT_SCRIPT}
+                solids={DEFAULT_SCRIPT}
                 viewerOptions={{
                     plate: {
                         draw: false,
@@ -44,7 +44,7 @@ storiesOf("Examples/Plate", module)
             <OpenJSCAD
                 className={EXAMPLE_CLASSNAME}
                 style={EXAMPLE_STYLES}
-                jscadScript={DEFAULT_SCRIPT}
+                solids={DEFAULT_SCRIPT}
                 viewerOptions={{
                     plate: {
                         m: {
@@ -66,7 +66,7 @@ storiesOf("Examples/Plate", module)
             <OpenJSCAD
                 className={EXAMPLE_CLASSNAME}
                 style={EXAMPLE_STYLES}
-                jscadScript={DEFAULT_SCRIPT}
+                solids={DEFAULT_SCRIPT}
                 viewerOptions={{
                     plate: {
                         M: {

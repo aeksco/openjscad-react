@@ -17,7 +17,7 @@ storiesOf("Examples/Axis", module)
             <OpenJSCAD
                 className={EXAMPLE_CLASSNAME}
                 style={EXAMPLE_STYLES}
-                jscadScript={DEFAULT_SCRIPT}
+                solids={DEFAULT_SCRIPT}
                 viewerOptions={{
                     axis: {
                         draw: true,
@@ -31,7 +31,7 @@ storiesOf("Examples/Axis", module)
             <OpenJSCAD
                 className={EXAMPLE_CLASSNAME}
                 style={EXAMPLE_STYLES}
-                jscadScript={DEFAULT_SCRIPT}
+                solids={DEFAULT_SCRIPT}
                 viewerOptions={{
                     axis: {
                         draw: true,
@@ -46,7 +46,7 @@ storiesOf("Examples/Axis", module)
             <OpenJSCAD
                 className={EXAMPLE_CLASSNAME}
                 style={EXAMPLE_STYLES}
-                jscadScript={DEFAULT_SCRIPT}
+                solids={DEFAULT_SCRIPT}
                 viewerOptions={{
                     axis: {
                         draw: true,
@@ -61,7 +61,7 @@ storiesOf("Examples/Axis", module)
             <OpenJSCAD
                 className={EXAMPLE_CLASSNAME}
                 style={EXAMPLE_STYLES}
-                jscadScript={DEFAULT_SCRIPT}
+                solids={DEFAULT_SCRIPT}
                 viewerOptions={{
                     axis: {
                         draw: true,

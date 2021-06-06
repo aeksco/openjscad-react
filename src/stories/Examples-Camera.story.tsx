@@ -16,7 +16,7 @@ storiesOf("Examples/Camera", module)
             <OpenJSCAD
                 className={EXAMPLE_CLASSNAME}
                 style={EXAMPLE_STYLES}
-                jscadScript={DEFAULT_SCRIPT}
+                solids={DEFAULT_SCRIPT}
             >
                 {(childProps) => {
                     return (
@@ -42,7 +42,7 @@ storiesOf("Examples/Camera", module)
             <OpenJSCAD
                 className={EXAMPLE_CLASSNAME}
                 style={EXAMPLE_STYLES}
-                jscadScript={DEFAULT_SCRIPT}
+                solids={DEFAULT_SCRIPT}
                 viewerOptions={{
                     camera: {
                         clip: { min: 1, max: 500 },
@@ -56,7 +56,7 @@ storiesOf("Examples/Camera", module)
             <OpenJSCAD
                 className={EXAMPLE_CLASSNAME}
                 style={EXAMPLE_STYLES}
-                jscadScript={DEFAULT_SCRIPT}
+                solids={DEFAULT_SCRIPT}
                 viewerOptions={{
                     camera: {
                         position: { x: 50, y: 50, z: 250 },
@@ -71,7 +71,7 @@ storiesOf("Examples/Camera", module)
             <OpenJSCAD
                 className={EXAMPLE_CLASSNAME}
                 style={EXAMPLE_STYLES}
-                jscadScript={DEFAULT_SCRIPT}
+                solids={DEFAULT_SCRIPT}
                 viewerOptions={{
                     camera: {
                         angle: { x: -60, y: 0, z: 45 },
@@ -85,7 +85,7 @@ storiesOf("Examples/Camera", module)
             <OpenJSCAD
                 className={EXAMPLE_CLASSNAME}
                 style={EXAMPLE_STYLES}
-                jscadScript={DEFAULT_SCRIPT}
+                solids={DEFAULT_SCRIPT}
                 viewerOptions={{
                     camera: {
                         fov: 15,

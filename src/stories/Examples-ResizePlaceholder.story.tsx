@@ -16,7 +16,7 @@ storiesOf("Examples/Resize Placeholder", module)
             <OpenJSCAD
                 className={EXAMPLE_CLASSNAME}
                 style={EXAMPLE_STYLES}
-                jscadScript={DEFAULT_SCRIPT}
+                solids={DEFAULT_SCRIPT}
                 loadingPlaceholder={
                     <div className="w-full min-h-full h-full bg-gray-100 flex justify-center">
                         <p className="py-56">Resizing...</p>
@@ -30,7 +30,7 @@ storiesOf("Examples/Resize Placeholder", module)
             <OpenJSCAD
                 className={EXAMPLE_CLASSNAME}
                 style={EXAMPLE_STYLES}
-                jscadScript={DEFAULT_SCRIPT}
+                solids={DEFAULT_SCRIPT}
                 loadingPlaceholder={() => {
                     const currentTime = new Date().toUTCString();
                     return (

@@ -16,7 +16,7 @@ storiesOf("Examples/solid", module)
             <OpenJSCAD
                 className={EXAMPLE_CLASSNAME}
                 style={EXAMPLE_STYLES}
-                jscadScript={DEFAULT_SCRIPT}
+                solids={DEFAULT_SCRIPT}
                 viewerOptions={{
                     solid: {
                         draw: false,
@@ -30,7 +30,7 @@ storiesOf("Examples/solid", module)
             <OpenJSCAD
                 className={EXAMPLE_CLASSNAME}
                 style={EXAMPLE_STYLES}
-                jscadScript={DEFAULT_SCRIPT}
+                solids={DEFAULT_SCRIPT}
                 viewerOptions={{
                     solid: {
                         lines: true,
@@ -44,7 +44,7 @@ storiesOf("Examples/solid", module)
             <OpenJSCAD
                 className={EXAMPLE_CLASSNAME}
                 style={EXAMPLE_STYLES}
-                jscadScript={DEFAULT_SCRIPT}
+                solids={DEFAULT_SCRIPT}
                 viewerOptions={{
                     solid: {
                         faces: false,
@@ -58,7 +58,7 @@ storiesOf("Examples/solid", module)
             <OpenJSCAD
                 className={EXAMPLE_CLASSNAME}
                 style={EXAMPLE_STYLES}
-                jscadScript={DEFAULT_SCRIPT}
+                solids={DEFAULT_SCRIPT}
                 viewerOptions={{
                     solid: {
                         overlay: true,
@@ -72,7 +72,7 @@ storiesOf("Examples/solid", module)
             <OpenJSCAD
                 className={EXAMPLE_CLASSNAME}
                 style={EXAMPLE_STYLES}
-                jscadScript={DEFAULT_SCRIPT}
+                solids={DEFAULT_SCRIPT}
                 viewerOptions={{
                     solid: {
                         smooth: true,
@@ -86,7 +86,7 @@ storiesOf("Examples/solid", module)
             <OpenJSCAD
                 className={EXAMPLE_CLASSNAME}
                 style={EXAMPLE_STYLES}
-                jscadScript={DEFAULT_SCRIPT}
+                solids={DEFAULT_SCRIPT}
                 viewerOptions={{
                     solid: {
                         faceColor: { r: 0.2, g: 0.4, b: 0.6, a: 1.0 },
@@ -100,7 +100,7 @@ storiesOf("Examples/solid", module)
             <OpenJSCAD
                 className={EXAMPLE_CLASSNAME}
                 style={EXAMPLE_STYLES}
-                jscadScript={DEFAULT_SCRIPT}
+                solids={DEFAULT_SCRIPT}
                 viewerOptions={{
                     solid: {
                         outlineColor: { r: 0.2, g: 0.4, b: 0.6, a: 1.0 },

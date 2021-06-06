@@ -16,7 +16,7 @@ storiesOf("Examples/Layouts", module)
             <OpenJSCAD
                 className={EXAMPLE_CLASSNAME}
                 style={EXAMPLE_STYLES}
-                jscadScript={DEFAULT_SCRIPT}
+                solids={DEFAULT_SCRIPT}
             />
         );
     })
@@ -25,7 +25,7 @@ storiesOf("Examples/Layouts", module)
             <OpenJSCAD
                 className={EXAMPLE_CLASSNAME}
                 style={EXAMPLE_STYLES}
-                jscadScript={DEFAULT_SCRIPT}
+                solids={DEFAULT_SCRIPT}
             >
                 {(childProps) => {
                     return (
