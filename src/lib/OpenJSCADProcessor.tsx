@@ -73,7 +73,8 @@ const DEFAULT_VIEWER_OPTIONS: any = {
 };
 
 // assemble the options for rendering
-const gridOptions: GridOptions = {
+
+const originalGridOptions: GridOptions = {
     visuals: {
         drawCmd: "drawGrid",
         show: DEFAULT_GRID_OPTIONS.show,
@@ -84,6 +85,13 @@ const gridOptions: GridOptions = {
     },
     size: DEFAULT_GRID_OPTIONS.size,
     ticks: DEFAULT_GRID_OPTIONS.ticks,
+};
+
+const gridOptions: GridOptions = {
+    ...originalGridOptions,
+    visuals: {
+        ...originalGridOptions.visuals,
+    },
 };
 
 // Setup Axis Options
@@ -133,6 +141,7 @@ export class OpenJSCADProcessor extends React.Component<
     ViewerState
 > {
     id: number;
+    _ismounted: boolean;
     viewerContext: React.RefObject<HTMLDivElement>;
     // viewerCanvas: React.RefObject<HTMLCanvasElement>;
     // parametersTable: React.RefObject<HTMLTableElement>;
@@ -182,8 +191,12 @@ export class OpenJSCADProcessor extends React.Component<
                     drawMesh: drawCommands.drawMesh,
                 },
                 entities: [
-                    gridOptions,
-                    axisOptions,
+                    // gridOptions,
+                    // {
+                    //     ...originalGridOptions,
+                    //     visuals: originalGridOptions.visuals,
+                    // },
+                    // axisOptions,
                     ...entitiesFromSolids({}, solids),
                 ],
             },
@@ -206,141 +219,6 @@ export class OpenJSCADProcessor extends React.Component<
     //     console.log(message, ...optionalParams);
     //   }
     // }
-
-    doRotatePanZoom() {
-        let { rotateDelta, panDelta, zoomDelta, controls, camera } = this.state;
-        const updatedState = { ...this.state };
-        if (rotateDelta[0] || rotateDelta[1]) {
-            const updated = orbitControls.rotate(
-                { controls, camera, speed: rotateSpeed },
-                rotateDelta,
-            );
-            updatedState.controls = { ...controls, ...updated.controls };
-            updatedState.rotateDelta[0] = 0;
-            updatedState.rotateDelta[1] = 0;
-        }
-
-        if (panDelta[0] || panDelta[1]) {
-            const updated = orbitControls.pan(
-                { controls, camera, speed: panSpeed },
-                panDelta,
-            );
-            updatedState.camera.position = updated.camera.position;
-            updatedState.camera.target = updated.camera.target;
-            updatedState.panDelta[0] = 0;
-            updatedState.panDelta[1] = 0;
-        }
-
-        if (zoomDelta) {
-            if (Number.isFinite(zoomDelta)) {
-                const updated = orbitControls.zoom(
-                    { controls, camera, speed: zoomSpeed },
-                    zoomDelta,
-                );
-                updatedState.controls = { ...controls, ...updated.controls };
-            } else {
-                const entities = updatedState.content.entities;
-                const updated = orbitControls.zoomToFit({
-                    controls,
-                    camera,
-                    entities,
-                });
-                updatedState.controls = { ...controls, ...updated.controls };
-            }
-            updatedState.zoomDelta = 0;
-        }
-
-        this.setState(updatedState);
-    }
-
-    componentDidUpdate(prevProps: OpenJSCADProcessorProps) {
-        // console.log(props);
-
-        if (prevProps.solids.length !== this.props.solids.length) {
-            console.log("componentDidUpdate - props.solids");
-            this.setState({
-                ...this.state,
-                content: {
-                    ...this.state.content,
-                    entities: [
-                        gridOptions,
-                        axisOptions,
-                        ...entitiesFromSolids({}, prevProps.solids),
-                    ],
-                },
-            });
-            return;
-        }
-    }
-
-    componentDidMount() {
-        console.log("COMPONENT DID MOUNT");
-        if (typeof window == "undefined" || typeof document == "undefined") {
-            console.log("WINDOW COMPROMISED?");
-            return;
-        }
-
-        if (!this.viewerContext.current) {
-            console.log("NOT YET MOUNTED");
-            return;
-        }
-        // console.log(this.viewerContext.current);
-        // this.$el.id = `viewer${this.id}`
-        // this.renderer = setupRenderer(this.$el, this.$data)
-        // this.viewerContext.current;
-        // Define setup options
-        const setupOptions: SetupOptions = {
-            glOptions: { container: this.viewerContext.current },
-        };
-        const renderer = prepareRender(setupOptions);
-        // console.log(renderer);
-
-        // the heart of rendering, as themes, controls, etc change
-        const updateAndRender = (timestamp: any) => {
-            this.doRotatePanZoom();
-
-            const updates = orbitControls.update({
-                controls: this.state.controls,
-                camera: this.state.camera,
-            });
-
-            // @ts-ignore
-            this.state.controls = {
-                ...this.state.controls,
-                ...updates.controls,
-            };
-            this.state.camera.position = updates.camera.position;
-            perspectiveCamera.update(this.state.camera);
-
-            renderer(this.state.content);
-            // window.requestAnimationFrame(updateAndRender);
-            // setTimeout(() => {
-            //     if (this.viewerContext.current) {
-            //     }
-            // }, 100);
-            window.requestAnimationFrame(updateAndRender);
-        };
-
-        // QUESTION - can we not invoke once-per ViewerComponent?
-        window.requestAnimationFrame(updateAndRender);
-
-        // Testing this..
-        if (this.viewerContext.current) {
-            this.viewerContext.current.addEventListener("wheel", this.onWheel, {
-                passive: false,
-            });
-        }
-    }
-
-    componentWillUnmount() {
-        console.log("Will Unmount");
-        if (this.viewerContext.current) {
-            this.viewerContext.current.removeEventListener(
-                "wheel",
-                this.onWheel,
-            );
-        }
-    }
 
     // // // //
 
@@ -425,6 +303,181 @@ export class OpenJSCADProcessor extends React.Component<
 
     // // // //
 
+    doRotatePanZoom() {
+        let { rotateDelta, panDelta, zoomDelta, controls, camera } = this.state;
+        const updatedState = { ...this.state };
+        if (rotateDelta[0] || rotateDelta[1]) {
+            const updated = orbitControls.rotate(
+                { controls, camera, speed: rotateSpeed },
+                rotateDelta,
+            );
+            updatedState.controls = { ...controls, ...updated.controls };
+            updatedState.rotateDelta[0] = 0;
+            updatedState.rotateDelta[1] = 0;
+        }
+
+        if (panDelta[0] || panDelta[1]) {
+            const updated = orbitControls.pan(
+                { controls, camera, speed: panSpeed },
+                panDelta,
+            );
+            updatedState.camera.position = updated.camera.position;
+            updatedState.camera.target = updated.camera.target;
+            updatedState.panDelta[0] = 0;
+            updatedState.panDelta[1] = 0;
+        }
+
+        if (zoomDelta) {
+            if (Number.isFinite(zoomDelta)) {
+                const updated = orbitControls.zoom(
+                    { controls, camera, speed: zoomSpeed },
+                    zoomDelta,
+                );
+                updatedState.controls = { ...controls, ...updated.controls };
+            } else {
+                const entities = updatedState.content.entities;
+                const updated = orbitControls.zoomToFit({
+                    controls,
+                    camera,
+                    entities,
+                });
+                updatedState.controls = { ...controls, ...updated.controls };
+            }
+            updatedState.zoomDelta = 0;
+        }
+
+        this.setState(updatedState);
+    }
+
+    componentDidUpdate(prevProps: OpenJSCADProcessorProps) {
+        // console.log(props);
+
+        // TODO - how can we detect change in props.solids?
+        const oldSolids = JSON.stringify(prevProps.solids);
+        const newSolids = JSON.stringify(this.props.solids);
+
+        if (newSolids !== oldSolids) {
+            console.log("componentDidUpdate - props.solids");
+            this.setState({
+                ...this.state,
+                content: {
+                    camera: this.state.content.camera,
+                    drawCommands: {
+                        drawGrid: drawCommands.drawGrid,
+                        drawAxis: drawCommands.drawAxis,
+                        drawMesh: drawCommands.drawMesh,
+                    },
+                    entities: [
+                        // gridOptions,
+                        // {
+                        //     ...originalGridOptions,
+                        //     visuals: {
+                        //         ...originalGridOptions.visuals,
+                        //         cacheId: false,
+                        //     },
+                        // },
+                        // axisOptions,
+                        ...entitiesFromSolids({}, this.props.solids),
+                    ],
+                },
+            });
+            return;
+        }
+    }
+
+    componentDidMount() {
+        this._ismounted = true;
+        console.log("COMPONENT DID MOUNT");
+        if (typeof window == "undefined" || typeof document == "undefined") {
+            console.log("WINDOW COMPROMISED?");
+            return;
+        }
+
+        if (!this.viewerContext.current) {
+            console.log("NOT YET MOUNTED");
+            return;
+        }
+        // console.log(this.viewerContext.current);
+        // this.$el.id = `viewer${this.id}`
+        // this.renderer = setupRenderer(this.$el, this.$data)
+        // this.viewerContext.current;
+        // Define setup options
+        const setupOptions: SetupOptions = {
+            glOptions: { container: this.viewerContext.current },
+        };
+
+        const renderer = prepareRender(setupOptions);
+        // console.log(renderer);
+
+        // the heart of rendering, as themes, controls, etc change
+        const updateAndRender = (timestamp: any) => {
+            if (this._ismounted === false) {
+                return;
+            }
+
+            this.doRotatePanZoom();
+
+            const updates = orbitControls.update({
+                controls: this.state.controls,
+                camera: this.state.camera,
+            });
+
+            // @ts-ignore
+            this.state.controls = {
+                ...this.state.controls,
+                ...updates.controls,
+            };
+            this.state.camera.position = updates.camera.position;
+            perspectiveCamera.update(this.state.camera);
+
+            // if (!this.state.content)
+            // console.log("this.state.content");
+            // console.log(this.state.content.entities);
+                renderer({
+                    ...this.state.content,
+                    drawCommands: {
+                        ...drawCommands,
+                    },
+                    // entities: this.state.content.entities,
+                    entities: [
+                        ...this.state.content.entities.filter(e => {
+                            return (
+                                typeof drawCommands[e.visuals.drawCmd] ===
+                                "function"
+                            );
+                        }),
+                    ],
+                });
+            // window.requestAnimationFrame(updateAndRender);
+            // setTimeout(() => {
+            //     if (this.viewerContext.current) {
+            //     }
+            // }, 100);
+            window.requestAnimationFrame(updateAndRender);
+        };
+
+        // QUESTION - can we not invoke once-per ViewerComponent?
+        window.requestAnimationFrame(updateAndRender);
+
+        // Testing this..
+        if (this.viewerContext.current) {
+            this.viewerContext.current.addEventListener("wheel", this.onWheel, {
+                passive: false,
+            });
+        }
+    }
+
+    componentWillUnmount() {
+        this._ismounted = false;
+        console.log("Will Unmount");
+        if (this.viewerContext.current) {
+            this.viewerContext.current.removeEventListener(
+                "wheel",
+                this.onWheel,
+            );
+        }
+    }
+
     render() {
         if (typeof window == "undefined" || typeof document == "undefined") {
             return (
@@ -439,6 +492,10 @@ export class OpenJSCADProcessor extends React.Component<
                     }}
                 ></div>
             );
+        }
+
+        if (this._ismounted === false) {
+            return;
         }
 
         // prepare the camera
@@ -468,7 +525,9 @@ export class OpenJSCADProcessor extends React.Component<
                 onMouseUp={e => {
                     this.onMouseUp(e);
                 }}
-            ></div>
+            >
+                {/* <p>{count}</p> */}
+            </div>
         );
     }
 }
