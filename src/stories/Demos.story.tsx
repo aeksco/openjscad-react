@@ -4,6 +4,9 @@ import { storiesOf } from "@storybook/react";
 import { OpenJSCAD } from "../lib/OpenJSCAD";
 // @ts-ignore
 import { primitives } from "@jscad/modeling";
+// @ts-ignore
+import { serialize, mimetype } from "@jscad/stl-serializer";
+const download = require("downloadjs");
 
 // // // //
 
@@ -239,6 +242,22 @@ storiesOf("Demos/Simple", module).add("Name Plate", () => {
                 }}
             />
             <OpenJSCAD solids={solids} />;
+            <button
+                onClick={() => {
+                    const stl = serialize({ binary: true }, ...solids);
+                    console.log("stl");
+                    console.log(mimetype);
+                    console.log(stl);
+                    const blob = new Blob(stl);
+                    console.log("blob");
+                    console.log(blob);
+                    download(blob, "test.stl", mimetype);
+
+                    // console.log(serialize({binary: true }, geometry));
+                }}
+            >
+                Download
+            </button>
         </div>
     );
 });

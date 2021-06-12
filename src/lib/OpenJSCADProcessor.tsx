@@ -433,21 +433,21 @@ export class OpenJSCADProcessor extends React.Component<
             // if (!this.state.content)
             // console.log("this.state.content");
             // console.log(this.state.content.entities);
-                renderer({
-                    ...this.state.content,
-                    drawCommands: {
-                        ...drawCommands,
-                    },
-                    // entities: this.state.content.entities,
-                    entities: [
-                        ...this.state.content.entities.filter(e => {
-                            return (
-                                typeof drawCommands[e.visuals.drawCmd] ===
-                                "function"
-                            );
-                        }),
-                    ],
-                });
+            renderer({
+                ...this.state.content,
+                drawCommands: {
+                    ...drawCommands,
+                },
+                // entities: this.state.content.entities,
+                entities: [
+                    ...this.state.content.entities.filter(e => {
+                        return (
+                            typeof drawCommands[e.visuals.drawCmd] ===
+                            "function"
+                        );
+                    }),
+                ],
+            });
             // window.requestAnimationFrame(updateAndRender);
             // setTimeout(() => {
             //     if (this.viewerContext.current) {
