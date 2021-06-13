@@ -210,6 +210,7 @@ storiesOf("Demos/Simple", module).add("OpenJSCADLogo", () => {
 
     for (let i = 0; i < count; i++) {
         solids.push(
+            // @ts-ignore
             primitives.cube({
                 center: [0, i * 15, 0],
                 size: 10,
