@@ -11,14 +11,14 @@ const download = require("downloadjs");
 
 // // // //
 
-function FormGroup(props: { label: string; children: React.ReactNode }) {
-    return (
-        <div className="mt-5">
-            <p className="font-semibold mb-2">{props.label}</p>
-            {props.children}
-        </div>
-    );
-}
+// function FormGroup(props: { label: string; children: React.ReactNode }) {
+//     return (
+//         <div className="mt-5">
+//             <p className="font-semibold mb-2">{props.label}</p>
+//             {props.children}
+//         </div>
+//     );
+// }
 
 // // // //
 
@@ -203,7 +203,7 @@ function FormGroup(props: { label: string; children: React.ReactNode }) {
 
 // // // // /
 
-storiesOf("Demos/Simple", module).add("Name Plate", () => {
+storiesOf("Demos/Simple", module).add("OpenJSCADLogo", () => {
     const [count, setCount] = React.useState(1);
 
     const solids = [];
@@ -261,7 +261,6 @@ storiesOf("Demos/Simple", module).add("Name Plate", () => {
                 }}
             />
             <OpenJSCAD solids={solids} />
-            <OpenJSCAD solids={OpenJSCADLogo()} />
             <button
                 onClick={() => {
                     const stl = serialize({ binary: true }, ...solids);
@@ -278,6 +277,18 @@ storiesOf("Demos/Simple", module).add("Name Plate", () => {
             >
                 Download
             </button>
+        </div>
+    );
+});
+
+storiesOf("Demos/Simple", module).add("Name Plate", () => {
+    // NOTE - this is one FULL state change behind the current props
+    // Likely an issue with the OpenJSCAD.props.solids behavior - must investigate futher
+    return (
+        <div className="grid grid-cols-1">
+            <div className="flex justify-center">
+                <OpenJSCAD solids={OpenJSCADLogo()} />
+            </div>
         </div>
     );
 });

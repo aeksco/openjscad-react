@@ -1,7 +1,7 @@
 import React from "react";
 import { OpenJSCADProps } from "./types";
 // import { useDebounce } from "./useDebounce";
-import { OpenJSCADProcessor } from "./OpenJSCADProcessor";
+import { OpenJSCADViewer } from "./OpenJSCADProcessor";
 
 // // // //
 
@@ -28,5 +28,5 @@ export function OpenJSCAD(props: OpenJSCADProps) {
     //     });
     // }, [props.solids]);
 
-    return <OpenJSCADProcessor {...props} />;
+    return <OpenJSCADViewer {...props} />;
 }

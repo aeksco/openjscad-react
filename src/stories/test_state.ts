@@ -15,7 +15,7 @@ export const DEFAULT_SCRIPT = [
 export function OpenJSCADLogo() {
     return [
         transforms.scale(
-            [10, 10, 10],
+            [20, 20, 20],
             booleans.union(
                 booleans.subtract([
                     primitives.cube({ size: 3, center: [0, 0, 0] }),

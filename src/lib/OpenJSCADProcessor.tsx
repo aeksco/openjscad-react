@@ -113,17 +113,16 @@ export interface OpenJSCADViewerState {
  * OpenJSCADProcessor
  * @param props - see OpenJSCADProps
  */
-export class OpenJSCADProcessor extends React.Component<
+export class OpenJSCADViewer extends React.Component<
     OpenJSCADViewerProps,
     OpenJSCADViewerState
 > {
     id: number;
-    _ismounted: boolean;
+    _ismounted: boolean = false;
     viewerContext: React.RefObject<HTMLDivElement>;
 
     constructor(props: OpenJSCADViewerProps) {
         super(props);
-        this._ismounted = false;
 
         this.onMouseDown = this.onMouseDown.bind(this);
         this.onMouseUp = this.onMouseUp.bind(this);
@@ -374,10 +373,7 @@ export class OpenJSCADProcessor extends React.Component<
             console.log("NOT YET MOUNTED");
             return;
         }
-        // console.log(this.viewerContext.current);
-        // this.$el.id = `viewer${this.id}`
-        // this.renderer = setupRenderer(this.$el, this.$data)
-        // this.viewerContext.current;
+
         // Define setup options
         const setupOptions: SetupOptions = {
             glOptions: { container: this.viewerContext.current },
@@ -473,10 +469,6 @@ export class OpenJSCADProcessor extends React.Component<
             return <div style={style}></div>;
         }
 
-        if (this._ismounted === false) {
-            return;
-        }
-
         // prepare the camera
         perspectiveCamera.setProjection(this.state.camera, this.state.camera, {
             width,
@@ -497,9 +489,7 @@ export class OpenJSCADProcessor extends React.Component<
                 onMouseUp={e => {
                     this.onMouseUp(e);
                 }}
-            >
-                {/* <p>{count}</p> */}
-            </div>
+            />
         );
     }
 }
