@@ -1,31 +1,34 @@
 import { CSSProperties } from "react";
 import { PosNegColor } from "../lib/types";
-// UG! 'modeling' is cluttering GLOBAL name space
 // @ts-ignore
-import { primitives } from "@jscad/modeling";
+import { primitives, booleans, transforms } from "@jscad/modeling";
 
 // // // //
 
 export const DEFAULT_SCRIPT = [
     primitives.cube({
         center: [0, 0, 0],
-        size: 10,
+        size: 30,
     }),
 ];
-// `
-// function main () {
-//   return union(
-//     difference(
-//       cube({size: 3, center: true}),
-//       sphere({r: 2, center: true})
-//     ),
-//     intersection(
-//       sphere({r: 1.3, center: true}),
-//       cube({size: 2.1, center: true})
-//     )
-//   ).translate([0, 0, 1.5]).scale(10);
-// }
-// `;
+
+export function OpenJSCADLogo() {
+    return [
+        transforms.scale(
+            [10, 10, 10],
+            booleans.union(
+                booleans.subtract([
+                    primitives.cube({ size: 3, center: [0, 0, 0] }),
+                    primitives.sphere({ radius: 2, center: [0, 0, 0] }),
+                ]),
+                booleans.intersect(
+                    primitives.sphere({ radius: 1.3, center: [0, 0, 0] }),
+                    primitives.cube({ size: 2.1, center: [0, 0, 0] }),
+                ),
+            ),
+        ),
+    ];
+}
 
 export const POS_NEG_COLOR: PosNegColor = {
     pos: {

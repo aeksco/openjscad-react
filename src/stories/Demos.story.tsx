@@ -6,18 +6,19 @@ import { OpenJSCAD } from "../lib/OpenJSCAD";
 import { primitives } from "@jscad/modeling";
 // @ts-ignore
 import { serialize, mimetype } from "@jscad/stl-serializer";
+import { OpenJSCADLogo } from "./test_state";
 const download = require("downloadjs");
 
 // // // //
 
-// function FormGroup(props: { label: string; children: React.ReactNode }) {
-//     return (
-//         <div className="mt-5">
-//             <p className="font-semibold mb-2">{props.label}</p>
-//             {props.children}
-//         </div>
-//     );
-// }
+function FormGroup(props: { label: string; children: React.ReactNode }) {
+    return (
+        <div className="mt-5">
+            <p className="font-semibold mb-2">{props.label}</p>
+            {props.children}
+        </div>
+    );
+}
 
 // // // //
 
@@ -71,7 +72,6 @@ const download = require("downloadjs");
 //         <OpenJSCAD
 //             className={EXAMPLE_CLASSNAME}
 //             style={EXAMPLE_STYLES}
-//             outputFileExport="stla"
 //             viewerOptions={{
 //                 camera: {
 //                     angle: { x: -30, y: 0, z: 0 },
@@ -206,12 +206,7 @@ const download = require("downloadjs");
 storiesOf("Demos/Simple", module).add("Name Plate", () => {
     const [count, setCount] = React.useState(1);
 
-    const solids = [
-        // primitives.cube({
-        //     center: [0, 0, 0],
-        //     size: 10,
-        // }),
-    ];
+    const solids = [];
 
     for (let i = 0; i < count; i++) {
         solids.push(
@@ -219,17 +214,41 @@ storiesOf("Demos/Simple", module).add("Name Plate", () => {
                 center: [0, i * 15, 0],
                 size: 10,
             }),
+            primitives.cube({
+                center: [i * 15, 0, 0],
+                size: 10,
+            }),
+            primitives.cube({
+                center: [0, i * -15, 0],
+                size: 10,
+            }),
+            primitives.cube({
+                center: [i * -15, 0, 0],
+                size: 10,
+            }),
+            primitives.cube({
+                center: [i * 15, i * 15, 0],
+                size: 10,
+            }),
+            primitives.cube({
+                center: [i * -15, i * -15, 0],
+                size: 10,
+            }),
+            primitives.cube({
+                center: [i * -15, i * 15, 0],
+                size: 10,
+            }),
+            primitives.cube({
+                center: [i * 15, i * -15, 0],
+                size: 10,
+            }),
         );
     }
 
-    console.log("solids");
-    console.log(solids);
-
     // NOTE - this is one FULL state change behind the current props
     // Likely an issue with the OpenJSCAD.props.solids behavior - must investigate futher
-
     return (
-        <div>
+        <div className="grid grid-cols-1 mt-5">
             <input
                 type="range"
                 min={1}
@@ -241,7 +260,8 @@ storiesOf("Demos/Simple", module).add("Name Plate", () => {
                     setCount(Number(e.currentTarget.value));
                 }}
             />
-            <OpenJSCAD solids={solids} />;
+            <OpenJSCAD solids={solids} />
+            <OpenJSCAD solids={OpenJSCADLogo()} />
             <button
                 onClick={() => {
                     const stl = serialize({ binary: true }, ...solids);

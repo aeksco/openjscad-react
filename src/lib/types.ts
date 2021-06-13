@@ -1,59 +1,3 @@
-import { ReactNode, RefObject } from "react";
-import { WindowResizeObserverProps } from "./WindowResizeObserver";
-
-// // // //
-
-/**
- * The available values accepted by GenerateOutputFileParams.mimetype
- */
-export type OutfileFileMimeType =
-    | "application/sla"
-    | "application/amf+xml"
-    | "model/x3d+xml"
-    | "application/dxf"
-    | "application/javascript";
-
-/**
- * Enum of values for each OutfileFileMimeType
- * @see OutfileFileMimeType
- */
-export enum OutfileFileMimeTypes {
-    stla = "application/sla",
-    stlb = "application/sla",
-    amf = "application/amf+xml",
-    x3d = "model/x3d+xml",
-    dxf = "application/dxf",
-    jscad = "application/javascript",
-    js = "application/javascript",
-}
-
-/**
- * The available values for OpenJSCADProps.outputFileExport
- * Determines which file type, if any, should be used for the default 3D file export
- */
-export type ExportFormat =
-    | "stla"
-    | "stlb"
-    | "amf"
-    | "x3d"
-    | "dxf"
-    | "jscad"
-    | "js";
-
-/**
- * An enum of values for each `ExportFormat`
- * @see ExportFormat
- */
-export enum ExportFormats {
-    stla = "stla",
-    stlb = "stlb",
-    amf = "amf",
-    x3d = "x3d",
-    dxf = "dxf",
-    jscad = "jscad",
-    js = "js",
-}
-
 /**
  * Describes an XYZ coordinate for `CameraSettings`
  * @param x - the X position
@@ -99,26 +43,6 @@ export interface OutputFile {
 }
 
 /**
- * Required params for OpenJSCADProcessor.generateOutputFile
- * @param convertCAG - QUESTION - what is this? Can't find info in documentation...
- * @param convertCSG - QUESTION - what is this? Can't find info in documentation...
- * @param description - the description of the format being exported
- * @param displayName - the display name of the format being exported
- * @param name - the name of the type of file being exported (see `EXPORT_FORMATS`)
- * @param extension - the extension used by the exported file
- * @param mimetype - the mimetype of the file being exported (see `OutfileFileMimeType`)
- */
-export interface GenerateOutputFileParams {
-    convertCAG: boolean;
-    convertCSG: boolean;
-    description: string;
-    displayName: string;
-    name: string;
-    extension: string;
-    mimetype: OutfileFileMimeType;
-}
-
-/**
  * Available values assigned to OpenJSCADProcessor.state
  */
 export type ProcessorState =
@@ -155,7 +79,6 @@ export enum ProcessorStates {
 export interface Processor {
     abort: () => void;
     setJsCad: (solids: string) => void;
-    generateOutputFile: (params: GenerateOutputFileParams) => void;
     resetCamera: () => void;
     enableItems: () => void;
     rebuildSolids: () => void;
@@ -275,48 +198,22 @@ interface JscadViewerOptions {
 }
 
 /**
- * ViewerChildProps
- * Props passed to the `children` function on `OpenJSCADProps`
- * @param viewerElement - a pre-built TSX/JSX element that may be returned inside the ReactNode returned by props.children. Useful for positioning the Viewer somewhere specific.
- * @param refs - (advanced usage) an object encapsulating required RefObjects that may be assigned to JSX/TSX elements returned by props.children. Note that all refs must be assigned.
- * @param generateOutputFile - generates a output file. Read the resulting OutputFile in the `onUpdate` hook.
- * @param outputFile - data used by downstream components to save exported files
- * @param status - the current state of the processor. See `ProcessorState`
- * @param processor - The OpenJSCAD processor interface. See `Processor`
- */
-export interface ViewerChildProps {
-    viewerElement: ReactNode;
-    refs: {
-        viewerCanvas: RefObject<HTMLCanvasElement>;
-        viewerContext: RefObject<HTMLDivElement>;
-        viewerDiv: RefObject<HTMLDivElement>;
-        parametersTable: RefObject<HTMLTableElement>;
-    };
-    generateOutputFile: (params: GenerateOutputFileParams) => void;
-    outputFile: null | OutputFile;
-    status: ProcessorState;
-    processor: Processor;
-}
-
-/**
  * Props for the OpenJSCADProcessor component
  * @param solids - the stringified OpenJSCAD script to render in the processor
  * @param debug - optional debug logs for OpenJSCADProcessor
  * @param outputFileExport - optional default ExportFormat. When this is included, the OpenJSCADProcessor component will always re-generate the export when a change to `props.solids` is detected.
  * @param viewerOptions - optional parameters to configure the Viewer component
- * @param children - optional render prop that accepts `ViewerChildProps` and returns `React.ReactNode`
  * @param style - optional object of React.CSSProperties to apply to the TSX rendered by the processor
  * @param className - optional object of className properties to apply to the TSX rendered by the processor
  */
 export interface OpenJSCADProcessorProps {
     solids?: any[]; // TOOD - this should be typed
     debug?: boolean;
-    outputFileExport?: ExportFormat | ExportFormats;
     viewerOptions?: JscadViewerOptions;
-    // children?: (childProps: ViewerChildProps) => ReactNode;
-    style?: React.CSSProperties
+    style?: React.CSSProperties;
     className?: string;
 }
 
-export type OpenJSCADProps = OpenJSCADProcessorProps &
-    WindowResizeObserverProps & { debounceTimeout?: number };
+export type OpenJSCADProps = OpenJSCADProcessorProps & {
+    debounceTimeout?: number;
+};

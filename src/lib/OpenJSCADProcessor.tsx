@@ -1,21 +1,16 @@
 import React from "react";
 import {
-    ProcessorState,
     // ProcessorStates,
-    OutputFile,
     OpenJSCADProcessorProps,
     // Processor,
     // GenerateOutputFileParams,
 } from "./types";
-// import * as openScadModule from "@jscad/web/src/ui/umd.js";
-// import { EXPORT_FORMATS } from "./constants";
 import {
     prepareRender,
     drawCommands,
     cameras,
     controls,
     entitiesFromSolids,
-    // @ts-ignore
 } from "@jscad/regl-renderer";
 import { getPrimitives } from "./primitives";
 
@@ -161,6 +156,8 @@ export class OpenJSCADProcessor extends React.Component<
         // Auto-increments the number of instances
         numberOfInstances++;
         this.id = numberOfInstances;
+
+        // TODO - put this behind DEBUG flag
         console.log("numberOfInstances");
         console.log(numberOfInstances);
 
