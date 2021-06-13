@@ -206,7 +206,7 @@ interface JscadViewerOptions {
  * @param style - optional object of React.CSSProperties to apply to the TSX rendered by the processor
  * @param className - optional object of className properties to apply to the TSX rendered by the processor
  */
-export interface OpenJSCADProcessorProps {
+export interface OpenJSCADViewerProps {
     solids?: any[]; // TOOD - this should be typed
     debug?: boolean;
     viewerOptions?: JscadViewerOptions;
@@ -214,6 +214,6 @@ export interface OpenJSCADProcessorProps {
     className?: string;
 }
 
-export type OpenJSCADProps = OpenJSCADProcessorProps & {
+export type OpenJSCADProps = OpenJSCADViewerProps & {
     debounceTimeout?: number;
 };

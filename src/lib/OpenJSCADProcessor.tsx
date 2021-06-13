@@ -1,7 +1,7 @@
 import React from "react";
 import {
     // ProcessorStates,
-    OpenJSCADProcessorProps,
+    OpenJSCADViewerProps,
     // Processor,
     // GenerateOutputFileParams,
 } from "./types";
@@ -25,7 +25,73 @@ const rotateSpeed = 0.002;
 const panSpeed = 0.75;
 const zoomSpeed = 0.08;
 
-interface ViewerState {
+// prepare the renderer
+// type GridOptions = any;
+// type AxisOptions = any;
+type SetupOptions = any;
+
+// Setup default grid/axis/viewer options
+// const DEFAULT_GRID_OPTIONS: any = {
+//     show: true,
+//     color: [0, 0, 0, 1],
+//     subColor: [0, 0, 1, 0.5],
+//     fadeOut: false,
+//     transparent: true,
+//     size: [100, 100],
+//     ticks: [100, 10],
+// };
+
+// const DEFAULT_AXIS_OPTIONS: any = {
+//     show: true,
+// };
+
+const DEFAULT_VIEWER_OPTIONS: any = {
+    rotateSpeed: 0.002,
+    zoomSpeed: 0.08,
+    doubleClickSpeed: 300, // ms
+};
+
+// assemble the options for rendering
+
+// const originalGridOptions: GridOptions = {
+//     visuals: {
+//         drawCmd: "drawGrid",
+//         show: DEFAULT_GRID_OPTIONS.show,
+//         color: DEFAULT_GRID_OPTIONS.color,
+//         subColor: DEFAULT_GRID_OPTIONS.subColor,
+//         fadeOut: DEFAULT_GRID_OPTIONS.fadeOut,
+//         transparent: DEFAULT_GRID_OPTIONS.transparent,
+//     },
+//     size: DEFAULT_GRID_OPTIONS.size,
+//     ticks: DEFAULT_GRID_OPTIONS.ticks,
+// };
+
+// const gridOptions: GridOptions = {
+//     ...originalGridOptions,
+//     visuals: {
+//         ...originalGridOptions.visuals,
+//     },
+// };
+
+// // Setup Axis Options
+// const axisOptions: AxisOptions = {
+//     visuals: {
+//         drawCmd: "drawAxis",
+//         show: DEFAULT_AXIS_OPTIONS.show,
+//     },
+// };
+
+// TODO - get different container heights
+// const width = containerElement.clientWidth
+// const height = containerElement.clientHeight
+const width = 800;
+const height = 600;
+
+/**
+ * OpenJSCADState
+ * Encapsulates the state of the OpenJSCADProcessor component
+ */
+export interface OpenJSCADViewerState {
     camera: any; // TODO - update these types
     controls: any; // TODO - update these types
     content: any; // TODO - update these types
@@ -41,90 +107,6 @@ interface ViewerState {
     };
 }
 
-// prepare the renderer
-type GridOptions = any;
-type AxisOptions = any;
-type SetupOptions = any;
-
-// Setup default grid/axis/viewer options
-const DEFAULT_GRID_OPTIONS: any = {
-    show: true,
-    color: [0, 0, 0, 1],
-    subColor: [0, 0, 1, 0.5],
-    fadeOut: false,
-    transparent: true,
-    size: [100, 100],
-    ticks: [100, 10],
-};
-
-const DEFAULT_AXIS_OPTIONS: any = {
-    show: true,
-};
-
-const DEFAULT_VIEWER_OPTIONS: any = {
-    rotateSpeed: 0.002,
-    zoomSpeed: 0.08,
-    doubleClickSpeed: 300, // ms
-};
-
-// assemble the options for rendering
-
-const originalGridOptions: GridOptions = {
-    visuals: {
-        drawCmd: "drawGrid",
-        show: DEFAULT_GRID_OPTIONS.show,
-        color: DEFAULT_GRID_OPTIONS.color,
-        subColor: DEFAULT_GRID_OPTIONS.subColor,
-        fadeOut: DEFAULT_GRID_OPTIONS.fadeOut,
-        transparent: DEFAULT_GRID_OPTIONS.transparent,
-    },
-    size: DEFAULT_GRID_OPTIONS.size,
-    ticks: DEFAULT_GRID_OPTIONS.ticks,
-};
-
-const gridOptions: GridOptions = {
-    ...originalGridOptions,
-    visuals: {
-        ...originalGridOptions.visuals,
-    },
-};
-
-// Setup Axis Options
-const axisOptions: AxisOptions = {
-    visuals: {
-        drawCmd: "drawAxis",
-        show: DEFAULT_AXIS_OPTIONS.show,
-    },
-};
-
-// COMPONENT STATE
-
-// count() {
-//   const state = this._data.state
-//   if (state) {
-//     updateSolids(state, this.$store.state.solids)
-//   }
-//   // update the fake DOM entry
-//   return this.$store.state.count
-// },
-// solids() {
-//   return this.$store.state.solids
-// }
-
-// TODO - get different container heights
-// const width = containerElement.clientWidth
-// const height = containerElement.clientHeight
-const width = 800;
-const height = 600;
-
-/**
- * OpenJSCADState
- * Encapsulates the state of the OpenJSCADProcessor component
- */
-export interface OpenJSCADState {
-    initializedProcessor: boolean;
-}
-
 // // // //
 
 /**
@@ -132,18 +114,16 @@ export interface OpenJSCADState {
  * @param props - see OpenJSCADProps
  */
 export class OpenJSCADProcessor extends React.Component<
-    OpenJSCADProcessorProps,
-    ViewerState
+    OpenJSCADViewerProps,
+    OpenJSCADViewerState
 > {
     id: number;
     _ismounted: boolean;
     viewerContext: React.RefObject<HTMLDivElement>;
-    // viewerCanvas: React.RefObject<HTMLCanvasElement>;
-    // parametersTable: React.RefObject<HTMLTableElement>;
-    // processor: null | Processor;
 
-    constructor(props: OpenJSCADProcessorProps) {
+    constructor(props: OpenJSCADViewerProps) {
         super(props);
+        this._ismounted = false;
 
         this.onMouseDown = this.onMouseDown.bind(this);
         this.onMouseUp = this.onMouseUp.bind(this);
@@ -346,7 +326,7 @@ export class OpenJSCADProcessor extends React.Component<
         this.setState(updatedState);
     }
 
-    componentDidUpdate(prevProps: OpenJSCADProcessorProps) {
+    componentDidUpdate(prevProps: OpenJSCADViewerProps) {
         // console.log(props);
 
         // TODO - how can we detect change in props.solids?
@@ -445,11 +425,6 @@ export class OpenJSCADProcessor extends React.Component<
                     }),
                 ],
             });
-            // window.requestAnimationFrame(updateAndRender);
-            // setTimeout(() => {
-            //     if (this.viewerContext.current) {
-            //     }
-            // }, 100);
             window.requestAnimationFrame(updateAndRender);
         };
 
@@ -465,30 +440,37 @@ export class OpenJSCADProcessor extends React.Component<
     }
 
     componentWillUnmount() {
+        // Sets _ismounted value
+        // TODO - is this necessary?
         this._ismounted = false;
-        console.log("Will Unmount");
+
+        // Remove "wheel" event listener
         if (this.viewerContext.current) {
             this.viewerContext.current.removeEventListener(
                 "wheel",
                 this.onWheel,
             );
         }
+
+        // Log debug statement
+        if (this.props.debug) {
+            console.log("OpenJSCADViewer - Unmount");
+        }
     }
 
     render() {
+        const defaultStyle: React.CSSProperties = {
+            width: "16cm",
+            height: "16cm",
+            margin: "0",
+            outline: "1px solid black",
+            backgroundColor: "transparent",
+            overflowY: "auto",
+        };
+        const { style = defaultStyle } = this.props;
+
         if (typeof window == "undefined" || typeof document == "undefined") {
-            return (
-                <div
-                    style={{
-                        width: "16cm",
-                        height: "16cm",
-                        margin: "0",
-                        outline: "1px solid black",
-                        backgroundColor: "transparent",
-                        overflowY: "auto",
-                    }}
-                ></div>
-            );
+            return <div style={style}></div>;
         }
 
         if (this._ismounted === false) {
@@ -504,14 +486,7 @@ export class OpenJSCADProcessor extends React.Component<
 
         return (
             <div
-                style={{
-                    width: "16cm",
-                    height: "16cm",
-                    margin: "0",
-                    outline: "1px solid black",
-                    backgroundColor: "transparent",
-                    overflowY: "auto",
-                }}
+                style={style}
                 ref={this.viewerContext}
                 onMouseMoveCapture={e => {
                     this.onMouseMove(e);
