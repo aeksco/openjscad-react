@@ -80,9 +80,9 @@ Import the `OpenJSCAD` component in your React component and pass in a valid Ope
 import * as React from "react";
 import { OpenJSCAD } from "openjscad-react";
 
-export function MyComponent(props: { script: string }) {
+export function MyComponent(props: { solids: any[] }) {
     return (
-        <OpenJSCAD className="grid grid-cols-1 w-full" solids={props.script} />
+        <OpenJSCAD className="grid grid-cols-1 w-full" solids={props.solids} />
     );
 }
 ```
@@ -100,9 +100,9 @@ const OpenJSCAD: React.ComponentType<ViewerProps> = dynamic(
     { ssr: false },
 );
 
-export function MyComponent(props: { script: string }) {
+export function MyComponent(props: { solids: any[] }) {
     return (
-        <OpenJSCAD className="grid grid-cols-1 w-full" solids={props.script} />
+        <OpenJSCAD className="grid grid-cols-1 w-full" solids={props.solds} />
     );
 }
 ```
