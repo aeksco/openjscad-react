@@ -1,5 +1,5 @@
 import React from "react";
-import { OpenJSCADProps } from "./types";
+import { OpenJSCADProps, SetupOptions } from "./types";
 import {
     prepareRender,
     drawCommands,
@@ -22,7 +22,6 @@ const zoomSpeed = 0.08;
 // prepare the renderer
 // type GridOptions = any;
 // type AxisOptions = any;
-type SetupOptions = any;
 
 // Setup default grid/axis/viewer options
 // const DEFAULT_GRID_OPTIONS: any = {
@@ -85,7 +84,7 @@ const height = 600;
  * OpenJSCADState
  * Encapsulates the state of the OpenJSCADProcessor component
  */
-export interface OpenJSCADViewerState {
+export interface OpenJSCADState {
     camera: any; // TODO - update these types
     controls: any; // TODO - update these types
     content: any; // TODO - update these types
@@ -107,10 +106,7 @@ export interface OpenJSCADViewerState {
  * OpenJSCADProcessor
  * @param props - see OpenJSCADProps
  */
-export class OpenJSCAD extends React.Component<
-    OpenJSCADProps,
-    OpenJSCADViewerState
-> {
+export class OpenJSCAD extends React.Component<OpenJSCADProps, OpenJSCADState> {
     id: number;
     _ismounted: boolean = false;
     viewerContext: React.RefObject<HTMLDivElement>;
@@ -140,10 +136,6 @@ export class OpenJSCAD extends React.Component<
             position: [150, -180, 233],
         };
 
-        // const count = Number(Date.now()
-        //     .toString()
-        //     .split("")
-        //     .pop())
         const { solids } = props;
 
         this.state = {
@@ -175,6 +167,7 @@ export class OpenJSCAD extends React.Component<
             zoomDelta: 0,
             // state to track mouse
             mouse: {
+                // TODO - abstract default MouseState
                 buttons: 0,
                 shiftKey: false,
                 isOrbiting: false,
@@ -184,11 +177,11 @@ export class OpenJSCAD extends React.Component<
         };
     }
 
-    // log(message: any, ...optionalParams: any[]) {
-    //   if (this.props.debug) {
-    //     console.log(message, ...optionalParams);
-    //   }
-    // }
+    log(message: any, ...optionalParams: any[]) {
+      if (this.props.debug) {
+        console.log(message, ...optionalParams);
+      }
+    }
 
     // // // //
 
@@ -460,7 +453,7 @@ export class OpenJSCAD extends React.Component<
         const { style = defaultStyle } = this.props;
 
         if (typeof window == "undefined" || typeof document == "undefined") {
-            return <div style={style}></div>;
+            return <div style={style} className={this.props.className}></div>;
         }
 
         // prepare the camera
@@ -474,6 +467,7 @@ export class OpenJSCAD extends React.Component<
             <div
                 style={style}
                 ref={this.viewerContext}
+                className={this.props.className}
                 onMouseMoveCapture={e => {
                     this.onMouseMove(e);
                 }}

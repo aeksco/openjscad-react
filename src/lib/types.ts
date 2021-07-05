@@ -76,14 +76,14 @@ export enum ProcessorStates {
  * @param rebuildSolids - evaluate script & rebuild solids in main thread
  * @param clearOutputFile - clears the Processor's outputFile state (but not the outputFile state in the OpenJSCADProcessor component)
  */
-export interface Processor {
-    abort: () => void;
-    setJsCad: (solids: string) => void;
-    resetCamera: () => void;
-    enableItems: () => void;
-    rebuildSolids: () => void;
-    clearOutputFile: () => void;
-}
+// export interface Processor {
+//     abort: () => void;
+//     setJsCad: (solids: string) => void;
+//     resetCamera: () => void;
+//     enableItems: () => void;
+//     rebuildSolids: () => void;
+//     clearOutputFile: () => void;
+// }
 
 /**
  * Describes a single RGBA color
@@ -212,4 +212,12 @@ export interface OpenJSCADProps {
     viewerOptions?: JscadViewerOptions;
     style?: React.CSSProperties;
     className?: string;
+}
+
+/**
+ * SetupOptions
+ * Options for prepareRender from @jscad/regl-renderer
+ */
+export interface SetupOptions {
+    glOptions: { container: HTMLDivElement };
 }
