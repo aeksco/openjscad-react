@@ -82,10 +82,7 @@ import { OpenJSCAD } from "openjscad-react";
 
 export function MyComponent(props: { script: string }) {
     return (
-        <OpenJSCAD
-            className="grid grid-cols-1 w-full"
-            solids={props.script}
-        />
+        <OpenJSCAD className="grid grid-cols-1 w-full" solids={props.script} />
     );
 }
 ```
@@ -99,18 +96,13 @@ import { ViewerProps } from "openjscad-react";
 
 const OpenJSCAD: React.ComponentType<ViewerProps> = dynamic(
     () =>
-        import("openjscad-react/dist/src/OpenJSCAD").then(
-            (mod) => mod.OpenJSCAD,
-        ),
+        import("openjscad-react/dist/src/OpenJSCAD").then(mod => mod.OpenJSCAD),
     { ssr: false },
 );
 
 export function MyComponent(props: { script: string }) {
     return (
-        <OpenJSCAD
-            className="grid grid-cols-1 w-full"
-            solids={props.script}
-        />
+        <OpenJSCAD className="grid grid-cols-1 w-full" solids={props.script} />
     );
 }
 ```
@@ -135,7 +127,6 @@ The `openjscad-react` module is compatible with React v16.8+ and works with Reac
 -   [Jest](https://jestjs.io)
 -   [Eslint](https://eslint.org/)
 -   [Prettier](https://prettier.io/)
--   [lodash.debounce](https://www.npmjs.com/package/lodash.debounce)
 -   [Tailwind CSS](https://tailwindcss.com)
 
 ## Misc. References
