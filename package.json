@@ -22,8 +22,8 @@
         "index.js",
         "index.js.map"
     ],
-    "main": "./dist/src/index.js",
-    "types": "./dist/src/index.d.ts",
+    "main": "./index.js",
+    "types": "./index.d.ts",
     "keywords": [
         "react",
         "reactjs",
